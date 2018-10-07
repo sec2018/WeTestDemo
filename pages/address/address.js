@@ -128,7 +128,7 @@ Page({
                                 "Content-Type": "application/x-www-form-urlencoded"
                               },
                               method: 'POST',
-                              //服务端的回调，a a
+                              //服务端的回调.
                               success: function (result) {
                                 console.log(result)
                                 var data = result.data.result;
