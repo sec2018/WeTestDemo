@@ -1,0 +1,27 @@
+
+
+
+
+
+<!--pages/usercenter/usercenter.wxml-->
+<view class="userwrapper">
+  <block wx:if="{{!isLogin}}">
+  <view class="place-holder">我是占位符</view>
+  <view class="user-info">登录后，你的个人主页等资料会显示在这里,显示在这里,显示在这里</view>
+  <view class="login-btn">登录</view>
+  </block>
+  <block wx:else>
+    <view class="user-header">
+      <view class="user-photo"></view>
+      <view class="user-name">昵称</view>
+    </view>
+    <view class="user-ul">
+      <view class="user-li">
+        <view>我的订单</view><view>></view>
+      </view>
+      <navigator url="../address/address" class="user-li"><view>地址薄</view><view>></view></navigator>
+      <view class="user-li">我的订单</view>
+      <view class="user-li">我的订单</view>
+    </view>
+  </block>
+</view>

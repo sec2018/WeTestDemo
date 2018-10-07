@@ -1,0 +1,26 @@
+<!--pages/address/address.wxml-->
+<view class='add-wrapper'>
+  <view class='wrapper'>
+    <text class='add-label'>收货人：</text><input class='add-input'></input>
+  </view>
+  <view class='wrapper border-bottom'>
+    <text class='add-label'>手机号：</text><input class='add-input'></input>  
+  </view>
+  <view class='wrapper'>
+    <text class='add-label'>省市区：</text><textarea class='add-input add-textarea' value='{{address.name}}'></textarea>
+    <view class='add-location' bindtap='onClickLocation'>
+      <image class='add-location-img' src='../../images/location.png'></image>
+    </view>
+  </view>
+  <view class='wrapper'>
+    <text class='add-label'>详细地址：</text><textarea class='add-input add-textarea' value='{{address.address}}'></textarea>
+    
+  </view>
+  <view>
+    <picker mode="region">
+    <view class="picker">上海市
+    </view>
+  </picker>
+  </view>
+  <view class="add-btn" bindtap='onSave'>保存</view>
+</view>

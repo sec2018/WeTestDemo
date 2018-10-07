@@ -16,6 +16,9 @@ Page({
     })
   },
   onLoad: function () {
+    wx.navigateTo({
+      url: '../address/address'
+    })
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,

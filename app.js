@@ -7,83 +7,86 @@ App({
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
 
-    let EXPIRETIME = 12000;
+    let EXPIRETIME = 7200;
     
     // 登录
-    wx.login({
-      success: function(res) {
-        wx.getSetting({
-          success(setRes) {
-            // 判断是否已授权
-            if (!setRes.authSetting['scope.userInfo']) {
-              // 授权访问
-              wx.authorize({
-                scope: 'scope.userInfo',
-                success() {
-                  //获取用户信息
-                  wx.getUserInfo({
-                    lang: "zh_CN",
-                    success: function(userRes) {
-                      //发起网络请求
-                      wx.request({
-                        url: 'http://10.84.6.182:8080/transport/wx/wxlogin',
-                        data: {
-                          code: res.code,
-                          encryptedData: userRes.encryptedData,
-                          iv: userRes.iv
-                        },
-                        header: {
-                          "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        method: 'POST',
-                        //服务端的回掉
-                        success: function(result) {
-                          var data = result.data.result;
-                          data.expireTime = Date.now() + EXPIRETIME;
-                          wx.setStorageSync("userInfo", data);
-                          userInfo = data;
-                        }
-                      })
-                    }
-                  })
-                }
-              })
-            } else {
-              //获取用户信息
-              wx.getUserInfo({
-                lang: "zh_CN",
-                success: function(userRes) {
-                  console.log(userRes)
-                  //发起网络请求
-                  wx.request({
-                    url: 'http://10.84.6.182:8080/transport/wx/wxlogin',
-                    data: {
-                      code: res.code,
-                      encryptedData: userRes.encryptedData,
-                      iv: userRes.iv
-                    },
-                    header: {
-                      "Content-Type": "application/x-www-form-urlencoded"
-                    },
-                    method: 'POST',
-                    success: function(result) {
-                      console.log(result.data)
-                      let data = {
-                        openid: result.data.openid,
-                        session_key: result.data.session_key
+    console.log(!wx.getStorageSync("token"), wx.getStorageSync("token"))
+    if (!wx.getStorageSync("token")){
+      wx.login({
+        success: function (res) {
+          wx.getSetting({
+            success(setRes) {
+              // 判断是否已授权
+              if (!setRes.authSetting['scope.userInfo']) {
+                // 授权访问
+                wx.authorize({
+                  scope: 'scope.userInfo',
+                  success() {
+                    //获取用户信息
+                    wx.getUserInfo({
+                      lang: "zh_CN",
+                      success: function (userRes) {
+                        //发起网络请求
+                        wx.request({
+                          url: 'http://192.168.100.107:8080/transport/wx/wxlogin',
+                          data: {
+                            code: res.code,
+                            encryptedData: userRes.encryptedData,
+                            iv: userRes.iv
+                          },
+                          header: {
+                            "Content-Type": "application/x-www-form-urlencoded"
+                          },
+                          method: 'POST',
+                          //服务端的回调
+                          success: function (result) {
+                            console.log(result)
+                            var data = result.data.result;
+                            data.expireTime = Date.now() + EXPIRETIME;
+                            wx.setStorageSync("token", data.token);
+                            userInfo = data;
+                          }
+                        })
                       }
-                      data.expireTime = Date.now() + EXPIRETIME;
-                      wx.setStorageSync("userInfo", data);
-                      _this.globalData.userInfo = data;
-                    }
-                  })
-                }
-              })
+                    })
+                  }
+                })
+              } else {
+                //获取用户信息
+                wx.getUserInfo({
+                  lang: "zh_CN",
+                  success: function (userRes) {
+                    //发起网络请求
+                    wx.request({
+                      url: 'http://192.168.100.107:8080/transport/wx/wxlogin',
+                      data: {
+                        code: res.code,
+                        encryptedData: userRes.encryptedData,
+                        iv: userRes.iv
+                      },
+                      header: {
+                        "Content-Type": "application/x-www-form-urlencoded"
+                      },
+                      method: 'POST',
+                      success: function (result) {
+                        let data = {
+                          openid: result.data.openid,
+                          session_key: result.data.session_key
+                        }
+                        data.expireTime = Date.now() + EXPIRETIME;
+                        wx.setStorageSync("token", result.data.token);
+                        _this.globalData.userInfo = data;
+                      }
+                    })
+                  }
+                })
+              }
             }
-          }
-        })
-      }
-    })
+          })
+        }
+      })
+    }
+    
     // 获取用户信息
     wx.getSetting({
       success: res => {
