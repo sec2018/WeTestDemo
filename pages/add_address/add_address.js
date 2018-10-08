@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    list:[]
   },
 
   /**
@@ -62,5 +62,14 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  getListMore: function(){
+    this.setData({
+      list: [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 33, 3, 3, 3, 3, 33, 3, 3, 3, 3, 3,3,3,3,3,3]
+    })
+  },
+  //设置默认地址
+  radioChange: function(e){
+    console.log(e.detail.value)
   }
 })

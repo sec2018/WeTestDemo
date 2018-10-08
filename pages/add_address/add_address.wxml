@@ -1,2 +1,38 @@
 <!--pages/add_address/add_address.wxml-->
-<text>pages/add_address/add_address.wxml</text>
+<view>
+  <view class='header'>
+    <input class='inpt' placeholder='请输入姓名'></input>
+    <icon type='search' size='22' class='search'></icon>
+  </view>
+  <scroll-view wx:if='{{list.length > 0}}' scroll-y style='height:80vh' bindscrolltolower='getListMore'>
+    <view class='list-ul'>
+      <view class='list-li' wx:for='{{list}}'>
+        <view>收货地址{{index}}</view>
+        <view class='list-info'><text>姓名</text><text>shoujihao</text></view>
+        <view class='list-btn'>
+          <view class='list-btn-left'>
+            <view class='list-btn-sty'>
+              <image src='../../images/check.png'></image>
+              <text>设置为默认地址</text>
+            </view>
+          </view>
+          <view class='list-btn-right'>
+              <view class='list-btn-sty'>
+                <image src='../../images/edit.png'></image>
+                <text>编辑</text>
+              </view>
+              <view class='list-btn-sty'>
+                <image src='../../images/del.png'></image>
+                <text>删除</text>
+              </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+  <view wx:else class='no-data'>
+    <view class='no-data-img'><image src='../../images/nodata.png'></image></view>
+    <view class='no-data-text'>暂无数据</view>
+  </view>
+  <navigator url='../address/address'><view class='btn'>新增地址</view></navigator>
+</view>

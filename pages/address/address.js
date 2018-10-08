@@ -1,4 +1,5 @@
 // pages/address/address.js
+const util = require('../../utils/util.js')
 Page({
 
   /**
@@ -6,9 +7,13 @@ Page({
    */
   data: {
     address: {
-      name: '',
-      address: ''
-    }
+      username: '',
+      address: '',
+      phone: '',
+      region: '请选择'
+    },
+    region: ['', '', ''],
+    customItem: '全部'
   },
 
   /**
@@ -66,120 +71,115 @@ Page({
   onShareAppMessage: function () {
 
   },
+  switchChange: function(e){
+    console.log(e.detail.value)
+  },
+  bindRegionChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      region: e.detail.value
+    })
+  },
   onClickLocation: function () {
-    let _this = this;
+    let that = this;
     wx.chooseLocation({
-      success(res) {
-        console.log(res)
-        const name = res.name;
-        const address = res.address;
-        _this.setData({
-          'address.name': name,
-          'address.address': address
-        })
-      },
-      fail(err) {
-        console.log(err)
+      success: function (res) {
+        let regex = /^(北京市|天津市|重庆市|上海市|香港特别行政区|澳门特别行政区)/;
+        let REGION_PROVINCE = [];
+        let addressBean = {
+          REGION_PROVINCE: null,
+          REGION_COUNTRY: null,
+          REGION_CITY: null,
+          ADDRESS: null
+        };
+        function regexAddressBean(address, addressBean) {
+          regex = /^(.*?[市州]|.*?地区|.*?特别行政区)(.*?[市区县])(.*?)$/g;
+          let addxress = regex.exec(address);
+          addressBean.REGION_CITY = addxress[1];
+          addressBean.REGION_COUNTRY = addxress[2];
+          addressBean.ADDRESS = addxress[3] + "(" + res.name + ")";
+          console.log(addxress);
+        }
+        if (!(REGION_PROVINCE = regex.exec(res.address))) {
+          regex = /^(.*?(省|自治区))(.*?)$/;
+          REGION_PROVINCE = regex.exec(res.address);
+          addressBean.REGION_PROVINCE = REGION_PROVINCE[1];
+          regexAddressBean(REGION_PROVINCE[3], addressBean);
+        } else {
+          addressBean.REGION_PROVINCE = REGION_PROVINCE[1];
+          regexAddressBean(res.address, addressBean);
+        }
+        console.log(addressBean)
+        that.setData({
+          region: [addressBean.REGION_PROVINCE, addressBean.REGION_CITY, addressBean.REGION_COUNTRY],
+          'address.address': addressBean.ADDRESS,
+          'address.region': addressBean.REGION_PROVINCE + ' ' + addressBean.REGION_CITY + ' ' +addressBean.REGION_COUNTRY
+        });
       }
     })
   },
   onSave: function () {
-    const token = wx.getStorageSync('token');
     const _this = this;
-    wx.request({
+    if (!_this.data.address.address 
+      || !_this.data.address.username 
+      || !_this.data.address.phone
+      || _this.data.address.region == '请选择'){
+      wx.showToast({
+        title: '信息填写不完整',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+      }
+    util.wxResquest({
       url: 'http://192.168.100.107:8080/transport/api/addaddr',
       data: {
-        'uname': '123',
-        'tel': '11',
-        'pro_city': _this.data.address.name,
+        'uname': _this.data.address.username,
+        'tel': _this.data.address.phone,
+        'pro_city': _this.data.address.region,
         'detail_addr': _this.data.address.address,
         'isdefault': 0
       },
-      header: { 'token': token, 'content-type': 'application/x-www-form-urlencoded'},
       method: 'POST',
-      success: function (res) {
-        console.log(res)
-        if(res.data.code == 1002) {
-          wx.setStorageSync('token', '');
-          wx.login({
-            success: function (res) {
-              wx.getSetting({
-                success(setRes) {
-                  // 判断是否已授权
-                  if (!setRes.authSetting['scope.userInfo']) {
-                    // 授权访问
-                    wx.authorize({
-                      scope: 'scope.userInfo',
-                      success() {
-                        //获取用户信息
-                        wx.getUserInfo({
-                          lang: "zh_CN",
-                          success: function (userRes) {
-                            console.log(userRes)
-                            //发起网络请求
-                            wx.request({
-                              url: 'http://192.168.100.107:8080/transport/wx/wxlogin',
-                              data: {
-                                code: res.code,
-                                encryptedData: userRes.encryptedData,
-                                iv: userRes.iv
-                              },
-                              header: {
-                                "Content-Type": "application/x-www-form-urlencoded"
-                              },
-                              method: 'POST',
-                              //服务端的回调，a a
-                              success: function (result) {
-                                console.log(result)
-                                var data = result.data.result;
-                                data.expireTime = Date.now() + EXPIRETIME;
-                                wx.setStorageSync("token", data.token);
-                                userInfo = data;
-                              }
-                            })
-                          }
-                        })
-                      }
-                    })
-                  } else {
-                    //获取用户信息
-                    wx.getUserInfo({
-                      lang: "zh_CN",
-                      success: function (userRes) {
-                        //发起网络请求
-                        wx.request({
-                          url: 'http://192.168.100.107:8080/transport/wx/wxlogin',
-                          data: {
-                            code: res.code,
-                            encryptedData: userRes.encryptedData,
-                            iv: userRes.iv
-                          },
-                          header: {
-                            "Content-Type": "application/x-www-form-urlencoded"
-                          },
-                          method: 'POST',
-                          success: function (result) {
-                            wx.setStorageSync("token", result.data.token);
-                          }
-                        })
-                      }
-                    })
-                  }
-                }
-              })
-            }
-          })
-        }
-      },
-      fail: function (res) {
-        console.log(res)
-        wx.hideLoading()
-        wx.showToast({
-          title: '网络错误',
-          icon: 'none',
-          duration: 2000
-        })
+    }, function(res) {
+      if (res.data.code == 1002) {
+        wx.setStorageSync('token', '');
+        util.loginByWxchat();
       }
     })
+  },
+  bindClear: function(e){
+    console.log(e.target.id)
+    const typ = e.target.id;
+    if (typ == 'phone-clear') {
+      this.setData({
+        'address.phone': ''
+      });
+    }
+    if (typ == 'username-clear') {
+      this.setData({
+        'address.username': ''
+      });
+    }
+    if (typ == 'address-clear') {
+      this.setData({
+        'address.address': ''
+      });
+    }
+  },
+  bindNameInput: function(e){
+    this.setData({
+      'address.username': e.detail.value
+    });
+  },
+  bindTelInput: function (e) {
+    this.setData({
+      'address.phone': e.detail.value
+    });
+  },
+  bindAddressInput: function (e) {
+    this.setData({
+      'address.address': e.detail.value
+    });
   }
 })

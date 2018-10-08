@@ -4,8 +4,7 @@
 }
 .wrapper{
   display: flex;
-  align-content: space-around;
-  justify-items: center;
+  align-items: center;
   margin-bottom: 30rpx;
 }
 .border-bottom{
@@ -15,27 +14,35 @@
 .add-label{
   width:150rpx;
   height:60rpx;
-  margin-right:20rpx;
+  margin-right:4rpx;
   line-height: 60rpx;
   font-size: 28rpx;
 }
+.add-two{
+  display: flex;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+}
 .add-input{
-  width: 360rpx;
+  width: 400rpx;
   height:58rpx;
   line-height: 58rpx;
   font-size: 28rpx;
   padding:0 30rpx;
-  border: 1rpx solid #ccc;
-  border-radius: 2px;
+  /* border-bottom: 1rpx solid #ccc; */
 
 }
+.add-select{
+  width: 350rpx;
+  padding-left:30rpx;
+  line-height: 58rpx;
+  font-size: 28rpx;
+}
 .add-textarea{
-  height:116rpx;
+  height: 116rpx;
 }
 .add-location{
-  width:70rpx;
-  height:116rpx;
-  padding-top:30rpx;
+  width:60rpx;
   margin-left:20rpx;
 }
 .add-location-img{
@@ -52,4 +59,7 @@
   text-align: center;
   font-size: 30rpx;
   border-radius: 2rpx;
+}
+.switch{
+  transform:scale(0.7);
 }
