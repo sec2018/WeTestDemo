@@ -17,7 +17,7 @@ Page({
   },
   onLoad: function () {
     wx.navigateTo({
-      url: '../add_address/add_address'
+      url: '../order/order'
     })
     if (app.globalData.userInfo) {
       this.setData({

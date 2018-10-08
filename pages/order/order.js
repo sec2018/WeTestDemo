@@ -1,11 +1,11 @@
-// pages/add_address/add_address.js
+// pages/order/order.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    list:[1,2,2,3]
+
   },
 
   /**
@@ -63,13 +63,14 @@ Page({
   onShareAppMessage: function () {
 
   },
-  getListMore: function(){
-    this.setData({
-      list: [1, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 33, 3, 3, 3, 3, 33, 3, 3, 3, 3, 3,3,3,3,3,3]
+  toAddAddressList: function () {
+    wx.navigateTo({
+      url: '../address/address',
     })
   },
-  //设置默认地址
-  radioChange: function(e){
-    console.log(e.detail.value)
+  toAddressList: function () {
+    wx.navigateTo({
+      url: '../add_address/add_address',
+    })
   }
 })

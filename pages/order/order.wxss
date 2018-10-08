@@ -1,0 +1,76 @@
+/* pages/order/order.wxss */
+.order-header{
+  display: flex;
+  padding:20rpx 30rpx;
+  border-bottom: 1rpx solid #f6f6f6;
+  align-items: center;
+}
+.order-cicle{
+  width: 50rpx;
+  height:50rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  border-radius: 100%;
+  background: #000;
+  color:#fff;
+  text-align: center;
+}
+.order-cicle1{
+  background: #c1975b;
+}
+.order-h-con{
+  width:460rpx;
+  margin:0 20rpx;
+  padding:0 20rpx;
+  font-size: 28rpx;
+  height:100rpx;
+  overflow: hidden;
+  border-right:1rpx solid #f6f6f6;
+}
+.order-h-conb{
+  font-size: 24rpx;
+  color:#666;
+}
+.order-h-btn{
+  width:100rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+.order-h1{
+  height:60rpx;
+  margin-top:30rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+}
+.order-ul{
+  font-size: 26rpx;
+  padding:20rpx 30rpx 0;
+}
+.order-li{
+  display: flex;
+  align-items: center;
+  margin-bottom:20rpx;
+}
+.order-text{
+  width:150rpx;
+}
+.order-inpt{
+  width: 500rpx;
+  height:58rpx;
+  line-height: 58rpx;
+  border:1rpx solid #f1f1f1;
+  border-radius: 4rpx;
+}
+.order-btn{
+  position: fixed;
+  left:75rpx;
+  bottom:30rpx;
+  height:60rpx;
+  width:600rpx;
+  line-height: 60rpx;
+  color:#fff;
+  background: #c1975b;
+  text-align: center;
+  border-radius: 4rpx;
+}

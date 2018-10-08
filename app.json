@@ -4,7 +4,8 @@
     "pages/logs/logs",
     "pages/usercenter/usercenter",
     "pages/address/address",
-    "pages/add_address/add_address"
+    "pages/add_address/add_address",
+    "pages/order/order"
   ],
   "window": {
     "backgroundTextStyle": "light",

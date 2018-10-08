@@ -1,0 +1,43 @@
+<!--pages/order/order.wxml-->
+<view>
+  <view class='order-header'>
+    <view class='order-cicle'>寄</view>
+    <view class='order-h-con'>
+      <view>添加寄件人信息</view>
+      <view class='order-h-conb' bindtap='toAddAddressList'>添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址</view>
+    </view>
+    <view class='order-h-btn' bindtap='toAddressList'>地址簿</view>
+  </view>
+  <view class='order-header'>
+    <view class='order-cicle order-cicle1'>收</view>
+    <view class='order-h-con'>
+      <view>添加寄件人信息</view>
+      <view class='order-h-conb'>添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址</view>
+    </view>
+    <view class='order-h-btn'>地址簿</view>
+  </view>
+  <view class='order-h1'>承运单信息</view>
+  <view class='order-ul'>
+    <view class='order-li'>
+      <text class='order-text'>部门：</text>
+      <input class='order-inpt'></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>商品名：</text>
+      <input class='order-inpt'></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>件数：</text>
+      <input class='order-inpt'></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>物流公司：</text>
+      <input class='order-inpt'></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>备注：</text>
+      <input class='order-inpt'></input>
+    </view>
+    <view class='order-btn'>下单</view>
+  </view>
+</view>
