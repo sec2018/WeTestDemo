@@ -5,7 +5,14 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    logisticsList: ['顺丰','申通','圆通'],
+    logisticsIndex: 0,
+    order:{
+      name: '',
+      goods: '',
+      num:'',
+      info: ''
+    }
   },
 
   /**
@@ -63,6 +70,12 @@ Page({
   onShareAppMessage: function () {
 
   },
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      logisticsIndex: e.detail.value
+    })
+  },
   toAddAddressList: function () {
     wx.navigateTo({
       url: '../address/address',
@@ -72,5 +85,25 @@ Page({
     wx.navigateTo({
       url: '../add_address/add_address',
     })
+  },
+  bindNameInput: function(e){
+    this.setData({
+      'order.name': e.detail.value
+    });
+  },
+  bindGoodsInput: function (e) {
+    this.setData({
+      'order.goods': e.detail.value
+    });
+  },
+  bindNumInput: function (e) {
+    this.setData({
+      'order.num': e.detail.value
+    });
+  },
+  bindInfoInput: function (e) {
+    this.setData({
+      'order.info': e.detail.value
+    });
   }
 })

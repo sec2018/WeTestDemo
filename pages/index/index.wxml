@@ -1,15 +1,19 @@
 <!--index.wxml-->
-<view class="container">
-<navigator url='../usercenter/usercenter'>123</navigator>
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view class='con'>
+  <view class='con-header'></view>
+  <view class='con-btn'>
+    <view class='con-btncon'><navigator url='../order/order'>下单</navigator></view>
+    <view class='con-btncon'>物流</view>
   </view>
-  <view class="usermotto">
-    <text class="user-motto" bindtap='textclick'>{{motto}}</text>
+  <view class='con-btn'>
+    <view class='con-btncon'>大件</view>
+    <view class='con-btncon'>其他</view>
+  </view>
+  <view class='con-tabs'>
+    <view class='con-tabs-con' bindtap='tabClick'>
+      <view class='con-tabs-item {{tabsIndex == "0" ? "con-tabs-item-active" : ""}}' data-id='0'>tabs1</view>
+      <view class='con-tabs-item {{tabsIndex == "1" ? "con-tabs-item-active" : ""}}' data-id='1'><navigator url='../query_order/query_order'>订单查询</navigator></view>
+      <view class='con-tabs-item {{tabsIndex == "2" ? "con-tabs-item-active" : ""}}' data-id='2'><navigator url='../usercenter/usercenter'>我的</navigator></view>
+    </view>
   </view>
 </view>

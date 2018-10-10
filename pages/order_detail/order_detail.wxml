@@ -1,0 +1,10 @@
+<!--pages/order_detail/order_detail.wxml-->
+<view>
+  <view class='header-h1'>信息</view>
+  <view class='list-ul'>
+    <view class='list-li'>
+      <view class='list-li-left'>商品名称：</view>
+      <view>你好</view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,15 @@
+<!--pages/query_order/query_order.wxml-->
+<view>
+  <view class='header'>
+    <input class='header-inp'></input><text class='header-btn'>查询</text>
+  </view>
+  <view class='query-btn border-bottom'>
+    <view class='query-btn-item border-right query.btn-item-active'>寄件</view>
+    <view class='query-btn-item'>收件</view>
+  </view>
+  <view class='list-ul'>
+    <view class='list-li'>
+      <navigator url='../order_detail/order_detail'>点击进去详情</navigator>
+    </view>
+  </view>
+</view>
