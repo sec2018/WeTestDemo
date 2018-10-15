@@ -18,26 +18,4 @@
   width:300rpx;
   background: #f8f8f8;
 }
-.con-tabs{
-  position: fixed;
-  bottom:0;
-  left:0;
-  width:750rpx;
-  height:100rpx;
-  border-top:1rpx solid #ccc;
-}
-.con-tabs-con{
-  display: flex;
-  height:80rpx;
-  line-height: 80rpx;
-  align-items: center;
-  justify-content: space-around;
-}
-.con-tabs-item{
-  font-size: 32rpx;
-  width:220rpx;
-  text-align: center;
-}
-.con-tabs-item-active{
-  color:#c1975b;
-}
+

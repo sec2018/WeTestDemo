@@ -14,6 +14,7 @@ Page({
       region: '请选择',
       isDefault: false,
     },
+    receiveAdd: false,
     id: 'add',
     region: ['', '', ''],
     customItem: '全部'
@@ -24,6 +25,7 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
+
     if (options.id !='add') {
       wx.setNavigationBarTitle({
         title: '修改收货地址'
@@ -33,14 +35,34 @@ Page({
         'address.address': app.globalData.address.detail_addr,
         'address.phone': app.globalData.address.tel,
         'address.region': app.globalData.address.pro_city,
-        'address.isDefault': app.globalData.address.isdefault == 0 ? false : true,
+        'address.isDefault': app.globalData.address.isdefault == 1 ? true : false,
         region: app.globalData.address.pro_city.split(' '),
         id: options.id
       });
+    } else if (options.flag == 'receive'){
+      wx.setNavigationBarTitle({
+        title: '收件人地址填写'
+      });
+      if (app.globalData.receiveAddress){
+        this.setData({
+          'address.username': app.globalData.receiveAddress.uname,
+          'address.address': app.globalData.receiveAddress.detail_addr,
+          'address.phone': app.globalData.receiveAddress.tel,
+          'address.region': app.globalData.receiveAddress.pro_city,
+          region: app.globalData.receiveAddress.pro_city.split(' '),
+          receiveAdd: true
+        });
+      } else {
+        this.setData({
+          receiveAdd: true
+        })
+      }
+
     } else {
       wx.setNavigationBarTitle({
         title: '新增收货地址'
-      })
+      });
+      
     }
     
   },
@@ -171,9 +193,27 @@ Page({
         },
         method: 'POST',
       }, function (res) {
+        app.globalData.address = {
+          'id': _this.data.id,
+          'uname': _this.data.address.username,
+          'tel': _this.data.address.phone,
+          'pro_city': _this.data.address.region,
+          'detail_addr': _this.data.address.address,
+          'isdefault': _this.data.address.isDefault ? 1 : 0
+        }
         wx.navigateBack({
           delta: 1
         })
+      })
+    } else if (_this.data.receiveAdd){ //收件地址不保存在列表中
+      app.globalData.receiveAddress = {
+        'uname': _this.data.address.username,
+        'tel': _this.data.address.phone,
+        'pro_city': _this.data.address.region,
+        'detail_addr': _this.data.address.address
+      };
+      wx.navigateBack({
+        delta: 1
       })
     } else {
       util.wxResquest({

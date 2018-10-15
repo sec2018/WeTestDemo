@@ -33,7 +33,7 @@
       <icon type='clear' size='15' id='address-clear' hidden='{{address.address ? false : true}}' bindtap='bindClear'></icon>
     </view>
   </view>
-  <view class='wrapper' style='font-size:28rpx;'>
+  <view class='wrapper' style='font-size:28rpx;' hidden='{{receiveAdd}}'>
     设置为默认地址<switch checked='{{address.isDefault}}' bindchange='switchChange' class='switch'/>
   </view>
   <view class="add-btn" bindtap='onSave'>保存</view>

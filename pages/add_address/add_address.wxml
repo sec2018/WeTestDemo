@@ -7,8 +7,10 @@
   <scroll-view wx:if='{{list.length > 0}}' scroll-y style='height:80vh' bindscrolltolower='getListMore'>
     <view class='list-ul'>
       <view class='list-li' wx:for='{{list}}' wx:key='{{item.id}}'>
-        <view>{{item.pro_city + item.detail_addr}}</view>
-        <view class='list-info'><text class='list-info-text'>{{item.uname}}</text><text>{{item.tel}}</text></view>
+        <view bindtap='backOrder' data-id='{{index}}'>
+          <view>{{item.pro_city + item.detail_addr}}</view>
+          <view class='list-info'><text class='list-info-text'>{{item.uname}}</text><text>{{item.tel}}</text></view>
+        </view>
         <view class='list-btn'>
           <view class='list-btn-left'>
             <view class='list-btn-sty'>

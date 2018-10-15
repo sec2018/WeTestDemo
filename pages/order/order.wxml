@@ -3,24 +3,24 @@
   <view class='order-header'>
     <view class='order-cicle'>寄</view>
     <view class='order-h-con'>
-      <view>添加寄件人信息</view>
-      <view class='order-h-conb' bindtap='toAddAddressList'>添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址</view>
+      <view>{{sendAddress.uname}} <text>{{sendAddress.tel}}</text></view>
+      <view class='order-h-conb' bindtap='toAddAddressList'>{{sendAddress.pro_city + sendAddress.detail_addr}}</view>
     </view>
     <view class='order-h-btn' bindtap='toAddressList'>地址簿</view>
   </view>
   <view class='order-header'>
     <view class='order-cicle order-cicle1'>收</view>
-    <view class='order-h-con'>
-      <view>添加寄件人信息</view>
-      <view class='order-h-conb'>添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址添加寄件人地址</view>
+    <view class='order-h-con'  data-flag='receive' bindtap='toAddAddressList'>
+      <view>{{receiveAddress.uname}} <text>{{receiveAddress.tel}}</text></view>
+      <view class='order-h-conb'>{{receiveAddress.pro_city + receiveAddress.detail_addr}}</view>
     </view>
-    <view class='order-h-btn'>地址簿</view>
+    <view class='order-h-btn' data-flag='receive' bindtap='toAddressList'>地址簿</view>
   </view>
   <view class='order-h1'>承运单信息</view>
   <view class='order-ul'>
     <view class='order-li'>
-      <text class='order-text'>部门：</text>
-      <input class='order-inpt' value='{{order.name}}' bindinput="bindNameInput"></input>
+      <text class='order-text'>商铺名称：</text>
+      <input class='order-inpt' value='{{order.shop_name}}' bindinput="bindNameInput"></input>
     </view>
     <view class='order-li'>
       <text class='order-text'>商品名：</text>
@@ -32,9 +32,9 @@
     </view>
     <view class='order-li'>
       <text class='order-text'>物流公司：</text>
-      <picker bindchange='bindPickerChange' value='{{logisticsIndex}}' range='{{logisticsList}}'>
+      <picker bindchange='bindPickerChange' value='{{logisticsIndex}}' range-key='company_name' range='{{logisticsList}}'>
         <view class='order-inpt order-select'>
-          {{logisticsList[logisticsIndex]}}
+          {{logisticsList[logisticsIndex].company_name}}
           <view class='down-arrow'></view>
         </view>
       </picker>
