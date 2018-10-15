@@ -34,7 +34,7 @@
     </view>
   </view>
   <view class='wrapper' style='font-size:28rpx;'>
-    设置为默认地址<switch checked bindchange="switchChange" class='switch'/>
+    设置为默认地址<switch checked='{{address.isDefault}}' bindchange='switchChange' class='switch'/>
   </view>
   <view class="add-btn" bindtap='onSave'>保存</view>
 </view>

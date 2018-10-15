@@ -6,8 +6,32 @@
     "pages/add_address/add_address",
     "pages/order/order",
     "pages/query_order/query_order",
-    "pages/order_detail/order_detail"
+    "pages/order_detail/order_detail",
+    "pages/login/login"
   ],
+  "tabBar": {
+    "selectedColor": "#c1975b",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "快递",
+        "iconPath": "./images/icon1_1.png",
+        "selectedIconPath": "./images/icon1.png"
+      },
+      {
+        "pagePath": "pages/query_order/query_order",
+        "text": "运单查询",
+        "iconPath": "./images/icon3_1.png",
+        "selectedIconPath": "./images/icon3.png"
+      },
+      {
+        "pagePath": "pages/usercenter/usercenter",
+        "text": "我的",
+        "iconPath": "./images/icon2_1.png",
+        "selectedIconPath": "./images/icon2.png"
+      }
+    ]
+  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",

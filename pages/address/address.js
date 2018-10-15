@@ -1,4 +1,5 @@
 // pages/address/address.js
+const app = getApp();
 const util = require('../../utils/util.js')
 Page({
 
@@ -10,8 +11,10 @@ Page({
       username: '',
       address: '',
       phone: '',
-      region: '请选择'
+      region: '请选择',
+      isDefault: false,
     },
+    id: 'add',
     region: ['', '', ''],
     customItem: '全部'
   },
@@ -20,7 +23,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log(options)
+    if (options.id !='add') {
+      wx.setNavigationBarTitle({
+        title: '修改收货地址'
+      });
+      this.setData({
+        'address.username': app.globalData.address.uname,
+        'address.address': app.globalData.address.detail_addr,
+        'address.phone': app.globalData.address.tel,
+        'address.region': app.globalData.address.pro_city,
+        'address.isDefault': app.globalData.address.isdefault == 0 ? false : true,
+        region: app.globalData.address.pro_city.split(' '),
+        id: options.id
+      });
+    } else {
+      wx.setNavigationBarTitle({
+        title: '新增收货地址'
+      })
+    }
+    
   },
 
   /**
@@ -72,12 +94,17 @@ Page({
 
   },
   switchChange: function(e){
-    console.log(e.detail.value)
+    const result = e.detail.value;
+    this.setData({
+      'address.isDefault': result
+    });
   },
   bindRegionChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
+    const result = e.detail.value;
     this.setData({
-      region: e.detail.value
+      region: result,
+      'address.region': result[0]+' '+result[1] + ' ' + result[2]
     })
   },
   onClickLocation: function () {
@@ -131,22 +158,41 @@ Page({
       });
       return;
       }
-    util.wxResquest({
-      url: 'http://192.168.100.107:8080/transport/api/addaddr',
-      data: {
-        'uname': _this.data.address.username,
-        'tel': _this.data.address.phone,
-        'pro_city': _this.data.address.region,
-        'detail_addr': _this.data.address.address,
-        'isdefault': 0
-      },
-      method: 'POST',
-    }, function(res) {
-      if (res.data.code == 1002) {
-        wx.setStorageSync('token', '');
-        util.loginByWxchat();
-      }
-    })
+    if(_this.data.id != 'add') {
+      util.wxResquest({
+        url: '/transport/api/updateaddr',
+        data: {
+          'id': _this.data.id,
+          'uname': _this.data.address.username,
+          'tel': _this.data.address.phone,
+          'pro_city': _this.data.address.region,
+          'detail_addr': _this.data.address.address,
+          'isdefault': _this.data.address.isDefault ? 1 : 0
+        },
+        method: 'POST',
+      }, function (res) {
+        wx.navigateBack({
+          delta: 1
+        })
+      })
+    } else {
+      util.wxResquest({
+        url: '/transport/api/addaddr',
+        data: {
+          'uname': _this.data.address.username,
+          'tel': _this.data.address.phone,
+          'pro_city': _this.data.address.region,
+          'detail_addr': _this.data.address.address,
+          'isdefault': _this.data.address.isDefault ? 1 : 0
+        },
+        method: 'POST',
+      }, function (res) {
+        wx.navigateBack({
+          delta: 1
+        })
+      })
+    }
+    
   },
   bindClear: function(e){
     console.log(e.target.id)

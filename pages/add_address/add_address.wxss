@@ -51,6 +51,9 @@
   display: flex;
   /* justify-content: space-between; */
 }
+.list-info-text{
+  margin-right:20rpx;
+}
 .list-btn-sty{
   font-size: 0;
   height:40rpx;

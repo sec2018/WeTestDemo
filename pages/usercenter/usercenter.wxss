@@ -43,9 +43,13 @@
 .user-photo{
   width:100rpx;
   height:100rpx;
+  overflow: hidden;
   margin-right:20rpx;
-  background: #0000ff;
   border-radius: 100%;
+}
+.user-photo-img{
+  width:100rpx;
+  height:100rpx;
 }
 .user-ul{
   padding:0 20rpx;

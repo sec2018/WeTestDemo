@@ -12,14 +12,14 @@
   </block>
   <block wx:else>
     <view class="user-header">
-      <view class="user-photo"></view>
-      <view class="user-name">昵称</view>
+      <view class="user-photo"><image class="user-photo-img" src="{{userInfo.avatarUrl}}"></image></view>
+      <view class="user-name">{{userInfo.nickName}}</view>
     </view>
     <view class="user-ul">
       <view class="user-li">
         <view>我的订单</view><view>></view>
       </view>
-      <navigator url="../address/address" class="user-li"><view>地址薄</view><view>></view></navigator>
+      <navigator url="../add_address/add_address" class="user-li"><view>地址薄</view><view>></view></navigator>
       <view class="user-li">我的订单</view>
       <view class="user-li">我的订单</view>
     </view>

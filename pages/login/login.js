@@ -1,22 +1,19 @@
-// pages/usercenter/usercenter.js
+// pages/login/login.js
+const utils = require('../../utils/util.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    isLogin:true,
-    userInfo: ''
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const userInfo = wx.getStorageSync('userInfo');
-    this.setData({
-      userInfo: userInfo
-    })
+
   },
 
   /**
@@ -66,5 +63,18 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  getUserinfo: function(e){
+    const userRes = e.detail;
+    console.log(userRes)
+    utils.loginAjax({
+      encryptedData: userRes.encryptedData,
+      iv: userRes.iv
+    }, function (){
+      wx.setStorageSync('userInfo', userRes.userInfo);
+      wx.navigateBack({
+        delta: '1'
+      })
+    })
   }
 })

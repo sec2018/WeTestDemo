@@ -1,6 +1,6 @@
 /* pages/address/address.wxss */
 .add-wrapper{
-  padding:30rpx 30rpx 0;
+  padding:30rpx 40rpx 0;
 }
 .wrapper{
   display: flex;
@@ -20,6 +20,7 @@
 }
 .add-two{
   display: flex;
+  width:510rpx;
   align-items: center;
   border-bottom: 1rpx solid #ccc;
 }

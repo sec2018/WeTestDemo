@@ -6,22 +6,23 @@
   </view>
   <scroll-view wx:if='{{list.length > 0}}' scroll-y style='height:80vh' bindscrolltolower='getListMore'>
     <view class='list-ul'>
-      <view class='list-li' wx:for='{{list}}'>
-        <view>收货地址{{index}}</view>
-        <view class='list-info'><text>姓名</text><text>shoujihao</text></view>
+      <view class='list-li' wx:for='{{list}}' wx:key='{{item.id}}'>
+        <view>{{item.pro_city + item.detail_addr}}</view>
+        <view class='list-info'><text class='list-info-text'>{{item.uname}}</text><text>{{item.tel}}</text></view>
         <view class='list-btn'>
           <view class='list-btn-left'>
             <view class='list-btn-sty'>
-              <image src='../../images/check.png'></image>
+              <image wx:if='{{item.isdefault == 0}}' src='../../images/check.png'></image>
+              <image wx:else src='../../images/checked.png'></image>
               <text>设置为默认地址</text>
             </view>
           </view>
           <view class='list-btn-right'>
-              <view class='list-btn-sty'>
+              <view class='list-btn-sty'  data-id='{{item.id}}' data-index='{{index}}' bindtap='editAddress'>
                 <image src='../../images/edit.png'></image>
                 <text>编辑</text>
               </view>
-              <view class='list-btn-sty'>
+              <view class='list-btn-sty' data-id='{{item.id}}' bindtap='delAddress'>
                 <image src='../../images/del.png'></image>
                 <text>删除</text>
               </view>
@@ -34,5 +35,5 @@
     <view class='no-data-img'><image src='../../images/nodata.png'></image></view>
     <view class='no-data-text'>暂无数据</view>
   </view>
-  <navigator url='../address/address'><view class='btn'>新增地址</view></navigator>
+  <navigator url='../address/address?id=add'><view class='btn'>新增地址</view></navigator>
 </view>
