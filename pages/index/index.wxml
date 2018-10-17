@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class='con'>
-  <view class='con-header'></view>
+  <view class='con-headerimg' style="background:url('../../images/bg.jpg')"></view>
   <view class='con-btn'>
     <view class='con-btncon'><navigator url='../order/order'>下单</navigator></view>
     <view class='con-btncon'>批量下单</view>

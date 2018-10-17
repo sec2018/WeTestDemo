@@ -1,7 +1,7 @@
 /**index.wxss**/
-.con-header{
+.con-headerimg{
   width:750rpx;
-  height:300rpx;
+  height:400rpx;
   background: #ccc;
 }
 .con-btn{
