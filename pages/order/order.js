@@ -17,11 +17,13 @@ Page({
     },
     receiveAddress:{},
     sendAddress: {
-      uname: '添加寄件人信息',
+      sender_name: '添加寄件人信息',
       tel: '',
       pro_city: '',
       detail_addr: ''
-    }
+    },
+    lng:'',
+    lat:''
   },
 
   /**
@@ -37,7 +39,19 @@ Page({
    */
   onReady: function () {
     this.getLogisticsList();
-    
+    var that = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success: function (res) {
+        console.log(res)
+        var latitude = res.latitude
+        var longitude = res.longitude
+        that.setData({
+          lat: latitude,
+          lng: longitude
+        })
+      }
+    })
   },
 
   /**
@@ -107,7 +121,7 @@ Page({
     let _this = this;
     let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
     let param = {
-      sender_name: _this.data.sendAddress.sender_name,
+      sender_name: _this.data.sendAddress.uname,
       goodsname: _this.data.order.goodsname,
       goodsnum: _this.data.order.goodsnum,
       sender_tel: _this.data.sendAddress.tel,
@@ -115,8 +129,8 @@ Page({
       company_id: logistics.company_id,
       company_name: logistics.company_name,
       batch_code: '0',
-      lat: '',
-      lng: '',
+      lat: _this.data.lat,
+      lng: _this.data.lng,
       billinfo: _this.data.order.billinfo,
       sender_procity: _this.data.sendAddress.pro_city,
       sender_detailarea: _this.data.sendAddress.detail_addr,
@@ -134,6 +148,11 @@ Page({
         wx.showToast({
           title: '下单成功',
           duration: 2000,
+          pageSkip: function () {
+            wx.redirectTo({
+              url: '/pages/index/index'
+            })
+          }
         });
         setTimeout(function () {
           wx.hideToast();
@@ -154,6 +173,7 @@ Page({
     }, function (res) {
       let data = res.data.data;
       if(data.length >0){
+        console.log(data);
         app.globalData.address = data[0];
         _this.setData({
           sendAddress: data[0]

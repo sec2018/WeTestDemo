@@ -28,7 +28,7 @@ Page({
 
     if (options.id !='add') {
       wx.setNavigationBarTitle({
-        title: '修改收货地址'
+        title: '修改我的地址'
       });
       this.setData({
         'address.username': app.globalData.address.uname,
