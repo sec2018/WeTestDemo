@@ -11,9 +11,9 @@ Page({
     logisticsIndex: 0,
     order:{
       shop_name: '',
-      goods: '',
-      num:'',
-      info: ''
+      goodsname: '',
+      goodsnum:'',
+      billinfo: ''
     },
     receiveAddress:{},
     sendAddress: {
@@ -37,6 +37,7 @@ Page({
    */
   onReady: function () {
     this.getLogisticsList();
+    
   },
 
   /**
@@ -104,17 +105,42 @@ Page({
   //下单接口
   createOrder: function(){
     let _this = this;
+    let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
+    let param = {
+      sender_name: _this.data.sendAddress.sender_name,
+      goodsname: _this.data.order.goodsname,
+      goodsnum: _this.data.order.goodsnum,
+      sender_tel: _this.data.sendAddress.tel,
+      shop_name: _this.data.order.shop_name,
+      company_id: logistics.company_id,
+      company_name: logistics.company_name,
+      batch_code: '0',
+      lat: '',
+      lng: '',
+      billinfo: _this.data.order.billinfo,
+      sender_procity: _this.data.sendAddress.pro_city,
+      sender_detailarea: _this.data.sendAddress.detail_addr,
+      rec_name: _this.data.receiveAddress.uname,
+      rec_tel: _this.data.receiveAddress.tel,
+      rec_procity: _this.data.receiveAddress.pro_city,
+      rec_detailarea: _this.data.receiveAddress.detail_addr
+    }
     util.wxResquest({
-      url: '/transport/api/searchaddr',
-      method: 'GET',
-      data: ''
+      url: '/transport/api/createbill',
+      method: 'POST',
+      data: param
     }, function (res) {
-      let data = res.data.data;
-      if (data.length > 0) {
-        app.globalData.address = data[0];
-        _this.setData({
-          sendAddress: data[0]
+      if(res.data.success){
+        wx.showToast({
+          title: '下单成功',
+          duration: 2000,
         });
+        setTimeout(function () {
+          wx.hideToast();
+          wx.navigateBack({
+            delta: '1'
+          })
+        }, 2000)
       }
 
     })
@@ -196,17 +222,17 @@ Page({
   },
   bindGoodsInput: function (e) {
     this.setData({
-      'order.goods': e.detail.value
+      'order.goodsname': e.detail.value
     });
   },
   bindNumInput: function (e) {
     this.setData({
-      'order.num': e.detail.value
+      'order.goodsnum': e.detail.value
     });
   },
   bindInfoInput: function (e) {
     this.setData({
-      'order.info': e.detail.value
+      'order.billinfo': e.detail.value
     });
   }
 })
