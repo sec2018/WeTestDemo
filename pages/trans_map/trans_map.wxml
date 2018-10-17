@@ -1,0 +1,14 @@
+<!--pages/trans_map/trans_map.wxml-->
+<view class="container">
+     <map id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindregionchange="regionchange" bindmarkertap="markertap" bindcallouttap="callouttap" show-location style="width:100%; height: {{height}}px">
+    <!--微信版本过低提示的页面  -->
+    <cover-view class="reservation-list" hidden="{{isWxChatHid}}">
+      <cover-view class="reservation-list-bg" style="background: #999; opacity:1;"></cover-view>
+      <cover-view class="reservation-list-con">
+        <cover-view class="reservation-list-tips">提示</cover-view>
+        <cover-view style="height:60rpx;line-height:60rpx;">当前微信版本过低，无法使用该</cover-view>
+        <cover-view>功能，请升级到最新微信版本后重试。</cover-view>
+      </cover-view>
+    </cover-view>
+  </map>
+</view>

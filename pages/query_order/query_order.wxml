@@ -1,15 +1,33 @@
 <!--pages/query_order/query_order.wxml-->
 <view>
   <view class='header'>
-    <input class='header-inp'></input><text class='header-btn'>查询</text>
+    <input class='header-inp' placeholder='请输入姓名'></input><text class='header-btn'>查询</text>
   </view>
   <view class='query-btn border-bottom'>
-    <view class='query-btn-item border-right query.btn-item-active'>寄件</view>
-    <view class='query-btn-item'>收件</view>
+    <view class='query-btn-item border-right query.btn-item-active'>未完成运单</view>
+    <view class='query-btn-item' >已完成运单</view>
   </view>
   <view class='list-ul'>
     <view class='list-li'>
       <navigator url='../order_detail/order_detail'>点击进去详情</navigator>
+      <scroll-view wx:if='{{list.length > 0}}' scroll-y style='height:80vh' bindscrolltolower='getListMore'>
+        <view class='list-ul'>
+          <view class='list-li' wx:for='{{list}}' wx:key='{{item.id}}'>
+            <view bindtap='backOrder' data-id='{{index}}'>
+              <view>{{item.sender_name + '   ' + item.goodsname + '   ' + item.goodsnum}}</view>
+              <view class='list-info'><text class='list-info-text'>{{item.company_name}}</text><text>{{item.bill_status}}</text></view>
+            </view>
+            <view class='list-btn'>
+              <view class='list-btn-right'>
+                  <view class='list-btn-sty'  data-id='{{item.id}}' data-index='{{index}}' bindtap='editAddress'>
+                    <image src='../../images/edit.png'></image>
+                    <text>编辑</text>
+                  </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
     </view>
   </view>
 </view>
