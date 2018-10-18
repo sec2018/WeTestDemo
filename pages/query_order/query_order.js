@@ -10,7 +10,8 @@ Page({
    */
   data: {
     list: [1, 2, 2, 3],
-    fromOrder: false
+    fromOrder: false,
+    tabIndex:1
   },
 
   /**
@@ -32,14 +33,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    this.getUnfinishedList();
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getUnfinishedList();
+    
   },
 
   /**
@@ -75,6 +76,26 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  goToDetail:function(e){
+    let id = e.currentTarget.dataset.id;
+    console.log(e)
+    let data = this.data.list[id];
+    wx.setStorageSync('orderDetail', data);
+    wx.navigateTo({
+      url: '../order_detail/order_detail',
+    })
+  },
+  tabClick: function(e){
+    let id = e.currentTarget.dataset.id;
+    this.setData({
+      tabIndex: id
+    });
+    if(id==1){
+      this.getUnfinishedList();
+    } else {
+      this.getFinishedList();
+    }
   },
   getUnfinishedList: function () {
     let _this = this;

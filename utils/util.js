@@ -121,6 +121,10 @@ function loginByWxchat(cb) {
               url: '../login/login',
             })
           } else {
+            wx.navigateTo({
+              url: '../login/login',
+            })
+            return;
             //获取用户信息
             wx.getUserInfo({
               lang: "zh_CN",

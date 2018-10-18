@@ -3,8 +3,38 @@
   <view class='header-h1'>信息</view>
   <view class='list-ul'>
     <view class='list-li'>
-      <view class='list-li-left'>商品名称：</view>
-      <view>你好</view>
+      <view class='list-li-left'>寄件人姓名：</view>
+      <view>{{detail.sender_name}}</view>
+    </view>
+     <view class='list-li'>
+      <view class='list-li-left'>寄件人电话：</view>
+      <view>12345678912</view>
+    </view>
+     <view class='list-li'>
+      <view class='list-li-left'>寄件人地址：</view>
+      <view>procity+detailarea</view>
+    </view>
+     <view class='list-li'>
+      <view class='list-li-left'>店铺名称：</view>
+      <view>江南棉纱厂</view>
+    </view>
+    <view class='list-li'>
+      <view class='list-li-left'>品名：</view>
+      <view>棉鞋</view>
+      <view class='list-li-left'>    件数：</view>
+      <view>25</view>
+    </view>
+    <view class='list-li'>
+      <view class='list-li-left'>物流公司：</view>
+      <view>物流公司1</view>
+    </view>
+    <view class='list-li'>
+      <view class='list-li-left'>备注：</view>
+      <view>注意安全</view>
+    </view>
+    <view class='list-li'>
+      <view class='list-li-left'>当前状态：</view>
+      <view>已下单</view>
     </view>
   </view>
 </view>

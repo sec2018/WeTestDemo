@@ -1,0 +1,8 @@
+var statusFun = function (status) {
+  switch (status) {
+    case 1: return 'xiadan';
+  }
+}
+module.exports = {
+  statusFun: statusFun,
+}

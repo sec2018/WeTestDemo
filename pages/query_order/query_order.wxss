@@ -10,6 +10,7 @@
   line-height: 50rpx;
   padding:0 30rpx;
   outline: none;
+  font-size: 24rpx;
   border:1rpx solid #f1f1f1;
   border-radius: 4rpx;
 }
@@ -31,7 +32,7 @@
   text-align: center;
   font-size: 30rpx;
 }
-.query.btn-item-active{
+.btn-item-active{
   color:#c1975b;
 }
 .border-right{

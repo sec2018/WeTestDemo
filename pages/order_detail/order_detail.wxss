@@ -20,5 +20,5 @@
   font-size: 28rpx;
 }
 .list-li-left{
-  width:140rpx;
+  width:200rpx;
 }
