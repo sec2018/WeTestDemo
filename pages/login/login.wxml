@@ -1,2 +1,10 @@
 <!--pages/login/login.wxml-->
-<view class='login-btn'><button open-type='getUserInfo' bindgetuserinfo='getUserinfo' type='primary'>账号登录</button></view>
+<view class='login-btn'>
+  <radio-group class="radio-group" bindchange="radioChange">
+    <label class="radio" wx:for="{{items}}">
+      <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+    </label>
+  </radio-group>
+  <button open-type='getUserInfo' bindgetuserinfo='getUserinfo' type='primary'>账号登录</button>
+
+</view>

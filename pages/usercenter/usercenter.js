@@ -66,5 +66,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  changeRole:function(){
+    wx.showActionSheet({
+      itemList: ['商户','快递员','物流公司'],
+      success:function(res){
+        console.log(res.tapIndex)
+      }
+    })
   }
 })

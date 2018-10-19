@@ -6,7 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    items: [
+      { name: '1', value: '商户', checked: 'true' },
+      { name: '2', value: '快递员' },
+      { name: '3', value: '物流公司' }
+    ]
   },
 
   /**
@@ -63,6 +67,9 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  radioChange: function (e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
   },
   getUserinfo: function(e){
     const userRes = e.detail;

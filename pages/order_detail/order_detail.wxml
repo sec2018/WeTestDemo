@@ -1,40 +1,52 @@
 <!--pages/order_detail/order_detail.wxml-->
 <view>
-  <view class='header-h1'>信息</view>
+  <wxs src="../../components/order.wxs" module="order"></wxs>
   <view class='list-ul'>
-    <view class='list-li'>
-      <view class='list-li-left'>寄件人姓名：</view>
-      <view>{{detail.sender_name}}</view>
+    <view class='list-li list-li-one'>
+      <view class='list-li-left'>寄件人：</view>
+      <view class='list-li-right'>
+        <view>
+          <text class='mr10'>{{detail.sender_name}}</text>
+          <text>{{detail.sender_tel}}</text>
+        </view>
+        <view>{{detail.sender_procity + detail.sender_detailarea}}</view>
+      </view>
     </view>
-     <view class='list-li'>
-      <view class='list-li-left'>寄件人电话：</view>
-      <view>12345678912</view>
+    <view class='list-li list-li-one no-border-top'>
+      <view class='list-li-left'>收件人：</view>
+      <view class='list-li-right'>
+        <view>
+          <text class='mr10'>{{detail.rec_name}}</text>
+          <text>{{detail.rec_tel}}</text>
+        </view>
+        <view>{{detail.rec_procity + detail.rec_detailarea}}</view>
+      </view>
     </view>
-     <view class='list-li'>
-      <view class='list-li-left'>寄件人地址：</view>
-      <view>procity+detailarea</view>
+    <view class='list-li-one'>
+      <view class='list-li'>
+        <view class='list-li-left'>店铺名称：</view>
+        <view class='list-li-right'>{{detail.shop_name}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-left'>品名：</view>
+        <view class='list-li-right'>{{detail.goodsname}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-left'>件数：</view>
+        <view class='list-li-right'>{{detail.goodsnum}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-left'>物流公司：</view>
+        <view class='list-li-right'>{{detail.company_name}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-left'>备注：</view>
+        <view class='list-li-right'>{{detail.billinfo}}</view>
+      </view>
     </view>
-     <view class='list-li'>
-      <view class='list-li-left'>店铺名称：</view>
-      <view>江南棉纱厂</view>
-    </view>
-    <view class='list-li'>
-      <view class='list-li-left'>品名：</view>
-      <view>棉鞋</view>
-      <view class='list-li-left'>    件数：</view>
-      <view>25</view>
-    </view>
-    <view class='list-li'>
-      <view class='list-li-left'>物流公司：</view>
-      <view>物流公司1</view>
-    </view>
-    <view class='list-li'>
-      <view class='list-li-left'>备注：</view>
-      <view>注意安全</view>
-    </view>
-    <view class='list-li'>
+    <view class='list-li mt20'>
       <view class='list-li-left'>当前状态：</view>
-      <view>已下单</view>
+      <view class='status1'>{{order.statusFun(detail.bill_status)}}</view>
     </view>
   </view>
 </view>

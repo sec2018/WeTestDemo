@@ -1,6 +1,9 @@
 var statusFun = function (status) {
   switch (status) {
-    case 1: return 'xiadan';
+    case 1: return '已下单，待接单';
+    case 2: return '已接单，待揽收';
+    case 3: return '已揽收，托运中';
+    case 4: return '运单已完成';
   }
 }
 module.exports = {

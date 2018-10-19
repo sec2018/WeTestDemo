@@ -9,9 +9,10 @@
     <view class="user-header">
       <view class="user-photo"><image class="user-photo-img" src="{{userInfo.avatarUrl}}"></image></view>
       <view class="user-name">{{userInfo.nickName}}</view>
+      <view class="user-name">(承运员)</view>
     </view>
     <view class="user-ul">
-      <view class="user-li">
+      <view class="user-li" bindtap="changeRole">
         <view>更换角色</view>
         <view>></view>
       </view>

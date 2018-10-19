@@ -11,14 +11,38 @@
   font-size: 30rpx;
 }
 .list-ul{
-  padding:0 30rpx;
+  padding:30rpx 30rpx 0;
 }
 .list-li{
   display: flex;
-  height:50rpx;
   line-height: 50rpx;
   font-size: 28rpx;
 }
+.list-li-one{
+  border:1px dashed #dfdfdf;
+  background: #f9f9f9;
+  padding:10rpx 0;
+  border-radius: 2rpx;
+}
+.no-border-top{
+  border-top:none;
+  margin-bottom:10rpx;
+}
+.mr10{
+  margin-right:10rpx;
+}
+.mt20{
+  margin-top:20rpx;
+}
 .list-li-left{
-  width:200rpx;
+  width:150rpx;
+  padding-right:10rpx;
+  text-align: right;
+}
+.list-li-right{
+  max-width:510rpx;
+}
+.status1{
+  color:#c1975b;
+  font-size: 30rpx;
 }

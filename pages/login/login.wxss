@@ -3,3 +3,7 @@
   width:600rpx;
   margin:40rpx auto;
 }
+.radio{
+  display: block;
+  margin:10rpx 0;
+}
