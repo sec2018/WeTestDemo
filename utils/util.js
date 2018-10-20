@@ -46,7 +46,8 @@ function wxResquest(resquestParam, successCb, failedCb) {
   const token = wx.getStorageSync('token');
   let headerParam = Object.assign({}, {
     'Content-Type': 'application/x-www-form-urlencoded',
-    'token': token
+    'token': token,
+    'roleid': '-1'
   }, resquestParam.header);
   wx.request({
     url: app.globalData.apiRoot + resquestParam.url,

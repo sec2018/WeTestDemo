@@ -14,8 +14,8 @@
         <view class='list-ul'>
           <view class='list-li' wx:for='{{list}}' wx:key='{{item.id}}'>
             <view bindtap='goToDetail' data-id='{{index}}'>
-              <view>{{item.sender_name + '   ' + item.goodsname + '   ' + item.goodsnum}}</view>
-              <view class='list-info'><text class='list-info-text'>{{item.company_name}}</text><text>{{order.statusFun(item.bill_status)}}</text></view>
+              <view>寄件人：{{item.sender_name + '   ' + item.goodsname + '   数量：' + item.goodsnum}}</view>
+              <view class='list-info'><text class='list-info-text'>收件人：{{item.rec_name + '   ' + item.company_name}}</text><text>{{order.statusFun(item.bill_status)}}</text></view>
             </view>
           </view>
         </view>

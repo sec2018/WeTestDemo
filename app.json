@@ -8,7 +8,8 @@
     "pages/query_order/query_order",
     "pages/order_detail/order_detail",
     "pages/login/login",
-    "pages/trans_map/trans_map"
+    "pages/trans_map/trans_map",
+    "pages/about_us/about_us"
   ],
   "tabBar": {
     "selectedColor": "#c1975b",

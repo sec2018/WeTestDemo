@@ -99,9 +99,16 @@ Page({
   },
   getUnfinishedList: function () {
     let _this = this;
+    const token = wx.getStorageSync('token');
+    let headerParam = Object.assign({}, {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'token': token,
+      'roleid': '2'
+    });
     util.wxResquest({
       url: '/transport/api/getuserunfinishbill',
       method: 'GET',
+      header: headerParam,
       data: {sender_id:1}
     }, function (res) {
       let data = res.data.data;
@@ -112,9 +119,16 @@ Page({
   },
   getFinishedList:function(){
     let _this = this;
+    const token = wx.getStorageSync('token');
+    let headerParam = Object.assign({}, {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'token': token,
+      'roleid': '2'
+    });
     util.wxResquest({
       url: '/transport/api/getuserfinishedbill',
       method: 'GET',
+      header: headerParam,
       data: { sender_id: 1 }
     }, function (res) {
       let data = res.data.data;
