@@ -1,0 +1,66 @@
+/* pages/address/address.wxss */
+.add-wrapper{
+  padding:30rpx 40rpx 0;
+}
+.wrapper{
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+.border-bottom{
+  border-bottom: 1rpx solid #ddd;
+  padding-bottom:30rpx;
+}
+.add-label{
+  width:150rpx;
+  height:60rpx;
+  margin-right:4rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+}
+.add-two{
+  display: flex;
+  width:510rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+}
+.add-input{
+  width: 400rpx;
+  height:58rpx;
+  line-height: 58rpx;
+  font-size: 28rpx;
+  padding:0 30rpx;
+  /* border-bottom: 1rpx solid #ccc; */
+
+}
+.add-select{
+  width: 350rpx;
+  padding-left:30rpx;
+  line-height: 58rpx;
+  font-size: 28rpx;
+}
+.add-textarea{
+  height: 116rpx;
+}
+.add-location{
+  width:60rpx;
+  margin-left:20rpx;
+}
+.add-location-img{
+  width:50rpx;
+  height:50rpx;
+}
+.add-btn{
+  width:550rpx;
+  margin:100rpx auto 0;
+  background: #c1975b;
+  color:#fff;
+  line-height: 70rpx;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 30rpx;
+  border-radius: 2rpx;
+}
+.switch{
+  transform:scale(0.7);
+}

@@ -7,10 +7,11 @@ Page({
    */
   data: {
     items: [
-      { name: '1', value: '商户', checked: 'true' },
-      { name: '2', value: '快递员' },
-      { name: '3', value: '物流公司' }
-    ]
+      { name: '2', value: '商户', checked: 'true' },
+      { name: '3', value: '快递员' },
+      { name: '4', value: '物流公司' }
+    ],
+    roleid: '2'
   },
 
   /**
@@ -69,11 +70,14 @@ Page({
 
   },
   radioChange: function (e) {
-    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    let id = e.detail.value;
+    this.setData({
+      roleid: id
+    })
   },
   getUserinfo: function(e){
     const userRes = e.detail;
-    console.log(userRes)
+    wx.setStorageSync('roleid', this.data.roleid)
     utils.loginAjax({
       encryptedData: userRes.encryptedData,
       iv: userRes.iv

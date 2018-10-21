@@ -1,11 +1,13 @@
 // pages/order_detail/order_detail.js
+var utils = require('../../utils/util.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    detail:{}
+    detail:{},
+    roleid: ''
   },
 
   /**
@@ -29,7 +31,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    let roleid = wx.getStorageSync('roleid');
+    this.setData({
+      roleid:roleid
+    })
   },
 
   /**
@@ -65,5 +70,77 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  receiveBill(){
+    let _this = this;
+    let dataParam = {
+      id: _this.data.detail.id
+    }
+    utils.wxResquest({
+      url: '/transport/api/receivebill',
+      data: dataParam,
+      method: 'POST'
+    }, function (res) {
+      if (res.data.success) {
+        wx.showToast({
+          title: res.data.msg,
+          duration: 2000
+        });
+        setTimeout(function () {
+          wx.hideToast();
+          wx.navigateBack({
+            delta: '1'
+          })
+        }, 1800)
+      }
+    })
+  },
+  payBill() {
+    let _this = this;
+    let dataParam = {
+      id: _this.data.detail.id
+    }
+    utils.wxResquest({
+      url: '/transport/api/paybill',
+      data: dataParam,
+      method: 'POST'
+    }, function (res) {
+      if (res.data.success) {
+        wx.showToast({
+          title: res.data.msg,
+          duration: 2000
+        });
+        setTimeout(function () {
+          wx.hideToast();
+          wx.navigateBack({
+            delta: '1'
+          })
+        }, 1800)
+      }
+    })
+  },
+  finishBill() {
+    let _this = this;
+    let dataParam = {
+      id: _this.data.detail.id
+    }
+    utils.wxResquest({
+      url: '/transport/api/finishbill',
+      data: dataParam,
+      method: 'POST'
+    }, function (res) {
+      if (res.data.success) {
+        wx.showToast({
+          title: res.data.msg,
+          duration: 2000
+        });
+        setTimeout(function () {
+          wx.hideToast();
+          wx.navigateBack({
+            delta: '1'
+          })
+        }, 1800)
+      }
+    })
   }
 })

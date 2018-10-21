@@ -24,7 +24,7 @@ function loginAjax(dataParam,cb){
   }, function (result){
     let data = result.data.data;
     console.log(data.data)
-    wx.setStorageSync("token", data.data);
+    wx.setStorageSync("token", data.token);
     app.globalData.token = data.data;
     console.log(app.globalData)
     if(cb) {
@@ -43,11 +43,25 @@ function loginAjax(dataParam,cb){
  * failedCb 失败回调
  */
 function wxResquest(resquestParam, successCb, failedCb) {
-  const token = wx.getStorageSync('token');
+  let token = wx.getStorageSync('token');
+  let roleid = wx.getStorageSync('roleid');
+  console.log(token)
+  if (!roleid && !resquestParam.header.roleid){
+    loginByWxchat();
+    return;
+  }
+  if (!token){
+    console.log(token)
+    token = "";
+    if (resquestParam.url.indexOf('/wxlogin') == -1){
+      loginByWxchat();
+      return
+    }
+  }
   let headerParam = Object.assign({}, {
     'Content-Type': 'application/x-www-form-urlencoded',
     'token': token,
-    'roleid': '-1'
+    'roleid': roleid
   }, resquestParam.header);
   wx.request({
     url: app.globalData.apiRoot + resquestParam.url,
@@ -74,6 +88,18 @@ function wxResquest(resquestParam, successCb, failedCb) {
               }
             }
           })
+        })
+      } else if(res.data.code == '500104'){ //商户
+        app.globalData.token = res.data.data.token;
+        wx.setStorageSync('token', res.data.data.token);
+        wx.navigateTo({
+          url: '../register_info/register_info?id=2',
+        })
+      } else if(res.data.code == '500105'){ //物流公司
+        app.globalData.token = res.data.data.token;
+        wx.setStorageSync('token', res.data.data.token);
+        wx.navigateTo({
+          url: '../register_info/register_info?id=4',
         })
       } else {
         if (failedCb) {

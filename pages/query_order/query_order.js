@@ -33,14 +33,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    this.getUnfinishedList();
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+    this.getUnfinishedList();
   },
 
   /**
@@ -99,17 +99,11 @@ Page({
   },
   getUnfinishedList: function () {
     let _this = this;
-    const token = wx.getStorageSync('token');
-    let headerParam = Object.assign({}, {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'token': token,
-      'roleid': '2'
-    });
+
     util.wxResquest({
       url: '/transport/api/getuserunfinishbill',
       method: 'GET',
-      header: headerParam,
-      data: {sender_id:1}
+      data: ""
     }, function (res) {
       let data = res.data.data;
       _this.setData({
@@ -119,17 +113,12 @@ Page({
   },
   getFinishedList:function(){
     let _this = this;
-    const token = wx.getStorageSync('token');
-    let headerParam = Object.assign({}, {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'token': token,
-      'roleid': '2'
-    });
+  
+  
     util.wxResquest({
       url: '/transport/api/getuserfinishedbill',
       method: 'GET',
-      header: headerParam,
-      data: { sender_id: 1 }
+      data: ""
     }, function (res) {
       let data = res.data.data;
       _this.setData({

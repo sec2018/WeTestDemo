@@ -10,6 +10,9 @@ var mapShowGlo = false;
 Page({
   data: {
     isWxChatHid: true,
+    longitude: '',
+    latitude: '',
+    scale: 17,
     markers: [{
       iconPath: "../../images/user.png",
       id: 0,
@@ -42,20 +45,64 @@ Page({
       clickable: true
     }]
   },
+  onReady(){
+    let _this = this;
+    mapIndex.setPageStyle(function (res) {
+      _this.setData(res)
+    });
+  },
   onShow(){
     let _this =this;
-    mapIndex.setPageStyle(function(res){
-      _this.setData(res)
-    })
+    wx.getLocation({
+      success: function(res){
+        _this.setData({
+          longitude: res.longitude,
+          latitude: res.latitude,
+        })
+      }
+    });
+    _this.getMarkerList();
   },
   regionchange(e) {
     console.log(e.type)
   },
   markertap(e) {
-    console.log(e.markerId)
+    let index = e.markerId;
+    let data = this.data.markers[index];
+    let id = data.indexId;
+    data.id = id;
+    wx.setStorageSync('orderDetail', data);
+    wx.navigateTo({
+      url: '../order_detail/order_detail',
+    })
   },
   controltap(e) {
     console.log(e.controlId)
+  },
+  getMarkerList: function(){
+    let _this =this;
+    utils.wxResquest({
+      url: '/transport/api/getallunbills',
+      data: '',
+      method: 'GET'
+    }, function (result) {
+      let data = result.data.data;
+      let dataLen = data.length;
+      for(let i=0; i<dataLen; i++){
+        console.log(data[i])
+        data[i].latitude = data[i].sender_lat;
+        data[i].iconPath = '../../images/use_grid1.png';
+        data[i].longitude = data[i].sender_lng;
+        data[i].width = 35;
+        data[i].height = 40;
+        data[i].indexId = data[i].id;
+        data[i].id = i;
+      }
+      console.log(data)
+      _this.setData({
+        markers:data
+      })
+    })
   }
 })
 

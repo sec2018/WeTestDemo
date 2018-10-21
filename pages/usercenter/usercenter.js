@@ -6,7 +6,8 @@ Page({
    */
   data: {
     isLogin:true,
-    userInfo: ''
+    userInfo: '',
+    role: '商家'
   },
 
   /**
@@ -30,7 +31,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    let roleid = wx.getStorageSync('roleid');
+    let role = '';
+    switch (roleid) {
+      case '3':
+        role = '承运员';
+        break;
+      case '4':
+        role = '物流公司';
+        break;
+      default:
+        role = '商家';
+        break;
+    }
+    this.setData({
+      role:role
+    });
   },
 
   /**
@@ -88,7 +104,7 @@ Page({
   loginout: function () {
     wx.setStorageSync('userInfo', null);
     wx.setStorageSync('token',null);
-    wx.setStorageSync('role', -1);
+    wx.setStorageSync('roleid', -1);
     console.log(wx.getStorageSync('userInfo'));
   }
 })

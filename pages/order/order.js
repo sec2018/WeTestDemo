@@ -147,12 +147,7 @@ Page({
       if(res.data.success){
         wx.showToast({
           title: '下单成功',
-          duration: 2000,
-          pageSkip: function () {
-            wx.redirectTo({
-              url: '/pages/index/index'
-            })
-          }
+          duration: 2000
         });
         setTimeout(function () {
           wx.hideToast();
