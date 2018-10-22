@@ -33,5 +33,5 @@
       <icon type='clear' size='15' id='address-clear' hidden='{{address.address ? false : true}}' bindtap='bindClear'></icon>
     </view>
   </view>
-  <view class="add-btn" bindtap='onSave'>确定</view>
+  <view class="add-btn" bindtap='onSave'>保存</view>
 </view>

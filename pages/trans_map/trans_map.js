@@ -91,7 +91,7 @@ Page({
       for(let i=0; i<dataLen; i++){
         console.log(data[i])
         data[i].latitude = data[i].sender_lat;
-        data[i].iconPath = '../../images/use_grid1.png';
+        data[i].iconPath = '../../images/bill.png';
         data[i].longitude = data[i].sender_lng;
         data[i].width = 35;
         data[i].height = 40;

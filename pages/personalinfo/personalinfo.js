@@ -91,10 +91,10 @@ Page({
         let resdata = res.data.data;
         _this.setData({
           shopData:{
-            shopname: res.shop_name,
-            shoptel: res.shop_tel,
-            shopprocity: res.shop_procity,
-            shopdetail: res.shop_detailarea
+            shopname: resdata.shopName,
+            shoptel: resdata.shopTel,
+            shopprocity: resdata.shopProcity,
+            shopdetail: resdata.shopDetailarea
           }
         })
       }

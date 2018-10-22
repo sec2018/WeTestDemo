@@ -32,9 +32,9 @@
     </view>
     <view class='order-li'>
       <text class='order-text'>物流公司：</text>
-      <picker bindchange='bindPickerChange' value='{{logisticsIndex}}' range-key='company_name' range='{{logisticsList}}'>
+      <picker bindchange='bindPickerChange' value='{{logisticsIndex}}' range-key='companyName' range='{{logisticsList}}'>
         <view class='order-inpt order-select'>
-          {{logisticsList[logisticsIndex].company_name}}
+          {{logisticsList[logisticsIndex].companyName}}
           <view class='down-arrow'></view>
         </view>
       </picker>

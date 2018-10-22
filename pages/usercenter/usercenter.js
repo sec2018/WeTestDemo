@@ -86,18 +86,34 @@ Page({
   changeRole:function(){
     let _this = this;
     wx.showActionSheet({
-      itemList: ['商户','承运员','物流公司','退出登录'],
+      // itemList: ['商户','承运员','物流公司','退出登录'],
+      // success:function(res){
+      //   console.log(res.tapIndex);
+      //   _this.loginout();
+      //   switch (res.tapIndex){
+      //     case 0:
+      //       //选择的是商户
+
+      //       break;
+      //     case 1:
+      //       //选择的是承运员
+
+      //       console.log(1);
+      //       break;
+      //     case 2:
+      //       //选择的是物流公司
+
+      //       console.log(2);
+      //       break;
+      //   }
+      // }
+      itemList: ['退出登录'],
       success:function(res){
         console.log(res.tapIndex);
         _this.loginout();
-        switch (res.tapIndex){
-          case 0:
-            break;
-          case 1:
-            break;
-          case 2:
-            break;
-        }
+        wx.navigateTo({
+          url: '../login/login',
+        })
       }
     })
   },

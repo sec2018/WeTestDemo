@@ -14,6 +14,7 @@ Page({
       region: '请选择',
     },
     roleid: '2',
+    flag: 'add',
     region: ['', '', ''],
     customItem: '全部'
   },
@@ -23,20 +24,40 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
-
-    if (options.id == '2') { //商家
+    if(options.flag == 'update'){
+      let roleid = wx.getStorageSync('roleid');
+      this.setData({
+        roleid: roleid,
+        flag: 'update'
+      });
+      if (roleid == '2') { //商家
+        wx.setNavigationBarTitle({
+          title: '商家信息'
+        });
+        this.searchShop();
+      } else if (roleid == '4') { //物流公司
+        wx.setNavigationBarTitle({
+          title: '物流公司信息'
+        });
+        this.searchCompany();
+      }
+      
+      
+    }else if (options.id == '2') { //商家
       wx.setNavigationBarTitle({
         title: '商家信息填写'
       });
       this.setData({
-        roleid:'2'
+        roleid:'2',
+        flag: 'add'
       });
     } else if (options.id == '4'){ //物流公司
       wx.setNavigationBarTitle({
         title: '物流公司信息填写'
       });
       this.setData({
-        roleid: '4'
+        roleid: '4',
+        flag: 'add'
       })
     }
     
@@ -105,9 +126,10 @@ Page({
     }
     if (this.data.roleid == 2) {
       this.shopAjax()
-    } else if(this.data.roleid == 4) {
+    } else if (this.data.roleid == 4) {
       this.companyAjax()
     }
+    
   },
   companyAjax: function(){
     let dataParam = {
@@ -116,10 +138,13 @@ Page({
       company_procity: this.data.address.region,
       company_detailarea: this.data.address.address
     };
+    if (this.data.flag == 'update') {
+      dataParam.companyid = this.data.address.id
+    }
     let roleid = this.data.roleid;
     //发起网络请求
     util.wxResquest({
-      url: '/transport/api/addcompany',
+      url: '/transport/api/addorupdatecompany',
       data: dataParam,
       method: 'POST',
       header: {
@@ -148,10 +173,13 @@ Page({
       shop_procity: this.data.address.region,
       shop_detailarea: this.data.address.address
     };
+    if (this.data.flag == 'update'){
+      dataParam.shopid = this.data.address.id
+    }
     let roleid = this.data.roleid;
     //发起网络请求
     util.wxResquest({
-      url: '/transport/api/addshop',
+      url: '/transport/api/addorupdateshop',
       data: dataParam,
       method: 'POST',
       header: {
@@ -215,6 +243,46 @@ Page({
           'address.address': addressBean.ADDRESS,
           'address.region': addressBean.REGION_PROVINCE + ' ' + addressBean.REGION_CITY + ' ' +addressBean.REGION_COUNTRY
         });
+      }
+    })
+  },
+  searchShop: function () {
+    let _this = this;
+    util.wxResquest({
+      url: '/transport/api/searchshop',
+      method: 'POST'
+    }, function (res) {
+      if (res.data.success) {
+        let resdata = res.data.data;
+        _this.setData({
+          address: {
+            id:resdata.shopId,
+            username: resdata.shopName,
+            phone: resdata.shopTel,
+            region: resdata.shopProcity,
+            address: resdata.shopDetailarea
+          }
+        })
+      }
+    })
+  },
+  searchCompany: function () {
+    let _this = this;
+    util.wxResquest({
+      url: '/transport/api/searchcompany',
+      method: 'POST'
+    }, function (res) {
+      if (res.data.success) {
+        let resdata = res.data.data;
+        _this.setData({
+          address: {
+            id: resdata.companyId,
+            username: resdata.companyName,
+            phone: resdata.companyTel,
+            region: resdata.companyProcity,
+            address: resdata.companyDetailarea
+          }
+        })
       }
     })
   },
