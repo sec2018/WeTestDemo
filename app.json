@@ -10,7 +10,8 @@
     "pages/login/login",
     "pages/register_info/register_info",
     "pages/trans_map/trans_map",
-    "pages/about_us/about_us"
+    "pages/about_us/about_us",
+    "pages/personalinfo/personalinfo"
   ],
   "tabBar": {
     "selectedColor": "#c1975b",

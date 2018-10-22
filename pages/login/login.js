@@ -8,7 +8,7 @@ Page({
   data: {
     items: [
       { name: '2', value: '商户', checked: 'true' },
-      { name: '3', value: '快递员' },
+      { name: '3', value: '承运员' },
       { name: '4', value: '物流公司' }
     ],
     roleid: '2'

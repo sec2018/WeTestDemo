@@ -12,13 +12,19 @@
       <view class="user-name">({{role}})</view>
     </view>
     <view class="user-ul">
+      <block wx:if="{{role == '商家'}}">
+        <navigator url="../personalinfo/personalinfo" class="user-li"><view>商铺信息</view><view>></view></navigator>
+      </block>
+      <block wx:elif="{{role == '物流公司'}}">
+        <navigator url="../personalinfo/personalinfo" class="user-li"><view>物流公司信息</view><view>></view></navigator>
+      </block>
+      <navigator url="../add_address/add_address" class="user-li"><view>地址薄</view><view>></view></navigator>
+      <view class="user-li">客服电话： 62678989</view>
+      <navigator url="../about_us/about_us" class="user-li"><view>关于货运小程序</view><view>></view></navigator>
       <view class="user-li" bindtap="changeRole">
         <view>更换角色</view>
         <view>></view>
       </view>
-      <navigator url="../add_address/add_address" class="user-li"><view>地址薄</view><view>></view></navigator>
-      <view class="user-li">客服电话： 62678989</view>
-      <navigator url="../about_us/about_us" class="user-li"><view>关于货运小程序</view><view>></view></navigator>
     </view>
   </block>
 </view>

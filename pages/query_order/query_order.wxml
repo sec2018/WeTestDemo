@@ -2,7 +2,7 @@
 <view>
   <wxs src="../../components/order.wxs" module="order"></wxs>
   <view class='header'>
-    <input class='header-inp' placeholder='请输入姓名'></input><text class='header-btn'>查询</text>
+    <input class='header-inp' placeholder='请输入收件人姓名' value="{{searchrecname}}" bindblur='recinput'></input><text class='header-btn' bindtap='searchByrecname'>查询</text>
   </view>
   <view class='query-btn border-bottom'>
     <view class='query-btn-item border-right {{tabIndex == 1 ? "btn-item-active" : ""}}' data-id='1' bindtap='tabClick'>未完成运单</view>

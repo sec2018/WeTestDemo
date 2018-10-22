@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    searchrecname:'',
     list: [1, 2, 2, 3],
     fromOrder: false,
     tabIndex:1
@@ -77,6 +78,12 @@ Page({
   onShareAppMessage: function () {
   
   },
+  recinput:function(e){
+    let value = e.detail.value.replace(/\s+/g,'');
+    this.setData({
+      searchrecname: value
+    })
+  },
   goToDetail:function(e){
     let id = e.currentTarget.dataset.id;
     console.log(e)
@@ -113,8 +120,6 @@ Page({
   },
   getFinishedList:function(){
     let _this = this;
-  
-  
     util.wxResquest({
       url: '/transport/api/getuserfinishedbill',
       method: 'GET',
@@ -125,5 +130,21 @@ Page({
         list: data
       });
     })
+  },
+  searchByrecname:function(e){
+    let _this = this;
+    let _searchrecname = _this.data.searchrecname;
+    console.log(_searchrecname);
+    let reslist = [];
+    let dataLen = _this.data.list.length;
+    for (let i = 0; i < dataLen; i++) {
+      if (_this.data.list[i].rec_name.indexOf(_searchrecname)!=-1){
+        reslist.push(_this.data.list[i]);
+      }
+    }
+    console.log(reslist);
+    _this.setData({
+      list: reslist
+    });
   }
 })

@@ -5,6 +5,6 @@
       <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
     </label>
   </radio-group>
-  <button open-type='getUserInfo' bindgetuserinfo='getUserinfo' type='primary'>账号登录</button>
+  <button open-type='getUserInfo' bindgetuserinfo='getUserinfo' type='primary'>微信登录</button>
 
 </view>
