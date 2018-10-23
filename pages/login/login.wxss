@@ -5,5 +5,17 @@
 }
 .radio{
   display: block;
-  margin:10rpx 0;
+  margin:10rpx auto;
+  width:215rpx;
+}
+.loginbtn{
+  margin-top:70rpx;
+  color:#fff;
+  background: #c1975b;
+}
+.login-info{
+  text-align: center;
+  font-size: 26rpx;
+  color:#9b9b9b;
+  line-height: 50rpx;
 }

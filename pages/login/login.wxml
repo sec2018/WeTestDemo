@@ -2,9 +2,9 @@
 <view class='login-btn'>
   <radio-group class="radio-group" bindchange="radioChange">
     <label class="radio" wx:for="{{items}}" wx:key="{{item.name}}">
-      <radio value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
+      <radio color="#c1975b" value="{{item.name}}" checked="{{item.checked}}"/>{{item.value}}
     </label>
   </radio-group>
-  <button open-type='getUserInfo' bindgetuserinfo='getUserinfo' type='primary'>微信登录</button>
-
+  <button hover-class="none" open-type='getUserInfo' bindgetuserinfo='getUserinfo' class="loginbtn">微信登录</button>
+  <view class="login-info">没有注册过的账号，将自动注册登录</view>
 </view>

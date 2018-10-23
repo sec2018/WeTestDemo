@@ -49,10 +49,10 @@ function wxResquest(resquestParam, successCb, failedCb) {
   let token = wx.getStorageSync('token');
   let roleid = wx.getStorageSync('roleid');
   console.log(token)
-  if (!roleid && !resquestParam.header.roleid){
-    loginByWxchat();
-    return;
-  }
+    if (!roleid && resquestParam.header && !resquestParam.header.roleid){
+      loginByWxchat();
+      return;
+    }
   if (!token){
     console.log(token)
     token = "";
@@ -164,9 +164,9 @@ function loginByWxchat(cb) {
                 // }, cb)
                 loginAjax(function () {
                   wx.setStorageSync('userInfo', userRes.userInfo);
-                  // wx.navigateBack({
-                  //   delta: '1'
-                  // })
+                  wx.navigateBack({
+                    delta: '1'
+                  })
                 });
               }
             });
