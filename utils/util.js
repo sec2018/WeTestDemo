@@ -14,8 +14,11 @@ const formatNumber = n => {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-function loginAjax(dataParam,cb){
+function loginAjax(cb){
+  let dataParam = {};
   dataParam.code = app.globalData.code;
+  dataParam.encryptedData = app.globalData.encryptedData
+  dataParam.iv = app.globalData.iv;
   //发起网络请求
   wxResquest({
     url: '/transport/wx/wxlogin',
@@ -25,7 +28,7 @@ function loginAjax(dataParam,cb){
     let data = result.data.data;
     console.log(data.data)
     wx.setStorageSync("token", data.token);
-    app.globalData.token = data.data;
+    app.globalData.token = data.token;
     console.log(app.globalData)
     if(cb) {
       cb()
@@ -74,20 +77,18 @@ function wxResquest(resquestParam, successCb, failedCb) {
           successCb(res)
         }
       } else if (res.data.code == '500210') { //无效凭证，请重新登录
-        loginByWxchat(function () {
-          wx.hideLoading();
-          wx.showModal({
-            title: '',
-            content: '当前登陆失效，请重新登录',
-            showCancel: false,
-            success: function (res) {
-              if (res.confirm) {
-                wxResquest(resquestParam, successCb, failedCb)
-              } else if (res.cancel) {
-                console.log('用户点击取消')
-              }
+        wx.hideLoading();
+        wx.showModal({
+          title: '',
+          content: '当前登陆失效，请重新登录',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              wxResquest(resquestParam, successCb, failedCb)
+            } else if (res.cancel) {
+              console.log('用户点击取消')
             }
-          })
+          }
         })
       } else if(res.data.code == '500104'){ //商户
         app.globalData.token = res.data.data.token;
@@ -147,23 +148,28 @@ function loginByWxchat(cb) {
             wx.navigateTo({
               url: '../login/login',
             })
-          } else {
-            wx.navigateTo({
-              url: '../login/login',
-            })
-            return;
+          } 
+          else {
             //获取用户信息
             wx.getUserInfo({
               lang: "zh_CN",
               success: function (userRes) {
                 console.log(userRes)
+                app.globalData.encryptedData = userRes.encryptedData;
+                app.globalData.iv = userRes.iv;
                 //发起网络请求
-                loginAjax({
-                  encryptedData: userRes.encryptedData,
-                  iv: userRes.iv
-                }, cb)
+                // loginAjax({
+                //   encryptedData: userRes.encryptedData,
+                //   iv: userRes.iv
+                // }, cb)
+                loginAjax(function () {
+                  wx.setStorageSync('userInfo', userRes.userInfo);
+                  // wx.navigateBack({
+                  //   delta: '1'
+                  // })
+                });
               }
-            })
+            });
           }
         }
       })

@@ -11,7 +11,7 @@
     "pages/register_info/register_info",
     "pages/trans_map/trans_map",
     "pages/about_us/about_us",
-    "pages/personalinfo/personalinfo"
+    "pages/invoice/invoice"
   ],
   "tabBar": {
     "selectedColor": "#c1975b",

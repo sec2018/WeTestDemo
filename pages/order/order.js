@@ -7,10 +7,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    shopname: '',
+    shopid: 0,
     logisticsList: ['顺丰','申通','圆通'],
     logisticsIndex: 0,
     order:{
-      shop_name: '',
       goodsname: '',
       goodsnum:'',
       billinfo: ''
@@ -39,6 +40,7 @@ Page({
    */
   onReady: function () {
     this.getLogisticsList();
+    this.getShopInfo();
     var that = this;
     wx.getLocation({
       type: 'wgs84',
@@ -80,6 +82,7 @@ Page({
     } else {
       this.getAddressList();
     }
+
   },
 
   /**
@@ -125,7 +128,8 @@ Page({
       goodsname: _this.data.order.goodsname,
       goodsnum: _this.data.order.goodsnum,
       sender_tel: _this.data.sendAddress.tel,
-      shop_name: _this.data.order.shop_name,
+      shop_id: _this.data.shopid,
+      shop_name: _this.data.shopname,
       company_id: logistics.company_id,
       company_name: logistics.company_name,
       batch_code: '0',
@@ -194,6 +198,22 @@ Page({
 
     })
   },
+  //获取商户店铺名称
+  getShopInfo: function () {
+    let _this = this;
+    util.wxResquest({
+      url: '/transport/api/searchshop',
+      method: 'POST',
+      data: ''
+    }, function (res) {
+      let data = res.data.data;
+      console.log(data);
+      _this.setData({
+        shopname: data.shopName,
+        shopid: data.shopId
+      });
+    })
+  },
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
@@ -229,11 +249,6 @@ Page({
         url: '../address/address?id='+_this.data.sendAddress.id,
       })
     }
-  },
-  bindNameInput: function(e){
-    this.setData({
-      'order.shop_name': e.detail.value
-    });
   },
   bindGoodsInput: function (e) {
     this.setData({

@@ -1,4 +1,5 @@
 // pages/login/login.js
+const app = getApp();
 const utils = require('../../utils/util.js');
 Page({
 
@@ -78,14 +79,17 @@ Page({
   getUserinfo: function(e){
     const userRes = e.detail;
     wx.setStorageSync('roleid', this.data.roleid)
-    utils.loginAjax({
-      encryptedData: userRes.encryptedData,
-      iv: userRes.iv
-    }, function (){
-      wx.setStorageSync('userInfo', userRes.userInfo);
-      wx.navigateBack({
-        delta: '1'
-      })
-    })
+    // utils.loginAjax({
+    //   // encryptedData: userRes.encryptedData,
+    //   // iv: userRes.iv
+    //   encryptedData:app.globalData.encryptedData,
+    //   iv: app.globalData.iv
+    // }, function (){
+    //   wx.setStorageSync('userInfo', userRes.userInfo);
+    //   wx.navigateBack({
+    //     delta: '1'
+    //   })
+    // })
+    utils.loginByWxchat();
   }
 })

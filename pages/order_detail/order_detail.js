@@ -142,5 +142,13 @@ Page({
         }, 1800)
       }
     })
+  },
+  createinvoice() {
+    let _this = this;
+    console.log(_this.data.detail.id)
+    let id  = _this.data.detail.id
+    wx.navigateTo({
+      url: '../invoice/invoice?id='+id
+    })
   }
 })

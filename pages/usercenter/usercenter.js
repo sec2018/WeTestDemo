@@ -118,9 +118,11 @@ Page({
     })
   },
   loginout: function () {
-    wx.setStorageSync('userInfo', null);
-    wx.setStorageSync('token',null);
-    wx.setStorageSync('roleid', -1);
-    console.log(wx.getStorageSync('userInfo'));
+    // wx.setStorageSync('userInfo', null);
+    // wx.setStorageSync('token',null);
+    // wx.setStorageSync('roleid', -1);
+    // console.log(wx.getStorageSync('userInfo'));
+
+    wx.clearStorageSync();
   }
 })
