@@ -14,7 +14,8 @@ Page({
     order:{
       goodsname: '',
       goodsnum:'',
-      billinfo: ''
+      billinfo: '',
+      price: 0
     },
     receiveAddress:{},
     sendAddress: {
@@ -141,7 +142,8 @@ Page({
       rec_name: _this.data.receiveAddress.uname,
       rec_tel: _this.data.receiveAddress.tel,
       rec_procity: _this.data.receiveAddress.pro_city,
-      rec_detailarea: _this.data.receiveAddress.detail_addr
+      rec_detailarea: _this.data.receiveAddress.detail_addr,
+      price: _this.data.order.price
     }
     util.wxResquest({
       url: '/transport/api/createbill',
@@ -257,7 +259,8 @@ Page({
   },
   bindNumInput: function (e) {
     this.setData({
-      'order.goodsnum': e.detail.value
+      'order.goodsnum': e.detail.value,
+      'order.price': e.detail.value*3.00
     });
   },
   bindInfoInput: function (e) {

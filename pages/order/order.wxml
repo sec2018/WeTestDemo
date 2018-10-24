@@ -31,6 +31,10 @@
       <input class='order-inpt' value='{{order.goodsnum}}' bindinput="bindNumInput"></input>
     </view>
     <view class='order-li'>
+      <text class='order-text'>总价：</text>
+      <input class='order-inpt' value='{{order.price}}'></input>
+    </view>
+    <view class='order-li'>
       <text class='order-text'>物流公司：</text>
       <picker bindchange='bindPickerChange' value='{{logisticsIndex}}' range-key='companyName' range='{{logisticsList}}'>
         <view class='order-inpt order-select'>

@@ -24,6 +24,10 @@
     </view>
     <view class='list-li-one'>
       <view class='list-li'>
+        <view class='list-li-left'>托单编号：</view>
+        <view class='list-li-right'>{{detail.bill_code}}</view>
+      </view>
+      <view class='list-li'>
         <view class='list-li-left'>店铺名称：</view>
         <view class='list-li-right'>{{detail.shop_name}}</view>
       </view>
@@ -36,6 +40,10 @@
         <view class='list-li-right'>{{detail.goodsnum}}</view>
       </view>
       <view class='list-li'>
+        <view class='list-li-left'>托运总价：</view>
+        <view class='list-li-right'>{{detail.price}}</view>
+      </view>
+      <view class='list-li'>
         <view class='list-li-left'>物流公司：</view>
         <view class='list-li-right'>{{detail.company_name}}</view>
       </view>
@@ -43,6 +51,22 @@
         <view class='list-li-left'>备注：</view>
         <view class='list-li-right'>{{detail.billinfo}}</view>
       </view>
+    </view>
+    <view wx:if='{{detail.bill_status == 1}}' class='list-li mt20'>
+      <view class='list-li-left'>下单时间：</view>
+      <view class='status1'>{{detail.create_time}}</view>
+    </view>
+    <view wx:if='{{detail.bill_status == 2}}' class='list-li mt20'>
+      <view class='list-li-left'>接单时间：</view>
+      <view class='status1'>{{detail.rec_time}}</view>
+    </view>
+    <view wx:if='{{detail.bill_status == 3}}' class='list-li mt20'>
+      <view class='list-li-left'>揽收时间：</view>
+      <view class='status1'>{{detail.pay_time}}</view>
+    </view>
+    <view wx:if='{{detail.bill_status == 4}}' class='list-li mt20'>
+      <view class='list-li-left'>完成时间：</view>
+      <view class='status1'>{{detail.finish_time}}</view>
     </view>
     <view class='list-li mt20'>
       <view class='list-li-left'>当前状态：</view>
@@ -52,5 +76,6 @@
     <view wx:if='{{roleid == "2" && detail.bill_status == 2}}' class='header-h1' bindtap='payBill'>支付</view>
     <view wx:if='{{roleid == "4" && detail.bill_status == 3}}' class='header-h1' bindtap='finishBill'>确认完成</view>
     <view wx:if='{{roleid == "4" && detail.bill_status == 4}}' class='header-h1' bindtap='createinvoice'>生成运单</view>
+    <view wx:if='{{roleid == "4" && detail.bill_status == 4}}' class='header-h1' bindtap='seeinvoice'>查看运单</view>
     </view>
 </view>

@@ -22,6 +22,10 @@ Page({
    */
   onReady: function () {
     let data = wx.getStorageSync('orderDetail');
+    data.create_time = this.timeformat(data.create_time);
+    data.rec_time = this.timeformat(data.rec_time);
+    data.pay_time = this.timeformat(data.pay_time);
+    data.finish_time = this.timeformat(data.finish_time);
     this.setData({
       detail:data
     })
@@ -150,5 +154,17 @@ Page({
     wx.navigateTo({
       url: '../invoice/invoice?id='+id
     })
+  },
+  seeinvoice() {
+    let _this = this;
+    console.log(_this.data.detail.id)
+    let id = _this.data.detail.id
+    wx.navigateTo({
+      url: '../h5invoice/h5invoice?id=' + id
+    })
+  },
+  timeformat(time){
+    let _time =  time.split('.')[0].replace('T', ' ');
+    return _time;
   }
 })

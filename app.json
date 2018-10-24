@@ -11,7 +11,8 @@
     "pages/register_info/register_info",
     "pages/trans_map/trans_map",
     "pages/about_us/about_us",
-    "pages/invoice/invoice"
+    "pages/invoice/invoice",
+    "pages/h5invoice/h5invoice"
   ],
   "tabBar": {
     "selectedColor": "#c1975b",
