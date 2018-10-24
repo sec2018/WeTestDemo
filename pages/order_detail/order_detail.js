@@ -164,7 +164,10 @@ Page({
     })
   },
   timeformat(time){
-    let _time =  time.split('.')[0].replace('T', ' ');
+    if(time == null){return null}
+    // let _time =  time.split('.')[0].replace('T', ' ');
+    let d = new Date(time);
+    let _time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
     return _time;
   }
 })
