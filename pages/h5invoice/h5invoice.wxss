@@ -1,0 +1,9 @@
+.pageH5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-position:center;  
+    background-repeat:no-repeat; 
+    background-size:contain; 
+}

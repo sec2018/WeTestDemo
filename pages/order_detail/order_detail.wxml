@@ -24,7 +24,11 @@
     </view>
     <view class='list-li-one'>
       <view class='list-li'>
-        <view class='list-li-left'>托单编号：</view>
+        <view class='list-li-left'>运单号：</view>
+        <view class='list-li-right'>{{detail.company_code}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-left'>托运号：</view>
         <view class='list-li-right'>{{detail.bill_code}}</view>
       </view>
       <view class='list-li'>

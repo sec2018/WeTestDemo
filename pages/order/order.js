@@ -12,6 +12,7 @@ Page({
     logisticsList: ['顺丰','申通','圆通'],
     logisticsIndex: 0,
     order:{
+      company_code: '',
       goodsname: '',
       goodsnum:'',
       billinfo: '',
@@ -126,6 +127,7 @@ Page({
     let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
     let param = {
       sender_name: _this.data.sendAddress.uname,
+      company_code: _this.data.company_code,
       goodsname: _this.data.order.goodsname,
       goodsnum: _this.data.order.goodsnum,
       sender_tel: _this.data.sendAddress.tel,
@@ -255,6 +257,11 @@ Page({
   bindGoodsInput: function (e) {
     this.setData({
       'order.goodsname': e.detail.value
+    });
+  },
+  bindCompanyCodeInput: function (e) {
+    this.setData({
+      'order.company_code': e.detail.value
     });
   },
   bindNumInput: function (e) {

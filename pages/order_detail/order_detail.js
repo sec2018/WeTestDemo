@@ -158,7 +158,18 @@ Page({
   seeinvoice() {
     let _this = this;
     console.log(_this.data.detail.id)
-    let id = _this.data.detail.id
+    let id = _this.data.detail.id;
+    // wx.request({
+    //   url: 'http://10.84.8.247:8080/transport/billvoice.html',
+    //   data: { 'id': _this.id, 'token': _this.token},
+    //   method: 'GET',
+    //   success: function success(res) {
+    //     console.log("存入imgbase");
+    //     wx.navigateTo({
+    //       url: '../h5invoice/h5invoice?id=' + id
+    //     })
+    //   }
+    // })
     wx.navigateTo({
       url: '../h5invoice/h5invoice?id=' + id
     })
@@ -167,7 +178,9 @@ Page({
     if(time == null){return null}
     // let _time =  time.split('.')[0].replace('T', ' ');
     let d = new Date(time);
-    let _time = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+    let _time = d.getFullYear() + "-" + ((d.getMonth() + 1) >= 10 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + ((d.getDate() >= 10 ? d.getDate() : "0" + d.getDate())) + " "
+      + (d.getHours() >= 10 ? d.getHours() : "0" + d.getHours()) + ":" + (d.getMinutes() >= 10 ? d.getMinutes() : "0" + d.getMinutes()) + ":" + (d.getSeconds() >= 10 ? d.getSeconds() : "0" + d.getSeconds());
+
     return _time;
   }
 })

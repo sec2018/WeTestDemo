@@ -1,4 +1,5 @@
 const app = getApp();
+const util = require('../../utils/util.js');
 
 Page({
 
@@ -7,7 +8,8 @@ Page({
    */
   data: {
     id:0,
-    token:''
+    token:'',
+    QrCodeUrl:''
   },
 
   /**
@@ -18,6 +20,7 @@ Page({
         id: options.id,
         token: wx.getStorageSync('token')
       })
+      this.getImg();
   },
 
   /**
@@ -67,5 +70,32 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  getImg:function(){
+    let _this = this;
+    // wx.request({
+    //   // url: '/transport/api/deleteaddr',
+    //   url: 'http://10.84.8.247:8080/transport/billvoice.html',
+    //   data: { 'id': _this.id, 'token': _this.token},
+    //   method: 'GET',
+    //   success: function success(res) {
+    //     const base64 = wx.arrayBufferToBase64(res.data);
+    //     //_this.setData({ QrCodeUrl: "data:image/png;base64," + base64 });
+    //     _this.setData({ QrCodeUrl: base64 });
+    //   }
+    // })
+    console.log(_this.data.id)
+    util.wxResquest({
+      url: '/transport/api/getImg',
+      method: 'GET',
+      data: { 'id': _this.data.id }
+    }, function (res) {
+        // const base64 = wx.arrayBufferToBase64(res.data.data);
+        //_this.setData({ QrCodeUrl: "data:image/png;base64," + base64 });
+      let _data = "data:image/png;base64,"+ decodeURI(res.data.data);
+      // let _data = res.data.data;
+      // _this.setData({ QrCodeUrl: _data });
+      _this.setData({ QrCodeUrl: _data });
+    })
   }
 })
