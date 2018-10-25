@@ -90,12 +90,18 @@ Page({
       method: 'GET',
       data: { 'id': _this.data.id }
     }, function (res) {
-        // const base64 = wx.arrayBufferToBase64(res.data.data);
+        // let base64 = wx.arrayBufferToBase64(res.data.data);
         //_this.setData({ QrCodeUrl: "data:image/png;base64," + base64 });
+        // let _data = "data:image/png;base64," + base64;
       let _data = "data:image/png;base64,"+ decodeURI(res.data.data);
-      // let _data = res.data.data;
-      // _this.setData({ QrCodeUrl: _data });
+      // // _this.setData({ QrCodeUrl: _data });
       _this.setData({ QrCodeUrl: _data });
+
+
+      // var data = res.data.data;
+      // var array = wx.base64ToArrayBuffer(data);
+      // var base64 = wx.arrayBufferToBase64(array);
+      // _this.setData({ QrCodeUrl: "data:image/png;base64," + base64 });
     })
   }
 })

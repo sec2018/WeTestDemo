@@ -10,7 +10,7 @@ Page({
    */
   data: {
     searchrecname:'',
-    list: [1, 2, 2, 3],
+    list: [],
     fromOrder: false,
     tabIndex:1
   },
@@ -41,7 +41,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getUnfinishedList();
+    if(this.tabIndex ==1){
+      this.getUnfinishedList();
+    } else {
+      this.getFinishedList();
+    }
+    
   },
 
   /**
@@ -106,29 +111,40 @@ Page({
   },
   getUnfinishedList: function () {
     let _this = this;
-
+    wx.showLoading({
+      title: '加载中',
+    });
     util.wxResquest({
       url: '/transport/api/getuserunfinishbill',
       method: 'GET',
       data: ""
     }, function (res) {
+      wx.hideLoading();
       let data = res.data.data;
       _this.setData({
         list: data
       });
+    },function(res){
+      wx.hideLoading();
     })
   },
   getFinishedList:function(){
     let _this = this;
+    wx.showLoading({
+      title: '加载中',
+    });
     util.wxResquest({
       url: '/transport/api/getuserfinishedbill',
       method: 'GET',
       data: ""
     }, function (res) {
+      wx.hideLoading();
       let data = res.data.data;
       _this.setData({
         list: data
       });
+    },function(){
+      wx.hideLoading();
     })
   },
   searchByrecname:function(e){

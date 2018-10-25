@@ -1,4 +1,4 @@
-<view class="table">
+<!-- <view class="table">
   <view class="tr bg-w">
     <view class="th">head1</view>
     <view class="th">head2</view>
@@ -16,4 +16,8 @@
       <view class="td">{{item.type}}</view>
     </view>
   </block>
+</view> -->
+
+<view>
+  <web-view class='container' src="http://192.168.100.107:8080/transport/billvoice.html?id={{id}}&token={{token}}"></web-view>
 </view>

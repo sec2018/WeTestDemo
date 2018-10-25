@@ -10,7 +10,7 @@
   </view>
   <view class='con-btn'>
     <view class='con-btncon' wx:if='{{roleid == "2"}}'>大件</view>
-    <view class='con-btncon'>其他</view>
+    <view class='con-btncon'><navigator url='../canvas/canvas'>其他</navigator></view>
   </view>
 
 </view>
