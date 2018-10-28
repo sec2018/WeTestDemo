@@ -64,7 +64,7 @@ Page({
     _this.getMarkerList();
   },
   regionchange(e) {
-    console.log(e.type)
+    console.log(e.type);
   },
   markertap(e) {
     let index = e.markerId;
@@ -78,6 +78,12 @@ Page({
   },
   controltap(e) {
     console.log(e.controlId)
+    const id = e.controlId;
+    if (id == 2) {
+      wx.switchTab({
+        url: '../usercenter/usercenter'
+      })
+    }
   },
   getMarkerList: function(){
     let _this =this;

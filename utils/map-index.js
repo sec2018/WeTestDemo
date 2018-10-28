@@ -25,32 +25,11 @@ function setPageStyle(cb) { //设置地图高度，控件位置
           height: 45
         },
         clickable: true
-      },
-      {
+      },{
         id: 2,
-        iconPath: '../../images/lock.png',
-        position: {
-          left: 50,
-          top: 0,
-          width: 170,
-          height: 45
-        },
-        clickable: true
-      }, {
-        id: 3,
         iconPath: '../../images/user.png',
         position: {
           left: 50,
-          top: 0,
-          width: 45,
-          height: 45
-        },
-        clickable: true
-      }, {
-        id: 4,
-        iconPath: '../../images/guzhang.png',
-        position: {
-          left: 30,
           top: 0,
           width: 45,
           height: 45
@@ -60,11 +39,8 @@ function setPageStyle(cb) { //设置地图高度，控件位置
       controls[0].position.left = (res.windowWidth - controls[0].position.width) / 2;
       controls[0].position.top = (res.windowHeight - controls[0].position.height) / 2;
       controls[1].position.top = res.windowHeight - controls[1].position.height - 20;
-      controls[2].position.left = (res.windowWidth - controls[2].position.width) / 2;
       controls[2].position.top = res.windowHeight - controls[2].position.height - 20;
-      controls[3].position.top = res.windowHeight - controls[3].position.height - 20;
-      controls[3].position.left = res.windowWidth - controls[3].position.width - 30;
-      controls[4].position.top = res.windowHeight - controls[4].position.height - 85;
+      controls[2].position.left = res.windowWidth - controls[2].position.width - 30;
       cb({
         controls: controls,
         height: res.windowHeight
