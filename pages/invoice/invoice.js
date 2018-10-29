@@ -1,3 +1,4 @@
+const app = getApp();
 // Page({
 //   data: {
 //     listData: [
@@ -26,7 +27,8 @@ Page({
    */
   data: {
     id: 0,
-    token: ''
+    token: '',
+    apiRoot:''
   },
 
   /**
@@ -35,7 +37,8 @@ Page({
   onLoad: function (options) {
     this.setData({
       id: options.id,
-      token: wx.getStorageSync('token')
+      token: wx.getStorageSync('token'),
+      apiRoot: app.globalData.apiRoot
     })
   },
 
