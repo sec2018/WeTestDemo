@@ -41,7 +41,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if(this.tabIndex ==1){
+    if(this.data.tabIndex ==1){
       this.getUnfinishedList();
     } else {
       this.getFinishedList();

@@ -12,10 +12,15 @@ Page({
     }
   },
   onShow: function(){
-    wx.navigateTo({
-      url: '../canvas/canvas',
-    })
+    // wx.navigateTo({
+    //   url: '../canvas/canvas',
+    // })
     let roleid = wx.getStorageSync('roleid');
+    if(!roleid){
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
     this.setData({
       roleid:roleid
     })
