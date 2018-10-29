@@ -20,6 +20,10 @@
           </view>
         </view>
       </scroll-view>
+      <view wx:else class="no-data">
+        <image class='no-data-img' src="../../images/noorder.png"></image>
+        <view class='no-data-text'>暂无数据</view>
+      </view>
     </view>
   </view>
 </view>
