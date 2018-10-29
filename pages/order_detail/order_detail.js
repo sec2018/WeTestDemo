@@ -175,12 +175,12 @@ Page({
     })
   },
   timeformat(time){
-    if(time == null){return null}
-    // let _time =  time.split('.')[0].replace('T', ' ');
-    let d = new Date(time);
+    if(!time){return null}
+    
+    let d = new Date(time.replace('+0000', 'Z'));
     let _time = d.getFullYear() + "-" + ((d.getMonth() + 1) >= 10 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + ((d.getDate() >= 10 ? d.getDate() : "0" + d.getDate())) + " "
       + (d.getHours() >= 10 ? d.getHours() : "0" + d.getHours()) + ":" + (d.getMinutes() >= 10 ? d.getMinutes() : "0" + d.getMinutes()) + ":" + (d.getSeconds() >= 10 ? d.getSeconds() : "0" + d.getSeconds());
-
+    // let _time =  time.replace('+0000', 'Z');
     return _time;
   }
 })

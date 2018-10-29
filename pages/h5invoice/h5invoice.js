@@ -71,6 +71,12 @@ Page({
   onShareAppMessage: function () {
     
   },
+  seeImage(){
+    wx.previewImage({
+      current: this.data.QrCodeUrl, // 当前显示图片的http链接
+      urls: [this.data.QrCodeUrl] // 需要预览的图片http链接列表
+    })
+  },
   getImg:function(){
     let _this = this;
     // wx.request({
@@ -96,7 +102,10 @@ Page({
       let _data = "data:image/png;base64,"+ decodeURI(res.data.data);
       // // _this.setData({ QrCodeUrl: _data });
       _this.setData({ QrCodeUrl: _data });
-
+      wx.previewImage({
+        current: _data, // 当前显示图片的http链接
+        urls: [_data] // 需要预览的图片http链接列表
+      })
 
       // var data = res.data.data;
       // var array = wx.base64ToArrayBuffer(data);

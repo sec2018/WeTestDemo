@@ -13,7 +13,7 @@ Page({
   },
   onShow: function(){
     // wx.navigateTo({
-    //   url: '../canvas/canvas',
+    //   url: '../order_detail/order_detail',
     // })
     let roleid = wx.getStorageSync('roleid');
     if(!roleid){

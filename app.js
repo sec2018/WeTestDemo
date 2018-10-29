@@ -12,8 +12,8 @@ App({
     encryptedData: null,
     receiveAddress: null, //下单时，保存地址时调用
     address:null, //修改地址时调用
-    //apiRoot: 'http://wzjshuye.cn:8080'
-    //apiRoot: 'http://192.168.100.107:8080'
-    apiRoot: 'http://10.84.8.106:8080'
+    apiRoot: 'https://wzjshuye.cn:8882'
+    // apiRoot: 'http://192.168.100.107:8882'
+    //apiRoot: 'http://10.84.8.106:8080'
   }
 })  

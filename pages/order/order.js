@@ -127,7 +127,7 @@ Page({
     let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
     let param = {
       sender_name: _this.data.sendAddress.uname,
-      company_code: _this.data.company_code,
+      company_code: _this.data.order.company_code,
       goodsname: _this.data.order.goodsname,
       goodsnum: _this.data.order.goodsnum,
       sender_tel: _this.data.sendAddress.tel,
