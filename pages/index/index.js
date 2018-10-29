@@ -12,6 +12,9 @@ Page({
     }
   },
   onShow: function(){
+    wx.navigateTo({
+      url: '../canvas/canvas',
+    })
     let roleid = wx.getStorageSync('roleid');
     this.setData({
       roleid:roleid

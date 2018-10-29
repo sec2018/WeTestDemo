@@ -6,6 +6,9 @@ Page({
    */
   data: {
     srcUrl:'',
+    canvasData:[
+      ['表格11', '表格12', '表格13', '表格14', '表格15']
+    ]
   },
 
   /**
@@ -22,20 +25,34 @@ Page({
     // 使用 wx.createContext 获取绘图上下文 context
     var context = wx.createCanvasContext('secondCanvas')
     let _this = this;
-    context.setStrokeStyle("#00ff00")
-    context.setLineWidth(5)
-    context.rect(0, 0, 200, 200)
-    context.stroke()
-    context.setStrokeStyle("#ff0000")
-    context.setLineWidth(2)
-    context.moveTo(160, 100)
-    context.arc(100, 100, 60, 0, 2 * Math.PI, true)
-    context.moveTo(140, 100)
-    context.arc(100, 100, 40, 0, Math.PI, false)
-    context.moveTo(85, 80)
-    context.arc(80, 80, 5, 0, 2 * Math.PI, true)
-    context.moveTo(125, 80)
-    context.arc(120, 80, 5, 0, 2 * Math.PI, true)
+    context.setStrokeStyle("#000000"); //设置描边颜色
+    context.setLineWidth(1); //设置线条宽度
+    context.rect(0, 0, 320, 240); //绘制矩形
+    context.stroke(); //画出当前路径的边框
+    context.beginPath()
+    context.setStrokeStyle("#000000");
+    context.setLineWidth(1);
+    for(let i=0; i<7; i++){
+      context.moveTo(0, 30+30*i);
+      context.lineTo(320, 30 + 30 * i);
+    }
+    // for (let i = 0; i < 7; i++) {
+    //   context.moveTo(40+40*i, 0);
+    //   context.lineTo(40+40*i, 240);
+    // }
+    context.setFontSize(14);
+    for(let i=0; i<this.data.canvasData[0].length; i++){
+      let len = this.data.canvasData[0][i].length;
+      let lenNext = 0;
+      if (i == this.data.canvasData[0].length-1){
+
+      } else {
+        lenNext = this.data.canvasData[0][i+1].length;
+      }
+      context.fillText(this.data.canvasData[0][i], 2 + ((len + 4) * 5 + lenNext * i * 5)*i, 20);
+      context.moveTo((len+2)*10 + lenNext * i*10, 0);
+      context.lineTo((len + 4)*5 + lenNext * i*5, 240);
+    }
     context.stroke()
     context.draw(true,function(){
       wx.canvasToTempFilePath({
@@ -53,6 +70,7 @@ Page({
           })
         }
       })
+      
     })
   },
   canvasIdErrorCallback: function (e) {

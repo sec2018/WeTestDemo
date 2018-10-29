@@ -1,6 +1,6 @@
 <!--pages/canvas/canvas.wxml-->
 
 <view>
-<canvas style="width: 400px; height: 500px;" canvas-id="secondCanvas" binderror="canvasIdErrorCallback"></canvas>
+<canvas style="width: 100vh; height: 500px;" canvas-id="secondCanvas" binderror="canvasIdErrorCallback"></canvas>
 <image style='width:200rpx;height:300rpx;' src='{{srcUrl}}'></image>
 </view>
