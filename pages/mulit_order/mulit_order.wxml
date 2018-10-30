@@ -1,0 +1,28 @@
+<!--pages/mulit_order/mulit_order.wxml-->
+<view>
+  <view class='order-header'>
+    <view class='order-cicle'>寄</view>
+    <view class='order-h-con'>
+      <view>{{sendAddress.uname}}
+        <text>{{sendAddress.tel}}</text>
+      </view>
+      <view class='order-h-conb' bindtap='toAddAddressList'>{{sendAddress.pro_city + sendAddress.detail_addr}}</view>
+    </view>
+    <view class='order-h-btn' bindtap='toAddressList'>地址簿</view>
+  </view>
+  <view class='list-ul'>
+    <view class='list-li'>
+      <view class='list-li-con'>列表</view>
+      <view class='list-li-btn'>详情</view>
+    </view>
+  </view>
+  <view class='order-add-btn' bindtap='openDialogHandle'>+</view>
+  <view class='order-create-btn'>下单</view>
+  <view class='order-dialog-bg' hidden='{{closeDialog}}'>
+  </view>
+  <view class='order-dialog' hidden='{{closeDialog}}'>
+    <view class='order-dialog-close' bindtap='closeDialogHandle'>X</view>
+    <component-custom-order prop-dialog='{{closeDialog}}' bindsaveOrderHandle='saveOrderAjax'></component-custom-order>
+  </view>
+
+</view>

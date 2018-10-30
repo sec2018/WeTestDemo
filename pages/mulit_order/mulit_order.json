@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "component-custom-order": "../../components/custom_order/custom_order"
+  }
+}
