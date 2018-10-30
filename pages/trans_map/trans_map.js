@@ -84,6 +84,18 @@ Page({
         url: '../usercenter/usercenter'
       })
     }
+    if(id==1){
+      let _this = this;
+      wx.getLocation({
+        success: function (res) {
+          _this.setData({
+            longitude: res.longitude,
+            latitude: res.latitude,
+          })
+        }
+      });
+      _this.getMarkerList();
+    }
   },
   getMarkerList: function(){
     let _this =this;
