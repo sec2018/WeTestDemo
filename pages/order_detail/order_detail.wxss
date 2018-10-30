@@ -46,3 +46,24 @@
   color:#c1975b;
   font-size: 30rpx;
 }
+.order-ul {
+  font-size: 26rpx;
+  padding: 20rpx 30rpx 0;
+}
+.order-li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.order-text {
+  width: 150rpx;
+}
+
+.order-inpt {
+  width: 460rpx;
+  height: 58rpx;
+  padding: 0 30rpx;
+  line-height: 58rpx;
+  border: 1rpx solid #f1f1f1;
+  border-radius: 4rpx;
+}

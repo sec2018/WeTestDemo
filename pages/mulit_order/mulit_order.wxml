@@ -17,7 +17,7 @@
     </view>
   </view>
   <view class='order-add-btn' bindtap='openDialogHandle'>+</view>
-  <view class='order-create-btn'>下单</view>
+  <view class='order-create-btn'>批量下单</view>
   <view class='order-dialog-bg' hidden='{{closeDialog}}'>
   </view>
   <view class='order-dialog' hidden='{{closeDialog}}'>

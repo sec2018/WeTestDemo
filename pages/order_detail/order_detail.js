@@ -7,7 +7,8 @@ Page({
    */
   data: {
     detail:{},
-    roleid: ''
+    roleid: '',
+    company_code:''
   },
 
   /**
@@ -126,7 +127,8 @@ Page({
   finishBill() {
     let _this = this;
     let dataParam = {
-      id: _this.data.detail.id
+      id: _this.data.detail.id,
+      company_code: _this.data.company_code
     }
     utils.wxResquest({
       url: '/transport/api/finishbill',
@@ -182,5 +184,10 @@ Page({
       + (d.getHours() >= 10 ? d.getHours() : "0" + d.getHours()) + ":" + (d.getMinutes() >= 10 ? d.getMinutes() : "0" + d.getMinutes()) + ":" + (d.getSeconds() >= 10 ? d.getSeconds() : "0" + d.getSeconds());
     // let _time =  time.replace('+0000', 'Z');
     return _time;
+  },
+  bindCompanyCodeInput: function (e) {
+    this.setData({
+      'company_code': e.detail.value
+    });
   }
 })
