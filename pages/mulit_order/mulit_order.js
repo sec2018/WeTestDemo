@@ -137,7 +137,25 @@ Page({
       sender_tel: _this.data.sendAddress.tel,
     })
     if(param.id){//修改事件
+      //调用保存按钮，保存成功后，将closeDialog设置为true
+      
+      util.wxResquest({
+        url: '/transport/api/senderupdatebill',
+        method: 'POST',
+        data: param
+      }, function (res) {
+        if (res.data.success) {
+          wx.showToast({
+            title: '保存成功',
+            duration: 2000
+          });
+          _this.setData({
+            closeDialog: true
+          });
+          _this.getOrderList();
+        }
 
+      })
     } else {
       //调用保存按钮，保存成功后，将closeDialog设置为true
       util.wxResquest({
@@ -185,7 +203,43 @@ Page({
   //删除事件
   deteleOrder(e){
     let index = e.currentTarget.dataset.index;
-    let id = this.orderList[index].id;
-    
+    let _id = this.data.orderList[index].id;
+    let _orderList = this.data.orderList;
+    console.log(_id);
+    let _this = this;
+    let dataParam = {
+      'id': _id
+    }
+    util.wxResquest({
+      url: '/transport/api/deletesenderbill',
+      method: 'POST',
+      data: dataParam
+    }, function (res) {
+      if (res.data.success) {
+        //orderList设置为去除该条目剩下的部分
+        _this.setData({
+          orderList: _orderList.splice(index,1)
+        })
+      }
+    })
+  },
+   //合并下单
+  batchOrder(){
+    let _this = this;
+    util.wxResquest({
+      url: '/transport/api/savebatchbills',
+      method: 'POST',
+      data: ''
+    }, function (res) {
+      if (res.data.success) {
+        wx.showToast({
+          title: '下单成功',
+          duration: 2000
+        });
+        _this.setData({
+          orderList: []
+        })
+      }
+    })
   }
 })
