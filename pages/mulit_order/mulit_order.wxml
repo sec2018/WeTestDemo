@@ -11,9 +11,20 @@
     <view class='order-h-btn' bindtap='toAddressList'>地址簿</view>
   </view>
   <view class='list-ul'>
-    <view class='list-li'>
-      <view class='list-li-con'>列表</view>
-      <view class='list-li-btn'>详情</view>
+    <view class='list-li' wx:for="{{orderList}}" wx:key="{{item.id}}">
+      <view class='list-li-con' data-index="{{index}}" bindtap='toDetailUrl'>
+        <view class='list-li-revuser'>
+          <view class='list-li-rev-item'>{{item.rec_name}}</view>
+          <view class='list-li-rev-item'>{{item.rec_tel}}</view>
+          <view>{{item.rec_procity}}</view>
+        </view>
+        <view class='list-li-revuser'>
+          <view class='list-li-rev-item'>{{item.goodsname}}</view>
+          <view class='list-li-rev-item'>{{item.goodsnum}}件</view>
+          <view>{{item.price}}元</view>
+        </view>
+      </view>
+      <view class='list-li-btn' data-index="{{index}}" bindtap='deteleOrder'>删除</view>
     </view>
   </view>
   <view class='order-add-btn' bindtap='openDialogHandle'>+</view>

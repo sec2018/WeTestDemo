@@ -13,7 +13,8 @@ Page({
       pro_city: '',
       detail_addr: ''
     },
-    closeDialog: true
+    closeDialog: true,
+    orderList:[]
   },
 
   /**
@@ -34,6 +35,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    this.getOrderList();
     if (app.globalData.address) {
       this.setData({
         sendAddress: app.globalData.address
@@ -93,11 +95,13 @@ Page({
     }
   },
   openDialogHandle() {
+    wx.setStorageSync('mulit_orderdetail', '');   
     this.setData({
       closeDialog: false
-    })
+    });
   },
   closeDialogHandle() {
+    wx.setStorageSync('mulit_orderdetail', ''); 
     this.setData({
       closeDialog: true
     })
@@ -132,26 +136,56 @@ Page({
       sender_detailarea: _this.data.sendAddress.detail_addr,
       sender_tel: _this.data.sendAddress.tel,
     })
-    console.log(param)
-    //调用保存按钮，保存成功后，将closeDialog设置为false
+    if(param.id){//修改事件
+
+    } else {
+      //调用保存按钮，保存成功后，将closeDialog设置为true
+      util.wxResquest({
+        url: '/transport/api/createbill',
+        method: 'POST',
+        data: param
+      }, function (res) {
+        if (res.data.success) {
+          wx.showToast({
+            title: '保存成功',
+            duration: 2000
+          });
+          _this.setData({
+            closeDialog: true
+          });
+          _this.getOrderList();
+        }
+
+      })
+    }
+    
+  },
+  //获取订单列表
+  getOrderList(){
+    let _this = this;
     util.wxResquest({
-      url: '/transport/api/createbill',
-      method: 'POST',
-      data: param
+      url: '/transport/api/getbatchbill',
+      method: 'GET',
+      data: ''
     }, function (res) {
       if (res.data.success) {
-        wx.showToast({
-          title: '保存成功',
-          duration: 2000
-        });
-        setTimeout(function () {
-          wx.hideToast();
-          wx.navigateBack({
-            delta: '1'
-          })
-        }, 2000)
+        _this.setData({
+          orderList: res.data.data
+        })
       }
-
     })
+  },
+  toDetailUrl(e){
+    let index = e.currentTarget.dataset.index;
+    wx.setStorageSync('mulit_orderdetail', JSON.stringify(this.data.orderList[index]));
+    this.setData({
+      closeDialog: false
+    })
+  },
+  //删除事件
+  deteleOrder(e){
+    let index = e.currentTarget.dataset.index;
+    let id = this.orderList[index].id;
+    
   }
 })

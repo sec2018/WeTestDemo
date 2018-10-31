@@ -43,13 +43,23 @@
   padding:10rpx 30rpx;
   border-bottom:1px solid #ececec;
 }
+
 .list-li-con{
-  width:600rpx;
+  width:580rpx;
+  margin-right:20rpx;
+  font-size: 28rpx;
+}
+.list-li-revuser{
+  display:flex;
+}
+.list-li-rev-item{
+  margin-right:20rpx;
 }
 .list-li-btn{
   width:90rpx;
   font-size: 28rpx;
   text-align: center;
+  line-height: 80rpx;
 }
 .order-add-btn{
   width:600rpx;

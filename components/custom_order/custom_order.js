@@ -1,6 +1,7 @@
 // components/custom_order/custom_order.js
 const app = getApp();
-const util = require('../../utils/util.js')
+const util = require('../../utils/util.js');
+let shopData = {};
 Component({
   /**
    * 组件的属性列表
@@ -13,7 +14,58 @@ Component({
         if(val){ //弹窗被关闭
 
         } else { //弹窗被打开
-
+          let orderDetail = wx.getStorageSync('mulit_orderdetail'); 
+          console.log(orderDetail)
+          if (orderDetail){
+            orderDetail = JSON.parse(orderDetail);
+            let company_id = orderDetail.company_id;
+            let company_index = 0;
+            for(let i=0; i<this.data.logisticsList.length; i++){
+              if (this.data.logisticsList[i].companyId == company_id){
+                company_index = i;
+                break;
+              }
+            }
+            
+            this.setData({
+              order: {
+                id: orderDetail.id,
+                company_code: orderDetail.company_code,
+                goodsname: orderDetail.goodsname,
+                goodsnum: orderDetail.goodsnum,
+                billinfo: orderDetail.billinfo,
+                price: orderDetail.price
+              },
+              receiveAddress: {
+                uname: orderDetail.rec_name,
+                tel: orderDetail.rec_tel,
+                pro_city: orderDetail.rec_procity,
+                detail_addr: orderDetail.rec_detailarea
+              },
+              shopname: orderDetail.shop_name,
+              shopid: orderDetail.shop_id,
+              logisticsIndex: company_index
+            })
+            console.log(this.data.logisticsIndex, '    ' + company_index, company_id)
+          } else {
+            this.setData({
+              order: {
+                company_code: '',
+                goodsname: '',
+                goodsnum: '',
+                billinfo: '',
+                price: 0
+              },
+              receiveAddress: {
+                uname: '',
+                tel: '',
+                pro_city: '',
+                detail_addr: ''
+              },
+              shopname: shopData.shopName,
+              shopid: shopData.shopId
+            })
+          }
         }
       }
     }
@@ -95,6 +147,9 @@ Component({
         rec_detailarea: _this.data.receiveAddress.detail_addr,
         price: _this.data.order.price
       }
+      if(_this.data.order.id){
+        param.id = _this.data.order.id;
+      }
       this.triggerEvent('saveOrderHandle', param)
     },
     //下单接口
@@ -169,7 +224,7 @@ Component({
         data: ''
       }, function (res) {
         let data = res.data.data;
-        console.log(data);
+        shopData = data;
         _this.setData({
           shopname: data.shopName,
           shopid: data.shopId
