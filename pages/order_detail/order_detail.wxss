@@ -48,7 +48,7 @@
 }
 .order-ul {
   font-size: 26rpx;
-  padding: 20rpx 30rpx 0;
+  padding: 20rpx 0 0;
 }
 .order-li {
   display: flex;
@@ -57,6 +57,8 @@
 }
 .order-text {
   width: 150rpx;
+  padding-right:10rpx;
+  text-align: right;
 }
 
 .order-inpt {

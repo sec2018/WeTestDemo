@@ -242,6 +242,7 @@ Component({
       const _this = this;
       console.log(flag)
       if (flag == 'receive') { //填写收件地址，不保存在地址列表中
+        
         wx.navigateTo({
           url: '../add_address/add_address?flag=receive',
         })
@@ -257,6 +258,7 @@ Component({
       const _this = this;
       console.log(flag)
       if (flag == 'receive') { //填写收件地址，不保存在地址列表中
+        app.globalData.receiveAddress = _this.data.receiveAddress;
         wx.navigateTo({
           url: '../address/address?id=add&flag=receive',
         })

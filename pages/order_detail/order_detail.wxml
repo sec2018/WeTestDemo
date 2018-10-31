@@ -25,11 +25,11 @@
     <view class='list-li-one'>
       <view class='list-li'>
           <view class='list-li-left'>承运员：</view>
-          <view class='list-li-right'>{{detail.trans_name}}</view>
+          <view class='list-li-right'>{{detail.trans_name || '（暂未接单）'}}</view>
         </view>
       <view class='list-li'>
         <view class='list-li-left'>运单号：</view>
-        <view class='list-li-right'>{{detail.company_code || ''}}</view>
+        <view class='list-li-right'>{{detail.company_code || '（等待物流公司确认）'}}</view>
       </view>
       <view class='list-li'>
         <view class='list-li-left'>托运号：</view>

@@ -204,7 +204,6 @@ Page({
   deteleOrder(e){
     let index = e.currentTarget.dataset.index;
     let _id = this.data.orderList[index].id;
-    let _orderList = this.data.orderList;
     console.log(_id);
     let _this = this;
     let dataParam = {
@@ -217,9 +216,12 @@ Page({
     }, function (res) {
       if (res.data.success) {
         //orderList设置为去除该条目剩下的部分
-        _this.setData({
-          orderList: _orderList.splice(index,1)
-        })
+        // let _orderList = _this.data.orderList.splice(index, 1)
+        wx.showToast({
+          title: '删除成功',
+          duration: 2000
+        });
+        _this.getOrderList();
       }
     })
   },
