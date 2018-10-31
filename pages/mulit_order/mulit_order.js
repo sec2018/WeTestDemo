@@ -124,6 +124,7 @@ Page({
   saveOrderAjax(e) {
     let _this = this;
     let data = e.detail;
+    data.batch_code = "1";
     //加上寄件人地址
     let param = Object.assign({}, data, {
       sender_name: _this.data.sendAddress.uname,
@@ -133,6 +134,24 @@ Page({
     })
     console.log(param)
     //调用保存按钮，保存成功后，将closeDialog设置为false
-    
+    util.wxResquest({
+      url: '/transport/api/createbill',
+      method: 'POST',
+      data: param
+    }, function (res) {
+      if (res.data.success) {
+        wx.showToast({
+          title: '保存成功',
+          duration: 2000
+        });
+        setTimeout(function () {
+          wx.hideToast();
+          wx.navigateBack({
+            delta: '1'
+          })
+        }, 2000)
+      }
+
+    })
   }
 })
