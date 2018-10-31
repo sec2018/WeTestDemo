@@ -19,10 +19,6 @@
   <view class='order-h1'>承运单信息</view>
   <view class='order-ul'>
     <view class='order-li'>
-      <text class='order-text'>运单号：</text>
-      <input class='order-inpt' value='{{order.company_code}}' bindinput="bindCompanyCodeInput"></input>
-    </view>
-    <view class='order-li'>
       <text class='order-text'>商铺名称：</text>
       <input class='order-inpt' value='{{shopname}}'></input>
     </view>

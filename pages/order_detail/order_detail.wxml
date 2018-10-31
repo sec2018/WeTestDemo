@@ -80,10 +80,16 @@
       <view class='list-li-left'>当前状态：</view>
       <view class='status1'>{{order.statusFun(detail.bill_status)}}</view>
     </view>
+    <view wx:if='{{roleid == "4" && detail.bill_status == 3}}' class='order-ul'>
+      <view class='order-li'>
+        <text class='order-text'>运单号：</text>
+        <input class='order-inpt' value='{{company_code}}' bindinput="bindCompanyCodeInput"></input>
+      </view>
+    </view>
     <view wx:if='{{roleid == "3" && detail.bill_status == 1}}' class='header-h1' bindtap='receiveBill'>接单</view>
     <view wx:if='{{roleid == "2" && detail.bill_status == 2}}' class='header-h1' bindtap='payBill'>支付</view>
     <view wx:if='{{roleid == "4" && detail.bill_status == 3}}' class='header-h1' bindtap='finishBill'>确认完成</view>
-    <view wx:if='{{roleid == "4" && detail.bill_status == 4}}' class='header-h1' bindtap='createinvoice'>查看运单1</view>
+    <!-- <view wx:if='{{roleid == "4" && detail.bill_status == 4}}' class='header-h1' bindtap='createinvoice'>查看运单1</view> -->
     <view wx:if='{{detail.bill_status == 4}}' class='header-h1' bindtap='seeinvoice'>查看运单</view>
     </view>
 </view>

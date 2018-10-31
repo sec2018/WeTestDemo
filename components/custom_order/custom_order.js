@@ -78,7 +78,7 @@ Component({
       let _this = this;
       let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
       let param = {
-        company_code: _this.data.order.company_code,
+        company_code: '',
         goodsname: _this.data.order.goodsname,
         goodsnum: _this.data.order.goodsnum,
         shop_id: _this.data.shopid,
@@ -217,11 +217,11 @@ Component({
         'order.goodsname': e.detail.value
       });
     },
-    bindCompanyCodeInput: function (e) {
-      this.setData({
-        'order.company_code': e.detail.value
-      });
-    },
+    // bindCompanyCodeInput: function (e) {
+    //   this.setData({
+    //     'order.company_code': e.detail.value
+    //   });
+    // },
     bindNumInput: function (e) {
       this.setData({
         'order.goodsnum': e.detail.value,
