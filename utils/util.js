@@ -84,7 +84,10 @@ function wxResquest(resquestParam, successCb, failedCb) {
           showCancel: false,
           success: function (res) {
             if (res.confirm) {
-              wxResquest(resquestParam, successCb, failedCb)
+              // wxResquest(resquestParam, successCb, failedCb)
+              wx.navigateTo({
+                url: '../login/login',
+              })
             } else if (res.cancel) {
               console.log('用户点击取消')
             }
@@ -114,10 +117,25 @@ function wxResquest(resquestParam, successCb, failedCb) {
               duration: 2000
             })
           } else {
-            wx.showToast({
-              title: '发生未知错误，请联系管理人员',
-              icon: 'none',
-              duration: 2000
+            // wx.showToast({
+            //   title: '发生未知错误，请联系管理人员',
+            //   icon: 'none',
+            //   duration: 2000
+            // })
+            wx.showModal({
+              title: '',
+              content: '当前登陆失效，请重新登录',
+              showCancel: false,
+              success: function (res) {
+                if (res.confirm) {
+                  // loginByWxchat();
+                  wx.navigateTo({
+                    url: '../login/login',
+                  })
+                } else if (res.cancel) {
+                  console.log('用户点击取消')
+                }
+              }
             })
           }
         }
@@ -125,7 +143,7 @@ function wxResquest(resquestParam, successCb, failedCb) {
     },
     fail: function (res) {
       console.log(res)
-      wx.hideLoading()
+      wx.hideLoading();
       wx.showToast({
         title: '网络错误',
         icon: 'none',

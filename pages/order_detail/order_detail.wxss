@@ -41,6 +41,7 @@
 }
 .list-li-right{
   max-width:510rpx;
+  word-break: break-all;
 }
 .status1{
   color:#c1975b;

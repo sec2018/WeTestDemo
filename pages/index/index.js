@@ -4,9 +4,22 @@ const app = getApp()
 const utils = require('../../utils/util.js');
 Page({
   data: {
-    roleid: '2'
+    roleid: '2',
+    isWxChatHid: true,
   },
   onLoad: function () {
+    if (app.globalData.sdkVersion == -1){
+      this.setData({
+        isWxChatHid: false
+      });
+      wx.hideTabBar();
+      return;
+    } else {
+      this.setData({
+        isWxChatHid: true
+      });
+      wx.showTabBar();
+    }
     if (!wx.getStorageSync("token")) {
       utils.loginByWxchat()
     }

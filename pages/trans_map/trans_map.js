@@ -9,7 +9,6 @@ var mapShowGlo = false;
  */
 Page({
   data: {
-    isWxChatHid: true,
     longitude: '',
     latitude: '',
     scale: 17,

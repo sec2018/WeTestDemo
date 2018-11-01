@@ -124,8 +124,6 @@ Page({
       _this.setData({
         list: data
       });
-    },function(res){
-      wx.hideLoading();
     })
   },
   getFinishedList:function(){
@@ -143,8 +141,6 @@ Page({
       _this.setData({
         list: data
       });
-    },function(){
-      wx.hideLoading();
     })
   },
   searchByrecname:function(e){
@@ -162,5 +158,8 @@ Page({
     _this.setData({
       list: reslist
     });
+  },
+  getListMore(){
+    console.log('more')
   }
 })
