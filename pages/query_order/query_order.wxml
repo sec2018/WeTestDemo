@@ -2,28 +2,38 @@
 <view>
   <wxs src="../../components/order.wxs" module="order"></wxs>
   <view class='header'>
-    <input class='header-inp' placeholder='请输入收件人姓名' value="{{searchrecname}}" bindblur='recinput'></input><text class='header-btn' bindtap='searchByrecname'>查询</text>
+    <input class='header-inp' placeholder='请输入收件人姓名' value="{{searchrecname}}" bindblur='recinput'></input>
+    <text class='header-btn' bindtap='searchByrecname'>查询</text>
   </view>
   <view class='query-btn border-bottom'>
     <view class='query-btn-item border-right {{tabIndex == 1 ? "btn-item-active" : ""}}' data-id='1' bindtap='tabClick'>未完成运单</view>
     <view class='query-btn-item {{tabIndex == 2 ? "btn-item-active" : ""}}' data-id='2' bindtap='tabClick'>已完成运单</view>
   </view>
-  <view class='list-ul'>
-    <view class='list-li'>
-      <scroll-view wx:if='{{list.length > 0}}' scroll-y style='height:80vh' bindscrolltolower='getListMore'>
-        <view class='list-ul'>
-          <view class='list-li' wx:for='{{list}}' wx:key='{{item.id}}'>
-            <view bindtap='goToDetail' data-id='{{index}}'>
-              <view>寄件人：{{item.sender_name + '   ' + item.goodsname + '   数量：' + item.goodsnum +'   总价：'+item.price}}</view>
-              <view class='list-info'><text class='list-info-text'>收件人：{{item.rec_name + '   ' + item.company_name}}</text><text>{{order.statusFun(item.bill_status)}}</text></view>
+  <view class='query-con'>
+    <scroll-view wx:if='{{list.length > 0}}' scroll-y style='height:75vh' bindscrolltolower='getListMore'>
+      <view class='list-ul'>
+        <view class='list-li' wx:for='{{list}}' wx:key='{{item.id}}'>
+          <view bindtap='goToDetail' data-id='{{index}}'>
+            <view class='list-li-tit'>
+              <view>{{item.shop_name}}</view>
+              <view class='c-a1c879'>{{order.statusFun(item.bill_status)}}</view>
             </view>
+            <view class='list-li-goods'>
+              <view>寄件人：{{item.sender_name}}</view>
+              <view>收件人：{{item.rec_name}}</view>
+            </view>
+            <view class='list-li-goods'>
+              <view>{{item.goodsname}}</view>
+              <view>{{item.company_name}}</view>
+            </view>
+            <view class='text-right'>共 <text class='c-c1975b f18'>{{item.goodsnum}}</text> 件商品，合计 <text class='c-c1975b f18'>{{item.price}}</text> 元</view>
           </view>
         </view>
-      </scroll-view>
-      <view wx:else class="no-data">
-        <image class='no-data-img' src="../../images/noorder.png"></image>
-        <view class='no-data-text'>暂无数据</view>
       </view>
+    </scroll-view>
+    <view wx:else class="no-data">
+      <image class='no-data-img' src="../../images/noorder.png"></image>
+      <view class='no-data-text'>暂无数据</view>
     </view>
   </view>
 </view>

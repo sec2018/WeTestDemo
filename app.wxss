@@ -7,3 +7,15 @@
   justify-content: space-between;
   box-sizing: border-box;
 } 
+.c-a1c879{
+  color:#A1C879;
+}
+.c-c1975b{
+  color:#c1975b;
+}
+.f18{
+  font-size:36rpx;
+}
+.text-right{
+  text-align:right;
+}

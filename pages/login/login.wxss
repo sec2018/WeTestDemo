@@ -5,12 +5,14 @@
 }
 .radio{
   display: block;
-  margin:10rpx auto;
+  margin:20rpx auto;
   width:215rpx;
+  font-size: 28rpx;
 }
 .loginbtn{
   margin-top:70rpx;
   color:#fff;
+  font-size: 30rpx;
   background: #c1975b;
 }
 .login-info{

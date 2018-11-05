@@ -7,7 +7,8 @@ Page({
   data: {
     isLogin:true,
     userInfo: '',
-    role: '商家'
+    role: '商家',
+    phone: '62678989'
   },
 
   /**
@@ -55,34 +56,6 @@ Page({
   onHide: function () {
 
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
   changeRole:function(){
     let _this = this;
     wx.showActionSheet({
@@ -118,11 +91,12 @@ Page({
     })
   },
   loginout: function () {
-    // wx.setStorageSync('userInfo', null);
-    // wx.setStorageSync('token',null);
-    // wx.setStorageSync('roleid', -1);
-    // console.log(wx.getStorageSync('userInfo'));
-
     wx.clearStorageSync();
+  },
+  callPhone(){
+    let _this = this;
+    wx.makePhoneCall({
+      phoneNumber: _this.data.phone //仅为示例，并非真实的电话号码
+    })
   }
 })

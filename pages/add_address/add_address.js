@@ -122,8 +122,35 @@ Page({
    
   },
   //设置默认地址
-  radioChange: function(e){
-    console.log(e.detail.value)
+  setDefaultAddre: function(e){
+    const index = e.currentTarget.dataset.index;
+    const listData = this.data.list[index];
+    let _this = this;
+    if(listData.isdefault == 1){
+      return;
+    }
+    util.wxResquest({
+      url: '/transport/api/updateaddr',
+      data: {
+        'id': listData.id,
+        'uname': listData.uname,
+        'tel': listData.tel,
+        'pro_city': listData.pro_city,
+        'detail_addr': listData.detail_addr,
+        'isdefault': 1
+      },
+      method: 'POST',
+    }, function (res) {
+      let newList = [];
+      for(let item of _this.data.list){
+        item.isdefault = 0;
+        newList.push(item);
+      }
+      newList[index].isdefault = 1;
+      _this.setData({
+        list: newList
+      })
+    })
   },
   getAddressList: function(){
     let _this =this;

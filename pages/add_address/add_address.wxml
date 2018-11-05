@@ -13,7 +13,7 @@
         </view>
         <view class='list-btn'>
           <view class='list-btn-left'>
-            <view class='list-btn-sty'>
+            <view class='list-btn-sty' data-index='{{index}}' bindtap='setDefaultAddre'>
               <image wx:if='{{item.isdefault == 0}}' src='../../images/check.png'></image>
               <image wx:else src='../../images/checked.png'></image>
               <text>设置为默认地址</text>

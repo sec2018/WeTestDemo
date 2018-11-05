@@ -11,7 +11,6 @@ Page({
   data: {
     searchrecname:'',
     list: [],
-    fromOrder: false,
     tabIndex:1
   },
 
@@ -19,15 +18,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (options.flag == 'receive') {
-      this.setData({
-        fromOrder: 'receive'
-      })
-    } else if (options.flag == 'send') {
-      this.setData({
-        fromOrder: 'send'
-      })
-    }
+    
   },
 
   /**

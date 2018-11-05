@@ -12,3 +12,11 @@ image{
   /* transform: rotate(-90deg);
   transform-origin:center center; */
 }
+.invoice-btn{
+  position: fixed;
+  bottom:20rpx;
+  left:30rpx;
+  padding:20rpx;
+  background: #c1975b;
+  color:#fff;
+}

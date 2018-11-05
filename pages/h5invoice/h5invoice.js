@@ -112,5 +112,7 @@ Page({
       // var base64 = wx.arrayBufferToBase64(array);
       // _this.setData({ QrCodeUrl: "data:image/png;base64," + base64 });
     })
-  }
+  },
+
+
 })

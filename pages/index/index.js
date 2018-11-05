@@ -37,6 +37,11 @@ Page({
     this.setData({
       roleid:roleid
     })
+  },
+  toMulitOrder(){
+    wx.navigateTo({
+      url: '../mulit_order/mulit_order',
+    })
   }
 })
  
