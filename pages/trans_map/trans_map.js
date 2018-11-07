@@ -53,14 +53,16 @@ Page({
   onShow(){
     let _this =this;
     wx.getLocation({
+      type: 'gcj02',
       success: function(res){
         _this.setData({
           longitude: res.longitude,
           latitude: res.latitude,
         })
+        _this.getMarkerList();
       }
     });
-    _this.getMarkerList();
+    // _this.getMarkerList();
   },
   regionchange(e) {
     console.log(e.type);
@@ -86,21 +88,28 @@ Page({
     if(id==1){
       let _this = this;
       wx.getLocation({
+        type: 'gcj02',
         success: function (res) {
           _this.setData({
             longitude: res.longitude,
             latitude: res.latitude,
           })
+          _this.getMarkerList();
         }
       });
-      _this.getMarkerList();
+      // _this.getMarkerList();
     }
   },
   getMarkerList: function(){
     let _this =this;
+    let param = {
+      lng: _this.data.longitude,
+      lat: _this.data.latitude
+    }
     utils.wxResquest({
-      url: '/transport/api/getallunbills',
-      data: '',
+      // url: '/transport/api/getallunbills',   //全部未接订单
+      url: '/transport/api/get2unbills',   //2公里未接订单
+      data: param,
       method: 'GET'
     }, function (result) {
       let data = result.data.data;

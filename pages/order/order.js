@@ -45,7 +45,8 @@ Page({
     this.getShopInfo();
     var that = this;
     wx.getLocation({
-      type: 'wgs84',
+      // type: 'wgs84',
+      type: 'gcj02',
       success: function (res) {
         console.log(res)
         var latitude = res.latitude
