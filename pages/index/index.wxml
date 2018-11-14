@@ -10,7 +10,7 @@
   </view>
   <view class='con-btn'>
     <view class='con-btncon' wx:if='{{roleid == "2"}}'>大件</view>
-    <view class='con-btncon'><navigator url='../canvas/canvas'>其他</navigator></view>
+    <view class='con-btncon' bindtap='otherToast'>其他</view>
   </view>
   <!--微信版本过低提示的页面  -->
     <cover-view class="reservation-list" hidden="{{isWxChatHid}}">
