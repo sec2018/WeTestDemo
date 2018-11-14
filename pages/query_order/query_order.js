@@ -11,7 +11,11 @@ Page({
   data: {
     searchrecname:'',
     list: [],
-    tabIndex:1
+    tabIndex:1,
+    pageIndex:1,
+    pageSize:4,
+    total:0,
+    initData:true
   },
 
   /**
@@ -32,11 +36,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if(this.data.tabIndex ==1){
-      this.getUnfinishedList();
-    } else {
-      this.getFinishedList();
-    }
+    this.getData();
     
   },
 
@@ -91,14 +91,103 @@ Page({
   },
   tabClick: function(e){
     let id = e.currentTarget.dataset.id;
+    let _this =this;
     this.setData({
-      tabIndex: id
+      tabIndex: id,
+      list: [],
+      total: 0,
+      pageIndex: 1,
+      initData: true
+    }, function(){
+      _this.getData();
     });
-    if(id==1){
-      this.getUnfinishedList();
-    } else {
-      this.getFinishedList();
+    
+  },
+  getData: function(){
+    let _this = this;
+    if (!_this.data.initData && _this.data.list.length == _this.data.total) {
+      return;
     }
+    if (!this.data.searchrecname){
+      this.getBillList();
+    } else {
+      this.getQueryBillList();
+    }
+  },
+  clickQueryBtn: function(){
+    let _this = this;
+    this.setData({
+      list: [],
+      total: 0,
+      pageIndex: 1,
+      initData: true
+    }, function () {
+      _this.getData();
+    });
+  },
+  //获取订单列表
+  getBillList: function(){
+    let _this = this;
+    
+    wx.showLoading({
+      title: '加载中',
+    });
+    util.wxResquest({
+      url: '/transport/api/getusertabbill',
+      method: 'GET',
+      data: {
+        startitem: _this.data.pageIndex,
+        pagesize: _this.data.pageSize,
+        isfinishflag: _this.data.tabIndex == 1 ? 0 : 1
+      }
+    }, function (res) {
+      wx.hideLoading();
+      let data = res.data.data;
+      let pageIndex = _this.data.pageIndex + 1;
+      let listData = _this.data.list;
+      let dataLen = data.data.length;
+      for (let i = 0; i < dataLen; i++) {
+        listData.push(data.data[i]);
+      }
+      _this.setData({
+        list: listData,
+        total: data.totalNum,
+        pageIndex: pageIndex,
+        initData: false
+      });
+    })
+  },
+  //根据查询条件获取列表
+  getQueryBillList: function(){
+    let _this = this;
+    wx.showLoading({
+      title: '加载中',
+    });
+    util.wxResquest({
+      url: '/transport/api/getbillbynameortel',
+      method: 'GET',
+      data: {
+        startitem: _this.data.pageIndex,
+        pagesize: _this.data.pageSize,
+        isfinishflag: _this.data.tabIndex == 1 ? 0 : 1,
+        sender_param: _this.data.searchrecname
+      }
+    }, function (res) {
+      wx.hideLoading();
+      let data = res.data.data;
+      let pageIndex = _this.data.pageIndex + 1;
+      let listData = _this.data.list;
+      let dataLen = data.data.length;
+      for (let i = 0; i < dataLen; i++) {
+        listData.push(data.data[i]);
+      }
+      _this.setData({
+        list: listData,
+        total: data.totalNum,
+        pageIndex: pageIndex,
+        initData: false
+      });
+    })
   },
   getUnfinishedList: function () {
     let _this = this;
@@ -151,6 +240,7 @@ Page({
     });
   },
   getListMore(){
-    console.log('more')
+    console.log('more');
+    this.getData();
   }
 })
