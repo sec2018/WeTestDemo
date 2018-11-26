@@ -113,6 +113,10 @@ Page({
       // _this.setData({ QrCodeUrl: "data:image/png;base64," + base64 });
     })
   },
-
+  bluetoothprint: function () {
+    wx.navigateTo({
+      url: '../bluetooth/bluetooth'
+    })
+  }
 
 })
