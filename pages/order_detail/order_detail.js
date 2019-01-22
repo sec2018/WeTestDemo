@@ -8,7 +8,8 @@ Page({
   data: {
     detail:{},
     roleid: '',
-    company_code:''
+    company_code:'',
+    delivery_fee:''
   },
 
   /**
@@ -128,7 +129,8 @@ Page({
     let _this = this;
     let dataParam = {
       id: _this.data.detail.id,
-      company_code: _this.data.company_code
+      company_code: _this.data.company_code,
+      delivery_fee: _this.data.delivery_fee
     }
     utils.wxResquest({
       url: '/transport/api/finishbill',
@@ -178,8 +180,12 @@ Page({
   },
   timeformat(time){
     if(!time){return null}
-    
-    let d = new Date(time.replace('+0000', 'Z'));
+    console.log(time);
+    let d = new Date(time);
+    if((time+"").indexOf('+0000')>0){
+      d = new Date(time.replace('+0000', 'Z'));
+    }
+   
     let _time = d.getFullYear() + "-" + ((d.getMonth() + 1) >= 10 ? (d.getMonth() + 1) : "0" + (d.getMonth() + 1)) + "-" + ((d.getDate() >= 10 ? d.getDate() : "0" + d.getDate())) + " "
       + (d.getHours() >= 10 ? d.getHours() : "0" + d.getHours()) + ":" + (d.getMinutes() >= 10 ? d.getMinutes() : "0" + d.getMinutes()) + ":" + (d.getSeconds() >= 10 ? d.getSeconds() : "0" + d.getSeconds());
     // let _time =  time.replace('+0000', 'Z');
@@ -188,6 +194,11 @@ Page({
   bindCompanyCodeInput: function (e) {
     this.setData({
       'company_code': e.detail.value
+    });
+  },
+  bindDeliveryfeeInput: function (e) {
+    this.setData({
+      'delivery_fee': e.detail.value
     });
   }
 })

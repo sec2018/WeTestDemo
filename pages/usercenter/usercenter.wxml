@@ -18,7 +18,7 @@
       <block wx:elif="{{role == '物流公司'}}">
         <navigator url="../register_info/register_info?flag=update" class="user-li"><view>物流公司信息</view><view>></view></navigator>
       </block>
-      <navigator url="../add_address/add_address" class="user-li"><view>地址薄</view><view>></view></navigator>
+      <navigator url="../add_address/add_address" class="user-li"><view>常用联系人</view><view>></view></navigator>
       <view class="user-li" bindtap="callPhone"><view>客服电话： {{phone}}</view><view>></view></view>
       <navigator url="../about_us/about_us" class="user-li"><view>关于货运小程序</view><view>></view></navigator>
       <view class="user-li" bindtap="changeRole">
