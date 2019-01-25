@@ -19,7 +19,7 @@
   font-size: 28rpx;
 }
 .add-label1{
-  width:180rpx;
+  width:200rpx;
 }
 
 .add-two{
@@ -29,7 +29,7 @@
   border-bottom: 1rpx solid #ccc;
 }
 .add-two1{
-  width:480rpx;
+  width:460rpx;
 }
 .add-input{
   width: 400rpx;

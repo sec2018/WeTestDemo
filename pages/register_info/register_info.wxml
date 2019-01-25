@@ -71,6 +71,12 @@
         <input class='add-input' value='{{company.arrive_tel}}' bindinput='bindArriveTelInput'></input>
       </view>
     </view>
+    <view class='wrapper'>
+      <text class='add-label add-label1'>到站详细地址：</text>
+      <view class='add-two add-two1'>
+        <input class='add-input' value='{{company.arrive_detail_addr}}' bindinput='bindArriveDetailInput'></input>
+      </view>
+    </view>
   </block>
   <view class="add-btn" bindtap='onSave'>保存</view>
 </view>

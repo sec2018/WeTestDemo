@@ -24,7 +24,8 @@ Page({
       service_tel: '',
       begin_addr: '',
       arrive_addr: '',
-      arrive_tel: ''
+      arrive_tel: '',
+      arrive_detail_addr:''
     }
   },
 
@@ -91,6 +92,7 @@ Page({
         || !_this.data.company.service_tel
         || !_this.data.company.begin_addr
         || !_this.data.company.arrive_addr
+        || !_this.data.company.arrive_detail_addr
         || !_this.data.company.arrive_tel) {
         wx.showToast({
           title: '信息填写不完整',
@@ -141,6 +143,7 @@ Page({
       service_tel: this.data.company.service_tel,
       begin_addr: this.data.company.begin_addr,
       arrive_addr: this.data.company.arrive_addr,
+      arrive_detail_addr: this.data.company.arrive_detail_addr,
       arrive_tel: this.data.company.arrive_tel
 
     };
@@ -287,6 +290,15 @@ Page({
             phone: resdata.companyTel,
             region: resdata.companyProcity,
             address: resdata.companyDetailarea
+          },
+          company: {
+            licence_url: resdata.licenceUrl,
+            complain_tel: resdata.complainTel,
+            service_tel: resdata.serviceTel,
+            begin_addr: '',
+            arrive_addr: '',
+            arrive_tel: '',
+            arrive_detail_addr: ''
           }
         })
       }
@@ -359,6 +371,11 @@ Page({
   bindArriveTelInput: function (e) {
     this.setData({
       'company.arrive_tel': e.detail.value
+    });
+  },
+  bindArriveDetailInput: function (e) {
+    this.setData({
+      'company.arrive_detail_addr': e.detail.value
     });
   },
   chooseimg: function(){
