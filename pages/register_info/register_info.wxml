@@ -33,5 +33,44 @@
       <icon type='clear' size='15' id='address-clear' hidden='{{address.address ? false : true}}' bindtap='bindClear'></icon>
     </view>
   </view>
+  <block wx:if="{{roleid == 4}}">
+    <view class='wrapper'>
+      <text class='add-label'>营业执照：</text>
+      <image class="image-plus" bindtap='chooseimg' src='{{imageurl}}'></image>
+    </view>
+    <view class='wrapper'>
+      <text class='add-label'>投诉电话：</text>
+      <view class='add-two'>
+        <input class='add-input' value='{{company.complain_tel}}' bindinput='bindComplainInput'></input>
+        <icon type='clear' size='15' id='complain_tel_clear' hidden='{{company.complain_tel ? false : true}}' bindtap='bindClear'></icon>
+      </view>
+    </view>
+    <view class='wrapper'>
+      <text class='add-label'>客服电话：</text>
+      <view class='add-two'>
+        <input class='add-input' value='{{company.service_tel}}' bindinput='bindServiceInput'></input>
+        <icon type='clear' size='15' id='service_tel_clear' hidden='{{company.service_tel ? false : true}}' bindtap='bindClear'></icon>
+      </view>
+    </view>
+    <view class="default-address-title">默认线路填写</view>
+    <view class='wrapper'>
+      <text class='add-label'>出发地：</text>
+      <view class='add-two'>
+        <input class='add-input' value='{{company.begin_addr}}' bindinput='bindBejinInput'></input>
+      </view>
+    </view>
+    <view class='wrapper'>
+      <text class='add-label'>到站地：</text>
+      <view class='add-two'>
+        <input class='add-input' value='{{company.arrive_addr}}' bindinput='bindArriveInput'></input>
+      </view>
+    </view>
+    <view class='wrapper'>
+      <text class='add-label add-label1'>到站地电话：</text>
+      <view class='add-two add-two1'>
+        <input class='add-input' value='{{company.arrive_tel}}' bindinput='bindArriveTelInput'></input>
+      </view>
+    </view>
+  </block>
   <view class="add-btn" bindtap='onSave'>保存</view>
 </view>

@@ -18,11 +18,18 @@
   line-height: 60rpx;
   font-size: 28rpx;
 }
+.add-label1{
+  width:180rpx;
+}
+
 .add-two{
   display: flex;
   width:510rpx;
   align-items: center;
   border-bottom: 1rpx solid #ccc;
+}
+.add-two1{
+  width:480rpx;
 }
 .add-input{
   width: 400rpx;
@@ -63,4 +70,16 @@
 }
 .switch{
   transform:scale(0.7);
+}
+.image-plus{
+  width: 122rpx;
+  height: 108rpx;
+  color:#ccc;
+}
+.default-address-title{
+  color:#666;
+  font-size:30rpx;
+  padding:16rpx;
+  text-align: center;
+  background:#f2f2f2;
 }

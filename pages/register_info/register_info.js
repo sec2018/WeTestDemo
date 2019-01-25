@@ -1,6 +1,6 @@
 // pages/address/address.js
 const app = getApp();
-const util = require('../../utils/util.js')
+const util = require('../../utils/util.js');
 Page({
 
   /**
@@ -13,10 +13,19 @@ Page({
       phone: '',
       region: '请选择',
     },
+    imageurl: '../../images/image_add.jpg',
     roleid: '2',
     flag: 'add',
     region: ['', '', ''],
-    customItem: '全部'
+    customItem: '全部',
+    company: {
+      licence_url: '',
+      complain_tel: '',
+      service_tel: '',
+      begin_addr: '',
+      arrive_addr: '',
+      arrive_tel: ''
+    }
   },
 
   /**
@@ -62,55 +71,6 @@ Page({
     }
     
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  },
   onSave: function(){
     const _this = this;
     if (!_this.data.address.address
@@ -127,7 +87,45 @@ Page({
     if (this.data.roleid == 2) {
       this.shopAjax()
     } else if (this.data.roleid == 4) {
-      this.companyAjax()
+      if (!_this.data.company.complain_tel
+        || !_this.data.company.service_tel
+        || !_this.data.company.begin_addr
+        || !_this.data.company.arrive_addr
+        || !_this.data.company.arrive_tel) {
+        wx.showToast({
+          title: '信息填写不完整',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      if (_this.data.imageurl == '../../images/image_add.jpg') {
+        wx.showToast({
+          title: '请上传营业执照',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      wx.uploadFile({
+        url: app.globalData.apiRoot + '/transport/api/uploadimage',
+        filePath: _this.data.imageurl,
+        name: 'imagefile',
+        header: {
+          token: wx.getStorageSync('token'),
+          roleid: wx.getStorageSync('roleid')
+        },
+        success(res) {
+          const data = res.data;
+          console.log(JSON.parse(data))
+          // do something
+          _this.setData({
+            'company.licence_url': JSON.parse(data).data
+          })
+          _this.companyAjax()
+        }
+      })
+      
     }
     
   },
@@ -136,7 +134,15 @@ Page({
       companyname: this.data.address.username,
       company_tel: this.data.address.phone,
       company_procity: this.data.address.region,
-      company_detailarea: this.data.address.address
+      company_detailarea: this.data.address.address,
+      licence_url: this.data.company.licence_url,
+      evaluation: 5,
+      complain_tel: this.data.company.complain_tel,
+      service_tel: this.data.company.service_tel,
+      begin_addr: this.data.company.begin_addr,
+      arrive_addr: this.data.company.arrive_addr,
+      arrive_tel: this.data.company.arrive_tel
+
     };
     if (this.data.flag == 'update') {
       dataParam.companyid = this.data.address.id
@@ -304,6 +310,16 @@ Page({
         'address.address': ''
       });
     }
+    if (typ == 'complain_tel_clear'){
+      this.setData({
+        'company.complain_tel': ''
+      })
+    }
+    if (typ == 'service_tel_clear') {
+      this.setData({
+        'company.service_tel': ''
+      })
+    }
   },
   bindNameInput: function(e){
     this.setData({
@@ -319,5 +335,46 @@ Page({
     this.setData({
       'address.address': e.detail.value
     });
+  },
+  bindComplainInput: function (e) {
+    this.setData({
+      'company.complain_tel': e.detail.value
+    });
+  },
+  bindServiceInput: function (e) {
+    this.setData({
+      'company.service_tel': e.detail.value
+    });
+  },
+  bindBejinInput: function (e) {
+    this.setData({
+      'company.begin_addr': e.detail.value
+    });
+  },
+  bindArriveInput: function (e) {
+    this.setData({
+      'company.arrive_addr': e.detail.value
+    });
+  },
+  bindArriveTelInput: function (e) {
+    this.setData({
+      'company.arrive_tel': e.detail.value
+    });
+  },
+  chooseimg: function(){
+    let _this =this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths;
+        _this.setData({
+          imageurl: tempFilePaths[0]
+        })
+        
+      }
+    })
   }
 })

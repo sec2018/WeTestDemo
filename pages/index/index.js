@@ -26,7 +26,7 @@ Page({
   },
   onShow: function(){
     // wx.navigateTo({
-    //   url: '../mulit_order/mulit_order',
+    //   url: '../register_info/register_info?id=4',
     // })
     let roleid = wx.getStorageSync('roleid');
     if(!roleid){

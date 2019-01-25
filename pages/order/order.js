@@ -11,6 +11,12 @@ Page({
     shopid: 0,
     logisticsList: ['顺丰','申通','圆通'],
     logisticsIndex: 0,
+    popShow:false,
+    popList:[],
+    popListItem:[],
+    popListIndex:-1,
+    popListIndexLin: -1,
+    popListItemIndex: -1,
     order:{
       company_code: '',
       goodsname: '',
@@ -190,14 +196,31 @@ Page({
   getLogisticsList: function(){
     let _this = this;
     util.wxResquest({
-      url: '/transport/api/getcompanies',
+      url: '/transport/api/getalllines',
       method: 'GET',
       data: ''
     }, function (res) {
       let data = res.data.data;
+      console.log(data)
+      
       if (data.length > 0) {
+        let dataL = data.length;
+        let arrTwo = [];
+        for (let i = 0; i < dataL; i++) {
+          arrTwo[i] = [];
+          arrTwo[i].push(data[i].key);
+          let itemarr = [];
+          for (let item in data[i].valuemap) {
+            console.log(data[i].valuemap[item])
+            itemarr.push({
+              key: item,
+              value: data[i].valuemap[item]
+            });
+          }
+          arrTwo[i].push(itemarr);
+        }
         _this.setData({
-          logisticsList: data
+          popList: arrTwo
         });
       }
 
@@ -270,5 +293,31 @@ Page({
     this.setData({
       'order.billinfo': e.detail.value
     });
+  },
+  handlePop: function(e){
+    const index = e.currentTarget.dataset.index;
+    console.log(index);
+    this.setData({
+      popListItem: this.data.popList[index][1],
+      popListIndexLin: index
+    })
+  },
+  handlePopItem: function (e) {
+    const index = e.currentTarget.dataset.index;
+    this.setData({
+      popListItemIndex: index,
+      popListIndex: this.data.popListIndexLin,
+      popShow: false
+    });
+  },
+  handleCancel: function(){
+    this.setData({
+      popShow: false
+    })
+  },
+  handlepopShow: function(){
+    this.setData({
+      popShow: true
+    })
   }
 })

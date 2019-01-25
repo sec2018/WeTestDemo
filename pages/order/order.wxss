@@ -114,3 +114,59 @@
   border-radius: 4rpx;
   font-size: 40rpx;
 }
+.order-pop-bg{
+  position: fixed;
+  top:0;
+  bottom:0;
+  left:0;
+  right:0;
+  background:rgba(0,0,0,0.5);
+  z-index:9;
+}
+.order-pop{
+  position: fixed;
+  top:20%;
+  bottom:0;
+  left:0;
+  right:0;
+  background:#f2f2f2;
+  z-index:11;
+}
+.order-pop-con{
+  padding:0 30rpx;
+  display: flex;
+  height:100%;
+}
+.order-pop-cancel{
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+  background:#fff;
+  height:80rpx;
+  padding-left:20rpx;
+  line-height:80rpx;
+  color:#666;
+  font-size:30rpx;
+}
+.order-pop-right,order-pop-left{
+  height:100%;
+}
+.order-pop-right .order-pop-item{
+  
+  border-right:none;
+}
+.order-pop-tit{
+  padding-top:100rpx;
+  font-size:28rpx;
+}
+.order-pop-item{
+  height:50rpx;
+  line-height: 50rpx;
+  font-size:24rpx;
+  padding:0 10rpx;
+  border-right:1px solid #ccc;
+}
+.order-pop-click{
+  color:#c1975b;
+}
