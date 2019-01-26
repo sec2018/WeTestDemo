@@ -43,7 +43,10 @@
         </view>
       </picker> -->
       <view bindtap='handlepopShow' wx:if='{{popListItemIndex == -1}}'>请选择</view>
-      <view bindtap='handlepopShow' wx:else>{{popListItem[popListItemIndex].value}}</view>
+      <view bindtap='handlepopShow' wx:else>
+      <view>{{popList[popListIndex][0]}}</view>
+      <view>{{popListItem[popListItemIndex].value}}</view>
+      </view>
     </view>
     <view class='order-li' wx:if='popListIndex > -1'>
       <text class='order-text'>线路：</text>
@@ -65,7 +68,7 @@
           scroll-y
           style="height: 80%;"
         >
-        <view class='order-pop-item'  wx:for='{{popList}}' wx:key="{{index}}" data-index="{{index}}" bindtap='handlePop'>{{item[0]}} </view>
+        <view class='{{popListIndexLin == index ? "order-pop-item order-pop-click" : "order-pop-item"}}'   wx:for='{{popList}}' wx:key="{{index}}" data-index="{{index}}" bindtap='handlePop'>{{item[0]}} </view>
         </scroll-view>
       </view>
       <view class='order-pop-right'>
@@ -75,7 +78,7 @@
           style="height: 80%;"
         >
           
-          <view class='order-pop-item order-pop-click' wx:key="{{index}}" wx:for='{{popListItem}}' data-index="{{index}}" bindtap='handlePopItem'>{{item.value}} </view>
+          <view class='{{popListItemIndexLin == index ? "order-pop-item order-pop-click" : "order-pop-item"}}' wx:key="{{index}}" wx:for='{{popListItem}}' data-index="{{index}}" bindtap='handlePopItem'>{{item.value}} </view>
         </scroll-view>
       </view>
     </view>

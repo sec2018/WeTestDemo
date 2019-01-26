@@ -1,0 +1,61 @@
+<!--pages/company_line.wxml-->
+<view class='con'>
+  <view class='item'>
+    <view class='item-flex'>
+      <view class='item-title'>默认线路</view>
+      <view class='item-btn' bindtap='openShow' data-id='{{defaultId}}'>修改</view>
+    </view>
+    <view class='item-flex item-space'>
+      <view>{{list[defaultId].beginAddr}} --> {{list[defaultId].arriveAddr}}</view>
+      <view>{{list[defaultId].arriveTel}}</view>
+    </view>
+    <view>{{list[defaultId].arriveDetailAddr}}</view>
+  </view>
+  <view class='item' wx:for='{{list}}' wx:key='{{index}}' wx:if='{{defaultId != index}}'>
+    <view class='item-flex'>
+      <view class='item-title'>线路{{index}}</view>
+      <view class='item-btn' bindtap='openShow' data-id='{{index}}'>修改</view>
+      <view class='item-btn' bindtap='deteleList' data-id='{{index}}'>删除</view>
+    </view>
+    <view class='item-flex item-space'>
+      <view>{{item.beginAddr}} --> {{item.arriveAddr}}</view>
+      <view>{{item.arriveTel}}</view>
+    </view>
+    <view>{{item.arriveDetailAddr}}</view>
+  </view>
+  <view class='add-btn' bindtap='openShow' data-id='add'>添加线路</view>
+  <block wx:if='{{popshow}}'>
+    <view class='popbg'></view>
+    <view class='pop'>
+      <view class='wrapper'>
+        <text class='add-label'>出发地：</text>
+        <view class='add-two'>
+          <input class='add-input' value='{{company.begin_addr}}' bindinput='bindBejinInput'></input>
+        </view>
+      </view>
+      <view class='wrapper'>
+        <text class='add-label'>到站地：</text>
+        <view class='add-two'>
+          <input class='add-input' value='{{company.arrive_addr}}' bindinput='bindArriveInput'></input>
+        </view>
+      </view>
+      <view class='wrapper'>
+        <text class='add-label'>到站地电话：</text>
+        <view class='add-two'>
+          <input class='add-input' value='{{company.arrive_tel}}' bindinput='bindArriveTelInput'></input>
+        </view>
+      </view>
+      <view class='wrapper'>
+        <text class='add-label'>到站详细地址：</text>
+        <view class='add-two'>
+          <input class='add-input' value='{{company.arrive_detail_addr}}' bindinput='bindArriveDetailInput'></input>
+        </view>
+      </view>
+      <view class='text-center'>
+        <text class='wrapper-btn' bindtap='cancelShow'>取消</text>
+        <text class='wrapper-btn1' bindtap='saveData'>{{isAdd ? '提交': '确定修改'}}</text>
+      </view>
+      
+    </view>
+  </block>
+</view>

@@ -6,7 +6,7 @@
   <view class='con-btn'>
     <!-- <view class='con-btncon' wx:if='{{roleid == "2"}}'><navigator url='../order/order'>单票下单</navigator></view> -->
     <view class='con-btncon' wx:if='{{roleid == "3"}}'><navigator url='../trans_map/trans_map'>接单</navigator></view>
-    <!-- <view class='con-btncon' wx:if='{{roleid == "2"}}' bindtap='toMulitOrder'>批量下单</view> -->
+    <view class='con-btncon' wx:if='{{roleid == "4"}}' bindtap='topanyLine'>线路查询</view>
   </view>
   <view class='con-btn'>
     <view class='con-btncon' wx:if='{{roleid == "2"}}'><navigator url='../order/order'>单票下单</navigator></view>

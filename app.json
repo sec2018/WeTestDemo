@@ -15,7 +15,8 @@
     "pages/h5invoice/h5invoice",
     "pages/canvas/canvas",
     "pages/mulit_order/mulit_order",
-    "pages/bluetooth/bluetooth"
+    "pages/bluetooth/bluetooth",
+    "pages/company_line/company_line"
   ],
   "tabBar": {
     "selectedColor": "#c1975b",

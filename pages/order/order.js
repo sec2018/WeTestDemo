@@ -16,6 +16,7 @@ Page({
     popListItem:[],
     popListIndex:-1,
     popListIndexLin: -1,
+    popListItemIndexLin:-1,
     popListItemIndex: -1,
     order:{
       company_code: '',
@@ -131,7 +132,6 @@ Page({
   //下单接口
   createOrder: function(){
     let _this = this;
-    let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
     let param = {
       sender_name: _this.data.sendAddress.uname,
       company_code: '',
@@ -140,8 +140,8 @@ Page({
       sender_tel: _this.data.sendAddress.tel,
       shop_id: _this.data.shopid,
       shop_name: _this.data.shopname,
-      company_id: logistics.companyId,
-      company_name: logistics.companyName,
+      company_name: _this.data.popListItem[_this.data.popListItemIndex].value,
+      line_id: _this.data.popListItem[_this.data.popListItemIndex].key,
       batch_code: '0',
       lat: _this.data.lat,
       lng: _this.data.lng,
@@ -299,25 +299,31 @@ Page({
     console.log(index);
     this.setData({
       popListItem: this.data.popList[index][1],
-      popListIndexLin: index
+      popListIndexLin: index,
+      popListItemIndexLin: -1
+
     })
   },
   handlePopItem: function (e) {
     const index = e.currentTarget.dataset.index;
     this.setData({
       popListItemIndex: index,
+      popListItemIndexLin: index,
       popListIndex: this.data.popListIndexLin,
       popShow: false
     });
   },
   handleCancel: function(){
     this.setData({
-      popShow: false
+      popShow: false,
+      popListItem: this.data.popList[this.data.popListIndex][1],
     })
   },
   handlepopShow: function(){
     this.setData({
-      popShow: true
+      popShow: true,
+      popListIndexLin: this.data.popListIndex,
+      popListItemIndexLin: this.data.popListItemIndexLin
     })
   }
 })

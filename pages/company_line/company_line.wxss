@@ -1,0 +1,104 @@
+/* pages/company_line.wxss */
+.con{
+  padding:30rpx;
+  font-size:26rpx;
+}
+.item{
+  border:1px dashed #ccc;
+  padding:20rpx;
+}
+.item-flex{
+  display: flex;
+}
+.item-space{
+  justify-content: space-between;
+}
+.item-title{
+  width:520rpx;
+}
+.item-btn{
+  width:100rpx;
+  text-align: center;
+
+}
+.add-btn{
+  width:500rpx;
+  height:60rpx;
+  line-height:60rpx;
+  margin:30rpx auto;
+  background: #c1975b;
+  color:#fff;
+  text-align: center;
+  border-radius: 2px;
+}
+.wrapper{
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+.border-bottom{
+  border-bottom: 1rpx solid #ddd;
+  padding-bottom:30rpx;
+}
+.add-label{
+  width:200rpx;
+  height:60rpx;
+  margin-right:4rpx;
+  line-height: 60rpx;
+  font-size: 28rpx;
+  text-align: right;
+}
+
+.add-two{
+  display: flex;
+  width:390rpx;
+  align-items: center;
+  border-bottom: 1rpx solid #ccc;
+}
+.add-input{
+  width: 400rpx;
+  height:58rpx;
+  line-height: 58rpx;
+  font-size: 28rpx;
+  padding:0 30rpx;
+  /* border-bottom: 1rpx solid #ccc; */
+
+}
+.popbg{
+  position: fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  right:0;
+  background:rgba(0,0,0,0.5);
+  z-index:9
+}
+.pop{
+  position: fixed;
+  left:30rpx;
+  top:10%;
+  padding-top:30rpx;
+  right:30rpx;
+  background:#fff;
+  z-index:10;
+  border-radius: 4rpx;
+}
+.wrapper-btn,.wrapper-btn1{
+  padding:10rpx 20rpx;
+  background: #c1975b;
+  border:1px solid #c1975b;
+  color:#fff;
+  border-radius: 2px;
+  /* margin:20rpx auto 30rpx; */
+}
+.wrapper-btn{
+  background: #fff;
+  border:1px solid #ccc;
+  color:#666;
+  margin-right:44rpx;
+}
+.text-center{
+  text-align: center;
+  height:50rpx;
+  margin:40rpx 0;
+}

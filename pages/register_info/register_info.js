@@ -291,6 +291,7 @@ Page({
             region: resdata.companyProcity,
             address: resdata.companyDetailarea
           },
+          imageurl: app.globalData.apiRoot +'/transport'+resdata.licenceUrl,
           company: {
             licence_url: resdata.licenceUrl,
             complain_tel: resdata.complainTel,

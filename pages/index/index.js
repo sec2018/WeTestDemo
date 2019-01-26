@@ -43,6 +43,11 @@ Page({
       url: '../mulit_order/mulit_order',
     })
   },
+  topanyLine(){
+    wx.navigateTo({
+      url: '../company_line/company_line',
+    })
+  },
   otherToast(){
     wx.showModal({
       title: '提示',
