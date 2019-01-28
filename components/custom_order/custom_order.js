@@ -135,15 +135,13 @@ Component({
     //保存接口
     saveOrder: function(){
       let _this = this;
-      let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
       let param = {
         company_code: '',
         goodsname: _this.data.order.goodsname,
         goodsnum: _this.data.order.goodsnum,
         shop_id: _this.data.shopid,
         shop_name: _this.data.shopname,
-        company_id: logistics.companyId,
-        company_name: logistics.companyName,
+        company_name: _this.data.popListItem[_this.data.popListItemIndex].value,
         batch_code: '0',
         lat: _this.data.lat,
         lng: _this.data.lng,
@@ -152,7 +150,8 @@ Component({
         rec_tel: _this.data.receiveAddress.tel,
         rec_procity: _this.data.receiveAddress.pro_city,
         rec_detailarea: _this.data.receiveAddress.detail_addr,
-        price: _this.data.order.price
+        price: _this.data.order.price,
+        line_id: _this.data.popListItem[_this.data.popListItemIndex].key
       }
       if(_this.data.order.id){
         param.id = _this.data.order.id;
