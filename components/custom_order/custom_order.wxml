@@ -32,20 +32,53 @@
     </view>
     <view class='order-li'>
       <text class='order-text'>物流公司：</text>
-      <view class='order-select-con'>
+      <!-- <view class='order-select-con'>
         <picker bindchange='bindPickerChange' value='{{logisticsIndex}}' range-key='companyName' range='{{logisticsList}}'>
         <view class='order-inpt order-select'>
           {{logisticsList[logisticsIndex].companyName}}
           <view class='down-arrow'></view>
         </view>
       </picker>
+      </view> -->
+      <view class='order-select-con' bindtap='handlepopShow' wx:if='{{popListItemIndex == -1}}'>请选择</view>
+      <view class='order-select-con' bindtap='handlepopShow' wx:else>
+        {{popListItem[popListItemIndex].value}}
       </view>
-      
+    </view>
+    <view class='order-li' wx:if='popListIndex > -1'>
+      <text class='order-text'>线路：</text>
+      <view  class='order-select-con'>{{popList[popListIndex][0]}}</view>
     </view>
     <view class='order-li'>
       <text class='order-text'>备注：</text>
       <textarea class='order-textarea' value='{{order.billinfo}}' bindinput="bindInfoInput"></textarea>
     </view>
     <view class='order-btn' bindtap='saveOrder'>保存</view>
+  </view>
+  <view class='order-pop-bg' wx:if='{{popShow}}'></view>
+  <view class='order-pop' wx:if='{{popShow}}'>
+    <view class='order-pop-con'>
+      <view class='order-pop-cancel' bindtap='handleCancel'>取消</view>
+      <view class='order-pop-left'>
+        <view class='order-pop-tit'>线路</view>
+        <scroll-view
+          scroll-y
+          style="height: 80%;"
+        >
+        <view class='{{popListIndexLin == index ? "order-pop-item order-pop-click" : "order-pop-item"}}'   wx:for='{{popList}}' wx:key="{{index}}" data-index="{{index}}" bindtap='handlePop'>{{item[0]}} </view>
+        </scroll-view>
+      </view>
+      <view class='order-pop-right'>
+        <view class='order-pop-tit'>物流公司</view>
+        <scroll-view
+          scroll-y
+          style="height: 80%;"
+        >
+          
+          <view class='{{popListItemIndexLin == index ? "order-pop-item order-pop-click" : "order-pop-item"}}' wx:key="{{index}}" wx:for='{{popListItem}}' data-index="{{index}}" bindtap='handlePopItem'>{{item.value}} </view>
+        </scroll-view>
+      </view>
+    </view>
+  
   </view>
 </view>

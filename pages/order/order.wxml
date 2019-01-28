@@ -44,7 +44,6 @@
       </picker> -->
       <view bindtap='handlepopShow' wx:if='{{popListItemIndex == -1}}'>请选择</view>
       <view bindtap='handlepopShow' wx:else>
-      <view>{{popList[popListIndex][0]}}</view>
       <view>{{popListItem[popListItemIndex].value}}</view>
       </view>
     </view>

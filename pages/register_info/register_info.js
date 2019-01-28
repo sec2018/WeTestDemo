@@ -1,6 +1,8 @@
 // pages/address/address.js
 const app = getApp();
 const util = require('../../utils/util.js');
+let option = {};
+let defaultLineId = -1;
 Page({
 
   /**
@@ -28,13 +30,14 @@ Page({
       arrive_detail_addr:''
     }
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    console.log(options)
-    if(options.flag == 'update'){
+  onLoad:function(options){
+    option = options;
+    
+  },
+ 
+  onShow: function () {
+    
+    if (option.flag == 'update'){
       let roleid = wx.getStorageSync('roleid');
       this.setData({
         roleid: roleid,
@@ -53,15 +56,15 @@ Page({
       }
       
       
-    }else if (options.id == '2') { //商家
+    } else if (option.id == '2') { //商家
       wx.setNavigationBarTitle({
         title: '商家信息填写'
       });
       this.setData({
-        roleid:'2',
+        roleid: '2',
         flag: 'add'
       });
-    } else if (options.id == '4'){ //物流公司
+    } else if (option.id == '4') { //物流公司
       wx.setNavigationBarTitle({
         title: '物流公司信息填写'
       });
@@ -109,6 +112,10 @@ Page({
         });
         return;
       }
+      if (_this.data.imageurl == (app.globalData.apiRoot + '/transport' + _this.data.company.licence_url)){
+        _this.companyAjax();
+        return;
+      }
       wx.uploadFile({
         url: app.globalData.apiRoot + '/transport/api/uploadimage',
         filePath: _this.data.imageurl,
@@ -148,7 +155,8 @@ Page({
 
     };
     if (this.data.flag == 'update') {
-      dataParam.companyid = this.data.address.id
+      dataParam.companyid = this.data.address.id;
+      dataParam.line_id = defaultLineId;
     }
     let roleid = this.data.roleid;
     //发起网络请求
@@ -283,6 +291,8 @@ Page({
     }, function (res) {
       if (res.data.success) {
         let resdata = res.data.data;
+        defaultLineId = resdata.defaultLineid;
+        _this.getDefaultLineId();
         _this.setData({
           address: {
             id: resdata.companyId,
@@ -393,6 +403,24 @@ Page({
         })
         
       }
+    })
+  },
+  getDefaultLineId: function () {
+    let _this = this;
+    util.wxResquest({
+      url: '/transport/api/getcompanylinesbyid',
+      method: 'GET',
+      data: {
+        line_id: defaultLineId
+      }
+    }, function (res) {
+      let data = res.data.data;
+      _this.setData({
+        'company.begin_addr': data.beginAddr,
+        'company.arrive_addr': data.arriveAddr,
+        'company.arrive_tel': data.arriveTel,
+        'company.arrive_detail_addr': data.arriveDetailAddr
+      });
     })
   }
 })
