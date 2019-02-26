@@ -314,10 +314,17 @@ Page({
     });
   },
   handleCancel: function(){
-    this.setData({
-      popShow: false,
-      popListItem: this.data.popList[this.data.popListIndex][1],
-    })
+    if(this.data.popListIndex == -1){
+      this.setData({
+        popShow: false
+      })
+    } else {
+      this.setData({
+        popShow: false,
+        popListItem: this.data.popList[this.data.popListIndex][1],
+      })
+    }
+    
   },
   handlepopShow: function(){
     this.setData({

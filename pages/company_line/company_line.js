@@ -190,7 +190,7 @@ Page({
       _this.getAllLine();
     })
   },
-  deteleList(){
+  deteleList(e){
     const _this = this;
     const index = e.currentTarget.dataset.id;
     let lineid = _this.data.list[index].id;
