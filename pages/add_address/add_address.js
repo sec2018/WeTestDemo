@@ -8,21 +8,34 @@ Page({
    */
   data: {
     list:[1,2,2,3],
-    fromOrder:false
+    fromOrder:false,
+    froms: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let froms = '';
+    if(options.froms=='ind'){
+      froms = 'index'
+    }
     if(options.flag == 'receive'){
       this.setData({
-        fromOrder: 'receive'
-      })
+        fromOrder: 'receive',
+        froms: froms
+      });
+      wx.setNavigationBarTitle({
+        title: '收件人地址列表'
+      });
     } else if (options.flag == 'send'){
       this.setData({
-        fromOrder: 'send'
-      })
+        fromOrder: 'send',
+        froms: froms
+      });
+      wx.setNavigationBarTitle({
+        title: '寄件人地址列表'
+      });
     }
   },
 
@@ -80,11 +93,14 @@ Page({
   //返回下单页面
   backOrder: function(e){
     const index = e.currentTarget.dataset.id;
-    if(this.data.fromOrder == 'receive'){ //从下单的收件人地址簿过来的
-      app.globalData.receiveAddress = this.data.list[index];
-    } else if(this.data.fromOrder == 'send'){
-      app.globalData.address = this.data.list[index];
+    if(this.data.froms != 'index'){
+      if (this.data.fromOrder == 'receive') { //从下单的收件人地址簿过来的
+        app.globalData.receiveAddress = this.data.list[index];
+      } else if (this.data.fromOrder == 'send') {
+        app.globalData.address = this.data.list[index];
+      }
     }
+    
     wx.navigateBack({
       delta: '1'
     })
@@ -157,12 +173,20 @@ Page({
     util.wxResquest({
       url: '/transport/api/searchaddr',
       method: 'GET',
-      data: ''
+      data: {
+        addrrole: _this.data.fromOrder == 'receive' ? 1 : 0
+      }
     }, function(res){
       let data = res.data.data;
       _this.setData({
         list: data
       });
+    })
+  },
+  toAddHtml(){
+    let addrole = this.data.fromOrder == 'receive' ? 1 : 0
+    wx.navigateTo({
+      url: '../address/address?id=add&addrrole=' + addrole,
     })
   }
 })

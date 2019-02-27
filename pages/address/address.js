@@ -1,6 +1,7 @@
 // pages/address/address.js
 const app = getApp();
-const util = require('../../utils/util.js')
+const util = require('../../utils/util.js');
+let addrrole = 0;
 Page({
 
   /**
@@ -25,7 +26,7 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
-
+    addrrole = options.addrrole;
     if (options.id !='add') {
       wx.setNavigationBarTitle({
         title: '修改我的地址'
@@ -223,6 +224,7 @@ Page({
           'tel': _this.data.address.phone,
           'pro_city': _this.data.address.region,
           'detail_addr': _this.data.address.address,
+          'addrrole': addrrole,
           'isdefault': _this.data.address.isDefault ? 1 : 0
         },
         method: 'POST',

@@ -47,6 +47,10 @@
         <view class='list-li-left'>件数：</view>
         <view class='list-li-right'>{{detail.goodsnum}}</view>
       </view>
+      <view class='list-li' wx:if='{{roleid == "2"}}'>
+      <view class='list-li-left'>托运费用：</view>
+      <view class='list-li-right'>{{detail.price}}元</view>
+    </view>
       <!-- <view class='list-li'>
         <view class='list-li-left'>托运总价：</view>
         <view class='list-li-right'>{{detail.price}}</view>
@@ -80,6 +84,7 @@
       <view class='list-li-left'>当前状态：</view>
       <view class='status1'>{{order.statusFun(detail.bill_status)}}</view>
     </view>
+    
     <view wx:if='{{roleid == "4" && detail.bill_status == 3}}' class='order-ul'>
       <view class='order-li'>
         <text class='order-text'>运单号：</text>

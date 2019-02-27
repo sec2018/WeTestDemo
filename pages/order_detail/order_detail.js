@@ -104,24 +104,37 @@ Page({
   payBill() {
     let _this = this;
     let dataParam = {
-      id: _this.data.detail.id
+      id: _this.data.detail.id,
+      total_fee: _this.data.detail.price,
+      attach: _this.data.detail.shop_name,
+      body: _this.data.detail.goodsname
     }
     utils.wxResquest({
-      url: '/transport/api/paybill',
+      url: '/transport/api/payment',
       data: dataParam,
       method: 'POST'
     }, function (res) {
       if (res.data.success) {
+        let pay = res.data;
+        wx.requestPayment({
+          'timeStamp': pay[0].timeStamp,
+          'nonceStr': pay[0].nonceStr,
+          'package': pay[0].package,
+          'signType': 'MD5',
+          'paySign': pay[0].paySign,
+          'success': function (res) {
+            wx.navigateBack({
+              delta: 1
+            })
+          },
+          'fail': function (res) {
+          }
+        })
+      } else {
         wx.showToast({
           title: res.data.msg,
           duration: 2000
         });
-        setTimeout(function () {
-          wx.hideToast();
-          wx.navigateBack({
-            delta: '1'
-          })
-        }, 1800)
       }
     })
   },
