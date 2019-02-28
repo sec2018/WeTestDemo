@@ -1,4 +1,5 @@
 var app = getApp();
+var roleid = 0;
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -19,6 +20,7 @@ function loginAjax(cb){
   dataParam.code = app.globalData.code;
   dataParam.encryptedData = app.globalData.encryptedData
   dataParam.iv = app.globalData.iv;
+  console.log('登陆接口')
   //发起网络请求
   wxResquest({
     url: '/transport/wx/wxlogin',
@@ -26,7 +28,31 @@ function loginAjax(cb){
     method: 'POST'
   }, function (result){
     let data = result.data.data;
-    console.log(data.data)
+    let ro = data.role;
+    console.log(ro)
+    if(ro && ro != roleid){
+      let rostr = '商户';
+      if(ro == 2){
+        rostr = '商户';
+      }
+      if (ro == 3) {
+        rostr = '承运员';
+      }
+      if (ro == 4) {
+        rostr = '快递公司';
+      }
+      wx.showModal({
+        title: '',
+        content: '您已是'+rostr+',不能选择其他角色，请选择角色 “'+rostr+'“ 登录',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            
+          }
+        }
+      })
+      return;
+    }
     wx.setStorageSync("token", data.token);
     app.globalData.token = data.token;
     console.log(app.globalData)
@@ -47,16 +73,17 @@ function loginAjax(cb){
  */
 function wxResquest(resquestParam, successCb, failedCb) {
   let token = wx.getStorageSync('token');
-  let roleid = wx.getStorageSync('roleid');
-  console.log(token)
+  roleid = wx.getStorageSync('roleid');
+  console.log(token+' tokn')
     if (!roleid && resquestParam.header && !resquestParam.header.roleid){
       loginByWxchat();
       return;
     }
   if (!token){
-    console.log(token)
+    console.log(token+ 'tokn2')
     token = "";
     if (resquestParam.url.indexOf('/wxlogin') == -1){
+      console.log('调微信')
       loginByWxchat();
       return
     }
@@ -169,6 +196,7 @@ function loginByWxchat(cb) {
           } 
           else {
             //获取用户信息
+            console.log('进去录')
             wx.getUserInfo({
               lang: "zh_CN",
               success: function (userRes) {
@@ -180,12 +208,16 @@ function loginByWxchat(cb) {
                 //   encryptedData: userRes.encryptedData,
                 //   iv: userRes.iv
                 // }, cb)
+
                 loginAjax(function () {
                   wx.setStorageSync('userInfo', userRes.userInfo);
                   wx.navigateBack({
                     delta: '1'
                   })
                 });
+              },
+              fail: function(res){
+                console.log(res)
               }
             });
           }

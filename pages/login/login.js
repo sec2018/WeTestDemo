@@ -22,7 +22,8 @@ Page({
   },
   getUserinfo: function(e){
     const userRes = e.detail;
-    wx.setStorageSync('roleid', this.data.roleid);
+    let _this = this;
+    wx.setStorageSync('roleid', _this.data.roleid);
     utils.loginByWxchat();
   }
 })

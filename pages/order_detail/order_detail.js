@@ -154,14 +154,15 @@ Page({
       data: dataParam,
       method: 'POST'
     }, function (res) {
-        var pay = res.data
+        var pay = res.data.data;
+        console.log(res)
         //发起支付 
-        var timeStamp = pay[0].timeStamp;
-        var packages = pay[0].package;
-        var paySign = pay[0].paySign;
-        var nonceStr = pay[0].nonceStr;
-        var param = { "timeStamp": timeStamp, "package": packages, "paySign": paySign, "signType": "MD5", "nonceStr": nonceStr };
-        that.pay(param);
+        let timeStamp = pay.timeStamp;
+        let packages = pay.package;
+        let paySign = pay.paySign;
+        let nonceStr = pay.nonceStr;
+        let param = { "timeStamp": timeStamp, "package": packages, "paySign": paySign, "signType": "MD5", "nonceStr": nonceStr };
+        _this.pay(param);
     })
   },
   /* 支付   */
@@ -192,7 +193,7 @@ Page({
       },
       fail: function (res) {
         // fail 
-        console.log("支付失败");
+        console.log(res);
       },
       complete: function () {
         // complete 
