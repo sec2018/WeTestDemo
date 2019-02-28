@@ -101,6 +101,46 @@ Page({
       }
     })
   },
+  // payBill() {
+  //   let _this = this;
+  //   let dataParam = {
+  //     id: _this.data.detail.id,
+  //     total_fee: _this.data.detail.price,
+  //     attach: _this.data.detail.shop_name,
+  //     body: _this.data.detail.goodsname
+  //   }
+  //   utils.wxResquest({
+  //     url: '/transport/api/payment',
+  //     data: dataParam,
+  //     method: 'POST'
+  //   }, function (res) {
+  //     if (res.data.success) {
+  //       let pay = res.data;
+  //       wx.requestPayment({
+  //         'timeStamp': pay[0].timeStamp,
+  //         'nonceStr': pay[0].nonceStr,
+  //         'package': pay[0].package,
+  //         'signType': 'MD5',
+  //         'paySign': pay[0].paySign,
+  //         // 'success': function (res) {
+  //         //   wx.navigateBack({
+  //         //     delta: 1
+  //         //   })
+  //         // },
+  //         // 'fail': function (event) {
+  //         // }
+
+  //       })
+  //     } else {
+  //       wx.showToast({
+  //         title: res.data.msg,
+  //         duration: 2000
+  //       });
+  //     }
+  //   })
+  // },
+
+
   payBill() {
     let _this = this;
     let dataParam = {
@@ -114,30 +154,53 @@ Page({
       data: dataParam,
       method: 'POST'
     }, function (res) {
-      if (res.data.success) {
-        let pay = res.data;
-        wx.requestPayment({
-          'timeStamp': pay[0].timeStamp,
-          'nonceStr': pay[0].nonceStr,
-          'package': pay[0].package,
-          'signType': 'MD5',
-          'paySign': pay[0].paySign,
-          'success': function (res) {
-            wx.navigateBack({
-              delta: 1
+        var pay = res.data
+        //发起支付 
+        var timeStamp = pay[0].timeStamp;
+        var packages = pay[0].package;
+        var paySign = pay[0].paySign;
+        var nonceStr = pay[0].nonceStr;
+        var param = { "timeStamp": timeStamp, "package": packages, "paySign": paySign, "signType": "MD5", "nonceStr": nonceStr };
+        that.pay(param);
+    })
+  },
+  /* 支付   */
+  pay: function (param) {
+    wx.requestPayment({
+      timeStamp: param.timeStamp,
+      nonceStr: param.nonceStr,
+      package: param.package,
+      signType: param.signType,
+      paySign: param.paySign,
+      success: function (res) {
+        wx.navigateBack({
+          delta: 1, // 回退前 delta(默认为1) 页面 
+          success: function (res) {
+            wx.showToast({
+              title: '支付成功',
+              icon: 'success',
+              duration: 2000
             })
           },
-          'fail': function (res) {
+          fail: function () {
+            // fail 
+          },
+          complete: function () {
+            // complete 
           }
         })
-      } else {
-        wx.showToast({
-          title: res.data.msg,
-          duration: 2000
-        });
+      },
+      fail: function (res) {
+        // fail 
+        console.log("支付失败");
+      },
+      complete: function () {
+        // complete 
+        console.log("pay complete");
       }
     })
   },
+  
   finishBill() {
     let _this = this;
     let dataParam = {
