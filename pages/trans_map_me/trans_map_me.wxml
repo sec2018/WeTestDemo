@@ -1,0 +1,5 @@
+<!--pages/trans_map/trans_map.wxml-->
+<view class="container">
+     <map id="maps" longitude="{{longitude}}" latitude="{{latitude}}" scale="{{scale}}" controls="{{controls}}" bindcontroltap="controltap" markers="{{markers}}" bindregionchange="regionchange" bindmarkertap="markertap" bindcallouttap="callouttap" show-location style="width:100%; height: {{height}}px">
+  </map>
+</view>

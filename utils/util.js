@@ -29,8 +29,10 @@ function loginAjax(cb){
   }, function (result){
     let data = result.data.data;
     let ro = data.role;
+    let checkStatus = data.status;
     console.log(ro)
-    if(ro && ro != roleid){
+    
+    if(ro && roleid && ro != roleid){
       let rostr = '商户';
       if(ro == 2){
         rostr = '商户';
@@ -41,6 +43,7 @@ function loginAjax(cb){
       if (ro == 4) {
         rostr = '快递公司';
       }
+      wx.removeStorageSync('roleid');
       wx.showModal({
         title: '',
         content: '您已是'+rostr+',不能选择其他角色，请选择角色 “'+rostr+'“ 登录',
@@ -51,6 +54,20 @@ function loginAjax(cb){
           }
         }
       })
+      return;
+    }
+    if (!checkStatus) {
+      wx.hideLoading()
+      wx.showModal({
+        title: '',
+        content: result.data.msg,
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+
+          }
+        }
+      });
       return;
     }
     wx.setStorageSync("token", data.token);
