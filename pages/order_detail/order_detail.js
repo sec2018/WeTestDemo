@@ -144,7 +144,7 @@ Page({
   payBill() {
     let _this = this;
     let dataParam = {
-      id: _this.data.detail.id,
+      order_id: _this.data.detail.id,
       total_fee: _this.data.detail.price,
       attach: _this.data.detail.shop_name,
       body: _this.data.detail.goodsname
@@ -183,7 +183,10 @@ Page({
               duration: 2000
             })
           },
-          fail: function () {
+          cancel: function (res){
+
+          },
+          fail: function (res) {
             // fail 
           },
           complete: function () {
@@ -202,6 +205,27 @@ Page({
     })
   },
   
+
+  /* 退款测试   */
+  refundBill() {
+    let _this = this;
+    let dataParam = {
+      // order_id: _this.data.detail.id,
+      order_id: 17,
+      total_fee: _this.data.detail.price,
+      // out_trade_no: _this.data.detail.out_trade_no,
+      out_trade_no:"15267985512019030109481420262643",
+      attach: _this.data.detail.shop_name
+    }
+    utils.wxResquest({
+      url: '/transport/api/refund',
+      data: dataParam,
+      method: 'POST'
+    }, function (res) {
+      console.log(res);
+    })
+  },
+
   finishBill() {
     let _this = this;
     let dataParam = {
