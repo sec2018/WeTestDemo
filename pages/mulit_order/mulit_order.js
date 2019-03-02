@@ -111,7 +111,9 @@ Page({
     util.wxResquest({
       url: '/transport/api/searchaddr',
       method: 'GET',
-      data: ''
+      data: {
+        addrrole: 0
+      }
     }, function(res) {
       let data = res.data.data;
       if (data.length > 0) {

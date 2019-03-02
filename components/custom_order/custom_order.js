@@ -63,7 +63,15 @@ Component({
                 detail_addr: ''
               },
               shopname: shopData.shopName,
-              shopid: shopData.shopId
+              shopid: shopData.shopId,
+              logisticsList: ['顺丰', '申通', '圆通'],
+              logisticsIndex: 0,
+              popShow: false,
+              popListItem: [],
+              popListIndex: -1,
+              popListIndexLin: -1,
+              popListItemIndexLin: -1,
+              popListItemIndex: -1,
             })
           }
         }

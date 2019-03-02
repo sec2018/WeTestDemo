@@ -16,7 +16,7 @@
     </view> -->
     <view class='order-li'>
       <text class='order-text'>商铺名称：</text>
-      <input class='order-inpt' value='{{shopname}}'></input>
+      <input class='order-inpt' value='{{shopname}}' disabled></input>
     </view>
     <view class='order-li'>
       <text class='order-text'>商品名：</text>
