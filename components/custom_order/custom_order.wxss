@@ -64,8 +64,8 @@
 }
 
 .order-text {
-  /* width: 150rpx; */
-  flex:1;
+  width: 150rpx;
+  /* flex:1; */
 }
 
 .order-inpt {
@@ -108,11 +108,12 @@
 }
 
 .order-btn {
-  position: fixed;
+  /* position: fixed;
   left: 75rpx;
-  bottom: 80rpx;
+  bottom: 80rpx; */
+  margin:30rpx auto 0;
   width: 600rpx;
-  padding:20rpx 0;
+  padding:14rpx 0;
   color: #fff;
   background: #c1975b;
   text-align: center;
@@ -174,4 +175,13 @@
 }
 .order-pop-click{
   color:#c1975b;
+}
+.order-picker{
+  width:480rpx;
+}
+.order-picker-arrow{
+  width:20rpx;
+}
+radio {
+  transform:scale(0.7);
 }

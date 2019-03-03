@@ -102,17 +102,18 @@
 }
 
 .order-btn {
-  position: fixed;
-  left: 75rpx;
-  bottom: 80rpx;
-  height: 100rpx;
+  /* position: fixed; */
+  /* left: 75rpx; */
+  /* bottom: 80rpx; */
+  height: 80rpx;
   width: 600rpx;
-  line-height: 100rpx;
+  margin:30rpx auto;
+  line-height: 80rpx;
   color: #fff;
   background: #c1975b;
   text-align: center;
   border-radius: 4rpx;
-  font-size: 40rpx;
+  font-size: 34rpx;
 }
 .order-pop-bg{
   position: fixed;
@@ -169,4 +170,13 @@
 }
 .order-pop-click{
   color:#c1975b;
+}
+.order-picker{
+  width:480rpx;
+}
+.order-picker-arrow{
+  width:20rpx;
+}
+radio {
+  transform:scale(0.7);
 }

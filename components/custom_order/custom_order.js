@@ -18,15 +18,22 @@ Component({
           console.log(orderDetail)
           if (orderDetail){
             orderDetail = JSON.parse(orderDetail);
-            let company_id = orderDetail.company_id;
+            let company_id = orderDetail.line_id;
             let company_index = 0;
-            for(let i=0; i<this.data.logisticsList.length; i++){
-              if (this.data.logisticsList[i].companyId == company_id){
+            for (let i = 0; i < this.data.popListItem.length; i++){
+              if (this.data.popListItem[i].key == line_id){
                 company_index = i;
                 break;
               }
             }
-            
+            let pay_method_id = orderDetail.pay_method;
+            let pay_method_index = 0;
+            for (let i = 0; i < this.data.payArray.length; i++) {
+              if (this.data.payArray[i].id == pay_method_id) {
+                pay_method_index = i;
+                break;
+              }
+            }
             this.setData({
               order: {
                 id: orderDetail.id,
@@ -34,7 +41,8 @@ Component({
                 goodsname: orderDetail.goodsname,
                 goodsnum: orderDetail.goodsnum,
                 billinfo: orderDetail.billinfo,
-                price: orderDetail.price
+                price: orderDetail.price,
+                keepfee: orderDetail.keepfee
               },
               receiveAddress: {
                 uname: orderDetail.rec_name,
@@ -44,9 +52,13 @@ Component({
               },
               shopname: orderDetail.shop_name,
               shopid: orderDetail.shop_id,
-              logisticsIndex: company_index
+              // logisticsIndex: company_index,
+              popListItemIndex: company_index,
+              payMethodIndex: pay_method_index,
+              giveValue: orderDetail.give_method,
+              waitValue: orderDetail.waitnote
             })
-            console.log(this.data.logisticsIndex, '    ' + company_index, company_id)
+            console.log(this.data.popListItemIndex, this.data.popList, this.data.popListItem)
           } else {
             this.setData({
               order: {
@@ -54,7 +66,8 @@ Component({
                 goodsname: '',
                 goodsnum: '',
                 billinfo: '',
-                price: 0
+                price: 0,
+                keepfee: 0
               },
               receiveAddress: {
                 uname: '',
@@ -72,6 +85,9 @@ Component({
               popListIndexLin: -1,
               popListItemIndexLin: -1,
               popListItemIndex: -1,
+              payMethodIndex: 0,
+              giveValue: 1,
+              waitValue: 1
             })
           }
         }
@@ -99,7 +115,8 @@ Component({
       goodsname: '',
       goodsnum: '',
       billinfo: '',
-      price: 0
+      price: 0,
+      keepfee: 0
     },
     receiveAddress: {
       uname: '',
@@ -114,7 +131,19 @@ Component({
       detail_addr: ''
     },
     lng: '',
-    lat: ''
+    lat: '',
+    payArray: [{ id: 1, name: '现付' }, { id: 2, name: '到付' }, { id: 3, name: '回付' }, { id: 4, name: '月结' }],
+    payMethodIndex: 0,
+    giveArray: [
+      { name: 1, value: '送货', checked: 'true' },
+      { name: 2, value: '自提' },
+    ],
+    giveValue: 1,
+    waitArray: [
+      { name: 1, value: '是', checked: 'true' },
+      { name: 2, value: '否' },
+    ],
+    waitValue: 1
   },
   pageLifetimes:{
     show: function () {
@@ -167,17 +196,23 @@ Component({
         rec_procity: _this.data.receiveAddress.pro_city,
         rec_detailarea: _this.data.receiveAddress.detail_addr,
         price: _this.data.order.price,
-        line_id: _this.data.popListItem[_this.data.popListItemIndex].key
+        line_id: _this.data.popListItem[_this.data.popListItemIndex].key,
+        pay_method: _this.data.payArray[_this.data.payMethodIndex].id,
+        give_method: _this.data.giveValue,
+        keepfee: _this.data.order.keepfee,
+        waitnote: _this.data.waitValue
       }
+      console.log(param, 'hahahah')
       if(_this.data.order.id){
         param.id = _this.data.order.id;
+        param.company_id = _this.data.order.company_id;
       }
       this.triggerEvent('saveOrderHandle', param)
     },
     //下单接口
     createOrder: function () {
       let _this = this;
-      let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
+      // let logistics = _this.data.logisticsList[_this.data.logisticsIndex];
       let param = {
         sender_name: _this.data.sendAddress.uname,
         company_code: _this.data.order.company_code,
@@ -186,8 +221,10 @@ Component({
         sender_tel: _this.data.sendAddress.tel,
         shop_id: _this.data.shopid,
         shop_name: _this.data.shopname,
-        company_id: logistics.companyId,
-        company_name: logistics.companyName,
+        // company_id: logistics.companyId,
+        // company_name: logistics.companyName,
+        company_name: _this.data.popListItem[_this.data.popListItemIndex].value,
+        line_id: _this.data.popListItem[_this.data.popListItemIndex].key,
         batch_code: '0',
         lat: _this.data.lat,
         lng: _this.data.lng,
@@ -379,5 +416,31 @@ Component({
         })
       }
     })
+  },
+  //付款方式
+  bindPayMethodChange(e) {
+    this.setData({
+      payMethodIndex: e.detail.value
+    })
+  },
+  //交付方式
+  giveMethodChange(e) {
+    this.setData({
+      giveValue: e.detail.value
+    })
+    // console.log('radio发生change事件，携带value值为：', e.detail.value)
+  },
+  //代收货款
+  bindKeepFeeInput(e) {
+    this.setData({
+      'order.keepfee': e.detail.value
+    });
+  },
+  //等通知放货
+  waitNoteChange(e) {
+    this.setData({
+      waitValue: e.detail.value
+    })
+    // console.log('radio发生change事件，携带value值为：', e.detail.value)
   }
 })

@@ -90,8 +90,8 @@
 }
 .order-dialog{
   position: fixed;
-  top:50rpx;
-  bottom:50rpx;
+  top:20rpx;
+  bottom:10rpx;
   left:30rpx;
   right:30rpx;
   background: #fff;

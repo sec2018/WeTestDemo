@@ -42,18 +42,56 @@
           <view class='down-arrow'></view>
         </view>
       </picker> -->
-      <view bindtap='handlepopShow' wx:if='{{popListItemIndex == -1}}'>请选择</view>
+      <view bindtap='handlepopShow' class='order-picker' wx:if='{{popListItemIndex == -1}}'>请选择</view>
       <view bindtap='handlepopShow' wx:else>
-      <view>{{popListItem[popListItemIndex].value}}</view>
+        <view>{{popListItem[popListItemIndex].value}}</view>
       </view>
+      <view class='order-picker-arrow'>></view>
     </view>
     <view class='order-li' wx:if='popListIndex > -1'>
       <text class='order-text'>线路：</text>
       <view >{{popList[popListIndex][0]}}</view>
     </view>
     <view class='order-li'>
+      <text class='order-text'>付款方式：</text>
+      <view class='order-picker'>
+        <picker bindchange="bindPayMethodChange" range-key="name" value="{{payArray}}" range="{{payArray}}">
+          <view class="picker">
+            {{payArray[payMethodIndex].name}}
+          </view>
+        </picker>
+      </view>
+      <view class='order-picker-arrow'>></view>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>交付方式：</text>
+      <view>
+        <radio-group class="radio-group" bindchange="giveMethodChange">
+          <label class="radio" wx:for="{{giveArray}}">
+            <radio color="#c1975b" value="{{item.name}}" checked="{{item.checked}}" />
+            {{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>代收货款：</text>
+      <input class='order-inpt' value='{{order.keepfee}}' bindinput="bindKeepFeeInput"></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>等通知放货</text>
+      <view>
+        <radio-group class="radio-group" bindchange="waitNoteChange">
+          <label class="radio" wx:for="{{waitArray}}">
+            <radio color="#c1975b" value="{{item.name}}" checked="{{item.checked}}" />
+            {{item.value}}
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class='order-li'>
       <text class='order-text'>备注：</text>
-      <textarea class='order-textarea' value='{{order.billinfo}}' bindinput="bindInfoInput"></textarea>
+      <input class='order-inpt' value='{{order.billinfo}}' bindinput="bindInfoInput"></input>
     </view>
     <view class='order-btn' bindtap='createOrder'>下单</view>
   </view>

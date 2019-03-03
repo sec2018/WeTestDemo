@@ -23,7 +23,8 @@ Page({
       goodsname: '',
       goodsnum:'',
       billinfo: '',
-      price: 0
+      price: 0,
+      keepfee: 0
     },
     receiveAddress:{},
     sendAddress: {
@@ -33,7 +34,19 @@ Page({
       detail_addr: ''
     },
     lng:'',
-    lat:''
+    lat: '',
+    payArray: [{ id: 1, name: '现付' }, { id: 2, name: '到付' }, { id: 3, name: '回付' }, { id: 4, name: '月结' }],
+    payMethodIndex: 0,
+    giveArray: [
+      { name: 1, value: '送货', checked: 'true' },
+      { name: 2, value: '自提' },
+    ],
+    giveValue: 1,
+    waitArray: [
+      { name: 1, value: '是', checked: 'true' },
+      { name: 2, value: '否' },
+    ],
+    waitValue:1
   },
 
   /**
@@ -160,7 +173,11 @@ Page({
       rec_tel: _this.data.receiveAddress.tel,
       rec_procity: _this.data.receiveAddress.pro_city,
       rec_detailarea: _this.data.receiveAddress.detail_addr,
-      price: _this.data.order.price
+      price: _this.data.order.price,
+      pay_method: _this.data.payArray[_this.data.payMethodIndex].id,
+      give_method:_this.data.giveValue,
+      keepfee: _this.data.order.keepfee,
+      waitnote: _this.data.waitValue
     }
     util.wxResquest({
       url: '/transport/api/createbill',
@@ -342,5 +359,31 @@ Page({
       popListIndexLin: this.data.popListIndex,
       popListItemIndexLin: this.data.popListItemIndexLin
     })
+  },
+  //付款方式
+  bindPayMethodChange(e){
+    this.setData({
+      payMethodIndex: e.detail.value
+    })
+  },
+  //交付方式
+  giveMethodChange(e){
+    this.setData({
+      giveValue: e.detail.value
+    })
+    // console.log('radio发生change事件，携带value值为：', e.detail.value)
+  },
+  //代收货款
+  bindKeepFeeInput(e) {
+    this.setData({
+      'order.keepfee': e.detail.value
+    });
+  },
+  //等通知放货
+  waitNoteChange(e) {
+    this.setData({
+      waitValue: e.detail.value
+    })
+    // console.log('radio发生change事件，携带value值为：', e.detail.value)
   }
 })
