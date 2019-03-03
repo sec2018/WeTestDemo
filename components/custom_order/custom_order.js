@@ -51,6 +51,7 @@ Component({
               order: {
                 id: orderDetail.id,
                 company_code: orderDetail.company_code,
+                company_id: orderDetail.company_id,
                 goodsname: orderDetail.goodsname,
                 goodsnum: orderDetail.goodsnum,
                 billinfo: orderDetail.billinfo,
@@ -79,6 +80,7 @@ Component({
             this.setData({
               order: {
                 company_code: '',
+                company_id: -1,
                 goodsname: '',
                 goodsnum: '',
                 billinfo: '',
@@ -128,6 +130,7 @@ Component({
     popListItemIndex: -1,
     order: {
       company_code: '',
+      company_id: -1,
       goodsname: '',
       goodsnum: '',
       billinfo: '',
@@ -413,6 +416,33 @@ Component({
         popListIndexLin: this.data.popListIndex,
         popListItemIndexLin: this.data.popListItemIndexLin
       })
+    },
+    //付款方式
+    bindPayMethodChange(e) {
+      this.setData({
+        payMethodIndex: e.detail.value
+      })
+    },
+    //交付方式
+    giveMethodChange(e) {
+      this.setData({
+        giveValue: e.detail.value
+      })
+      // console.log('radio发生change事件，携带value值为：', e.detail.value)
+    },
+    //代收货款
+    bindKeepFeeInput(e) {
+      this.setData({
+        'order.keepfee': e.detail.value
+      });
+      console.log(this.data.order, 'daishoukuan')
+    },
+    //等通知放货
+    waitNoteChange(e) {
+      this.setData({
+        waitValue: e.detail.value
+      })
+      // console.log('radio发生change事件，携带value值为：', e.detail.value)
     }
   },
   ready(){
@@ -432,31 +462,5 @@ Component({
         })
       }
     })
-  },
-  //付款方式
-  bindPayMethodChange(e) {
-    this.setData({
-      payMethodIndex: e.detail.value
-    })
-  },
-  //交付方式
-  giveMethodChange(e) {
-    this.setData({
-      giveValue: e.detail.value
-    })
-    // console.log('radio发生change事件，携带value值为：', e.detail.value)
-  },
-  //代收货款
-  bindKeepFeeInput(e) {
-    this.setData({
-      'order.keepfee': e.detail.value
-    });
-  },
-  //等通知放货
-  waitNoteChange(e) {
-    this.setData({
-      waitValue: e.detail.value
-    })
-    // console.log('radio发生change事件，携带value值为：', e.detail.value)
   }
 })

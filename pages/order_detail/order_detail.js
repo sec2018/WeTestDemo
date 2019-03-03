@@ -10,7 +10,10 @@ Page({
     roleid: '',
     company_code:'',
     delivery_fee:'',
-    refundclass: ''
+    refundclass: '',
+    pay_method: '现付',
+    give_method: '送货',
+    waitnote: '是'
   },
 
   /**
@@ -29,8 +32,23 @@ Page({
     data.rec_time = this.timeformat(data.rec_time);
     data.pay_time = this.timeformat(data.pay_time);
     data.finish_time = this.timeformat(data.finish_time);
+    let pay_method = '现付';
+    let give_method = data.give_method == 1 ? '送货' : '自提';
+    let waitnote = data.waitnote == 1 ? '是' : '否';
+    if(data.pay_method == 2){
+      pay_method = '到付'
+    }
+    if (data.pay_method == 3) {
+      pay_method = '回付'
+    }
+    if (data.pay_method == 4) {
+      pay_method = '月结'
+    }
     this.setData({
-      detail:data
+      detail:data,
+      pay_method: pay_method,
+      give_method: give_method,
+      waitnote: waitnote
     })
   },
 

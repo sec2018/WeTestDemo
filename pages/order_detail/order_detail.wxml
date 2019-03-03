@@ -44,13 +44,20 @@
         <view class='list-li-right'>{{detail.goodsname}}</view>
       </view>
       <view class='list-li'>
-        <view class='list-li-left'>件数：</view>
-        <view class='list-li-right'>{{detail.goodsnum}}</view>
+        <view class='list-li-two'>
+          <view class='list-li'>
+            <view class='list-li-left'>件数：</view>
+            <view class='list-li-right'>{{detail.goodsnum}}</view>
+          </view>
+        </view>
+        <view class='list-li-two'>
+          <view class='list-li' wx:if='{{roleid == "2"}}'>
+            <view class='list-li-left'>托运费用：</view>
+            <view class='list-li-right'>{{detail.price}}元</view>
+          </view>
+        </view>
       </view>
-      <view class='list-li' wx:if='{{roleid == "2"}}'>
-      <view class='list-li-left'>托运费用：</view>
-      <view class='list-li-right'>{{detail.price}}元</view>
-    </view>
+      
       <!-- <view class='list-li'>
         <view class='list-li-left'>托运总价：</view>
         <view class='list-li-right'>{{detail.price}}</view>
@@ -58,6 +65,35 @@
       <view class='list-li'>
         <view class='list-li-left'>物流公司：</view>
         <view class='list-li-right'>{{detail.company_name}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-two'>
+          <view class='list-li'>
+            <view class='list-li-left'>付款方式：</view>
+            <view class='list-li-right'>{{pay_method}}</view>
+          </view>
+        </view>
+        <view class='list-li-two'>
+          <view class='list-li'>
+            <view class='list-li-left'>交付方式：</view>
+            <view class='list-li-right'>{{give_method}}</view>
+          </view>
+        </view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-two'>
+          <view class='list-li'>
+            <view class='list-li-left'>代收货款：</view>
+            <view class='list-li-right'>{{detail.keepfee}}</view>
+          </view>
+        </view>
+        <view class='list-li-two'>
+          <view class='list-li'>
+            <view class='list-li-left'>等通知放货：</view>
+            <view class='list-li-right'>{{waitnote}}</view>
+          </view>
+          
+        </view>
       </view>
       <view class='list-li'>
         <view class='list-li-left'>备注：</view>

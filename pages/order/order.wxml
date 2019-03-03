@@ -79,7 +79,7 @@
       <input class='order-inpt' value='{{order.keepfee}}' bindinput="bindKeepFeeInput"></input>
     </view>
     <view class='order-li'>
-      <text class='order-text'>等通知放货</text>
+      <text class='order-text'>等通知放货：</text>
       <view>
         <radio-group class="radio-group" bindchange="waitNoteChange">
           <label class="radio" wx:for="{{waitArray}}">

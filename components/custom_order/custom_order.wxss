@@ -64,13 +64,14 @@
 }
 
 .order-text {
-  width: 150rpx;
+  width: 160rpx;
+  text-align: right;
   /* flex:1; */
 }
 
 .order-inpt {
   flex:3;
-  /* width: 460rpx; */
+  /* width: 450rpx; */
   height: 58rpx;
   padding: 0 30rpx;
   line-height: 58rpx;
@@ -79,7 +80,7 @@
 }
 .order-textarea{
   flex:3;
-  /* width: 460rpx; */
+  /* width: 450rpx; */
   height:102rpx;
   padding: 20rpx 30rpx;
   line-height: 34rpx;
