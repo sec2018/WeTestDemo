@@ -65,12 +65,12 @@
 }
 
 .order-text {
-  width: 160rpx;
+  width: 166rpx;
   text-align: right;
 }
 
 .order-inpt {
-  width: 450rpx;
+  width: 444rpx;
   height: 58rpx;
   padding: 0 30rpx;
   line-height: 58rpx;
@@ -78,7 +78,7 @@
   border-radius: 4rpx;
 }
 .order-textarea{
-  width: 450rpx;
+  width: 444rpx;
   height:102rpx;
   padding: 20rpx 30rpx;
   line-height: 34rpx;
@@ -87,7 +87,7 @@
 }
 .order-select{
   position: relative;
-  width: 440rpx;
+  width: 438rpx;
   padding-right:50rpx;
 }
 .order-select .down-arrow {

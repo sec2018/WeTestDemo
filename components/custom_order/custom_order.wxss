@@ -64,7 +64,7 @@
 }
 
 .order-text {
-  width: 160rpx;
+  width: 166rpx;
   text-align: right;
   /* flex:1; */
 }
