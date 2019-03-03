@@ -18,13 +18,26 @@ Component({
           console.log(orderDetail)
           if (orderDetail){
             orderDetail = JSON.parse(orderDetail);
-            let company_id = orderDetail.line_id;
-            let company_index = 0;
-            for (let i = 0; i < this.data.popListItem.length; i++){
-              if (this.data.popListItem[i].key == line_id){
-                company_index = i;
+            let line_id = orderDetail.line_id;
+            let popitemindex = 0;
+            let popindex = 0;
+            let popListL = this.data.popList.length;
+            let popitemarr = [];
+            for (let i = 0; i < popListL; i++){
+              let popitem = this.data.popList[i][1];
+              for (let j = 0; j < popitem.length;j++){
+                if (popitem[j].key == line_id) {
+                  popitemindex = j;
+                  popindex = i;
+                  popitemarr = popitem;
+                  break;
+                }
+                
+              }
+              if(popitemarr.length >0){
                 break;
               }
+              console.log(i, 'hhhhhhhhhhhh')
             }
             let pay_method_id = orderDetail.pay_method;
             let pay_method_index = 0;
@@ -52,13 +65,16 @@ Component({
               },
               shopname: orderDetail.shop_name,
               shopid: orderDetail.shop_id,
-              // logisticsIndex: company_index,
-              popListItemIndex: company_index,
+              popListItem: popitemarr,
+              popListIndex: popindex,
+              popListItemIndexLin: popitemindex,
+              popListIndexLin: popindex,
+              popListItemIndex: popitemindex,
               payMethodIndex: pay_method_index,
               giveValue: orderDetail.give_method,
               waitValue: orderDetail.waitnote
             })
-            console.log(this.data.popListItemIndex, this.data.popList, this.data.popListItem)
+            console.log(orderDetail)
           } else {
             this.setData({
               order: {
