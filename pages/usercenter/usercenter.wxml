@@ -7,8 +7,8 @@
   </block>
   <block wx:else>
     <view class="user-header">
-      <view class="user-photo"><image class="user-photo-img" src="{{userInfo.avatarUrl}}"></image></view>
-      <view class="user-name">{{userInfo.nickName}}</view>
+      <view class="user-photo"><image class="user-photo-img" src="{{userInfo.avatarurl}}"></image></view>
+      <view class="user-name">{{userInfo.nickname}}</view>
       <view class="user-name">({{role}})</view>
     </view>
     <view class="user-ul">

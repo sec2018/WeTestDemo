@@ -36,7 +36,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.getData();
+    let _this = this;
+    this.setData({
+      list: [],
+      total: 0,
+      pageIndex: 1,
+      initData: true
+    }, function () {
+      _this.getData();
+    });
     
   },
 

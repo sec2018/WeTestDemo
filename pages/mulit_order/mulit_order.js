@@ -138,6 +138,14 @@ Page({
       sender_detailarea: _this.data.sendAddress.detail_addr,
       sender_tel: _this.data.sendAddress.tel,
     })
+    if (!_this.data.sendAddress.pro_city) {
+      wx.showToast({
+        title: '请填写寄件人地址',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+    }
     if(param.id){//修改事件
       //调用保存按钮，保存成功后，将closeDialog设置为true
       

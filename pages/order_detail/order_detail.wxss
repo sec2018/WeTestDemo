@@ -10,6 +10,10 @@
   margin:20rpx auto;
   font-size: 30rpx;
 }
+.refund{
+  color:#f3f3f3;
+  background: #ccc;
+}
 .list-ul{
   padding:30rpx 30rpx 0;
 }

@@ -143,6 +143,14 @@ Component({
     //保存接口
     saveOrder: function(){
       let _this = this;
+      if ( !_this.data.receiveAddress.pro_city || !_this.data.order.goodsname || !_this.data.order.goodsnum || _this.data.popListItemIndex == -1) {
+        wx.showToast({
+          title: '信息填写不完整',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
       let param = {
         company_code: '',
         goodsname: _this.data.order.goodsname,

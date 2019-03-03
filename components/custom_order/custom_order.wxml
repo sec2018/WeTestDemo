@@ -28,7 +28,7 @@
     </view>
     <view class='order-li'>
       <text class='order-text'>总价：</text>
-      <input class='order-inpt' value='{{order.price}}'></input>
+      <input class='order-inpt' value='{{order.price}}' disabled></input>
     </view>
     <view class='order-li'>
       <text class='order-text'>物流公司：</text>

@@ -9,7 +9,8 @@ Page({
     detail:{},
     roleid: '',
     company_code:'',
-    delivery_fee:''
+    delivery_fee:'',
+    refundclass: ''
   },
 
   /**
@@ -209,12 +210,13 @@ Page({
   /* 退款测试   */
   refundBill() {
     let _this = this;
+    if(_this.data.refundclass == 'refund'){
+      return;
+    }
     let dataParam = {
-      // order_id: _this.data.detail.id,
-      order_id: 17,
+      order_id: _this.data.detail.id,
       total_fee: _this.data.detail.price,
-      // out_trade_no: _this.data.detail.out_trade_no,
-      out_trade_no:"15267985512019030109481420262643",
+      out_trade_no: _this.data.detail.out_trade_no,
       attach: _this.data.detail.shop_name
     }
     utils.wxResquest({
@@ -223,9 +225,52 @@ Page({
       method: 'POST'
     }, function (res) {
       console.log(res);
+      if(res.data.data.returnCode == "success"){
+        _this.setData({
+          refundclass: 'refund'
+        })
+        wx.showToast({
+          title: '退款成功',
+          duration: 2000
+        });
+      }
     })
   },
-
+  cancelBill(){
+    let _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '确认取消运单吗？',
+      success(res) {
+        if (res.confirm) {
+          let dataParam = {
+            id: _this.data.detail.id
+          }
+          utils.wxResquest({
+            url: '/transport/api/deletesenderbill',
+            data: dataParam,
+            method: 'POST'
+          }, function (res) {
+            if (res.data.success) {
+              wx.showToast({
+                title: res.data.msg,
+                duration: 2000
+              });
+              setTimeout(function () {
+                wx.hideToast();
+                wx.navigateBack({
+                  delta: '1'
+                })
+              }, 1800)
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+    
+  },
   finishBill() {
     let _this = this;
     let dataParam = {

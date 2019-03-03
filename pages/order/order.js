@@ -132,6 +132,14 @@ Page({
   //下单接口
   createOrder: function(){
     let _this = this;
+    if (!_this.data.sendAddress.pro_city || !_this.data.receiveAddress.pro_city || !_this.data.order.goodsname || !_this.data.order.goodsnum || _this.data.popListItemIndex == -1){
+      wx.showToast({
+        title: '信息填写不完整',
+        icon: 'none',
+        duration: 2000
+      });
+      return;
+    }
     let param = {
       sender_name: _this.data.sendAddress.uname,
       company_code: '',
