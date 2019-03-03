@@ -31,7 +31,7 @@ function loginAjax(cb){
     let ro = data.role;
     let checkStatus = data.status;
     console.log(ro)
-    
+    wx.setStorageSync('userInfo', data.userinfo);
     if(ro && roleid && ro != roleid){
       let rostr = '商户';
       if(ro == 2){
@@ -64,7 +64,9 @@ function loginAjax(cb){
         showCancel: false,
         success: function (res) {
           if (res.confirm) {
-
+            wx.navigateTo({
+              url: '../login/login',
+            })
           }
         }
       });
@@ -90,6 +92,7 @@ function loginAjax(cb){
  */
 function wxResquest(resquestParam, successCb, failedCb) {
   let token = wx.getStorageSync('token');
+  let userInfoFrom = wx.getStorageSync('userInfo');
   roleid = wx.getStorageSync('roleid');
   console.log(token+' tokn')
     if (!roleid && resquestParam.header && !resquestParam.header.roleid){
@@ -105,6 +108,29 @@ function wxResquest(resquestParam, successCb, failedCb) {
       return
     }
   }
+  if(!userInfoFrom){
+
+  } else {
+    if (userInfoFrom.trancheckstatus != 1){
+      console.log(userInfoFrom);
+      wx.showModal({
+        title: '',
+        content: '用户在审核中',
+        showCancel: false,
+        success: function (res) {
+          if (res.confirm) {
+            // wxResquest(resquestParam, successCb, failedCb)
+            wx.navigateTo({
+              url: '../login/login',
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    }
+  }
+
   let headerParam = Object.assign({}, {
     'Content-Type': 'application/x-www-form-urlencoded',
     'token': token,
@@ -227,7 +253,7 @@ function loginByWxchat(cb) {
                 // }, cb)
 
                 loginAjax(function () {
-                  wx.setStorageSync('userInfo', userRes.userInfo);
+                  // wx.setStorageSync('userInfo', userRes.userInfo);
                   wx.navigateBack({
                     delta: '1'
                   })
