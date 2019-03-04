@@ -3,14 +3,14 @@
   <view class='list-ul'>
     <view class='list-li list-li-one text-align'>
       <view class='list-li-right'>
-        <view>同城货运小程序介绍</view>
+        <view>聚鲸物流平台介绍</view>
       </view>
     </view>
     <view class='list-li-one'>
       <view class='list-li'>
-        <view class='list-li-right'>同城货运小程序是一款方便短距离托运委托的产品，它连接了商户、承运员和物流公司之间的关系，做到等同于快递上门的商户下单服务。</view>
+        <view class='list-li-right'>聚鲸物流平台小程序是一款方便短距离托运委托的服务产品，完成商户下单，承运员接单托运，物流公司确认订单完成的流程，它连接了商户、承运员和物流公司之间的关系，做到等同于快递上门取货并运送到指定物流公司的最先1公里的在线服务。</view>
       </view>
     </view>
   </view>
-  <view class='status1'>欢迎致电或邮箱留言：shuye520com@163.com</view>
+  <view class='status1'>欢迎致电或邮箱留言：2676298070@163.com</view>
 </view>

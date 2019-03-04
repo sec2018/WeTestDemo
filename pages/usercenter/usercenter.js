@@ -8,7 +8,7 @@ Page({
     isLogin:true,
     userInfo: '',
     role: '商家',
-    phone: '62678989'
+    phone: '053168828911'
   },
 
   /**
