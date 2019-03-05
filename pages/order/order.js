@@ -313,7 +313,7 @@ Page({
   bindNumInput: function (e) {
     this.setData({
       'order.goodsnum': e.detail.value,
-      'order.price': e.detail.value*3.00
+      'order.price': e.detail.value * 2.00
     });
   },
   bindInfoInput: function (e) {
