@@ -14,6 +14,7 @@
   </view>
   <view class='con-btn'>
     <view class='con-btncon' wx:if='{{roleid == "2"}}'><navigator url='../order/order'>单票下单</navigator></view>
+    <view class='con-btncon' wx:if='{{roleid == "4"}}'><navigator url='../companyorder/companyorder'>下单</navigator></view>
   </view>
   <view class='con-btn'>
     <view class='con-btncon' wx:if='{{roleid == "2"}}' bindtap='toMulitOrder'>批量下单</view>

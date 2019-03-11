@@ -1,0 +1,47 @@
+<!--pages/order/order.wxml-->
+<view>
+  <view class='order-header'>
+    <view class='order-cicle'>寄</view>
+    <view class='order-h-con'>
+      <view>{{sendAddress.sender_name}} <text>{{sendAddress.tel}}</text></view>
+      <view class='order-h-conb' bindtap='toAddAddressList'>{{sendAddress.pro_city + sendAddress.detail_addr}}</view>
+    </view>
+    <view class="user-photo"><image class="user-photo-img" src="{{userInfo.avatarurl}}"></image></view>
+  </view>
+  <view class='order-header'>
+    <view class='order-cicle order-cicle1'>收</view>
+    <view class='order-h-con'  data-flag='receive' bindtap='toAddAddressList'>
+      <view>{{receiveAddress.uname}} <text>{{receiveAddress.tel}}</text></view>
+      <view class='order-h-conb'>{{receiveAddress.pro_city + receiveAddress.detail_addr}}</view>
+    </view>
+    <view class='order-h-btn' data-flag='receive' bindtap='toAddressList'>地址簿</view>
+  </view>
+  <view class='order-h1'>承运单信息</view>
+  <view class='order-ul'>
+    <view class='order-li'>
+      <text class='order-text'>商铺名称：</text>
+      <input class='order-inpt' value='{{shopname}}'  bindinput="bindShopNameInput"></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>商品名：</text>
+      <input class='order-inpt' value='{{order.goodsname}}' bindinput="bindGoodsInput"></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>件数：</text>
+      <input class='order-inpt' value='{{order.goodsnum}}' bindinput="bindNumInput"></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>代收总价：</text>
+      <input class='order-inpt' value='{{order.price}}' bindinput="bindPriceInput"></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>运单号：</text>
+      <input class='order-inpt' value='{{order.companycode}}'  bindinput="bindCompanyCodeInput"></input>
+    </view>
+    <view class='order-li'>
+      <text class='order-text'>备注：</text>
+      <input class='order-inpt' value='{{order.billinfo}}' bindinput="bindInfoInput"></input>
+    </view>
+    <view class='order-btn' bindtap='createOrder'>下单</view>
+  </view>
+</view>

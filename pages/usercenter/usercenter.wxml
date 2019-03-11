@@ -15,10 +15,11 @@
       <block wx:if="{{role == '商家'}}">
         <navigator url="../register_info/register_info?flag=update" class="user-li"><view>商铺信息</view><view>></view></navigator>
         <navigator url="../add_address/add_address?flag=send&froms=ind" class="user-li"><view>寄件常用联系人</view><view>></view></navigator>
-      <navigator url="../add_address/add_address?flag=receive&froms=ind" class="user-li"><view>收件常用联系人</view><view>></view></navigator>
+        <navigator url="../add_address/add_address?flag=receive&froms=ind" class="user-li"><view>收件常用联系人</view><view>></view></navigator>
       </block>
       <block wx:elif="{{role == '物流公司'}}">
         <navigator url="../register_info/register_info?flag=update" class="user-li"><view>物流公司信息</view><view>></view></navigator>
+        <navigator url="../add_address/add_address?flag=receive&froms=ind" class="user-li"><view>收件常用联系人</view><view>></view></navigator>
       </block>
       
       <view class="user-li" bindtap="callPhone"><view>平台客服电话： {{phone}}</view><view>></view></view>

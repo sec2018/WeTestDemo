@@ -19,12 +19,8 @@
               <view class='c-a1c879'>{{order.statusFun(item.bill_status)}}</view>
             </view>
             <view class='list-li-goods'>
-              <view>寄件人：{{item.sender_name}}</view>
               <view>收件人：{{item.rec_name}}</view>
-            </view>
-            <view class='list-li-goods'>
               <view>{{item.goodsname}}</view>
-              <view>{{item.company_name}}</view>
             </view>
             <view class='text-right'>共 <text class='c-c1975b f18'>{{item.goodsnum}}</text> 件商品，合计 <text class='c-c1975b f18'>{{item.price}}</text> 元</view>
           </view>

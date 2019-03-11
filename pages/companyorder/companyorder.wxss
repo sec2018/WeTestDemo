@@ -1,0 +1,138 @@
+/* pages/order/order.wxss */
+
+.order-header {
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid #f6f6f6;
+  align-items: center;
+}
+
+.order-cicle {
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  border-radius: 100%;
+  background: #000;
+  color: #fff;
+  text-align: center;
+}
+
+.order-cicle1 {
+  background: #c1975b;
+}
+
+.order-h-con {
+  width: 460rpx;
+  margin: 0 20rpx;
+  padding: 0 20rpx;
+  font-size: 28rpx;
+  height: 102rpx;
+  line-height: 34rpx;
+  overflow: hidden;
+  border-right: 1rpx solid #f6f6f6;
+}
+
+.order-h-conb {
+  font-size: 24rpx;
+  height:68rpx;
+  color: #666;
+}
+
+.order-h-btn {
+  width: 100rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+.order-h1 {
+  height: 60rpx;
+  margin-top: 30rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  text-align: center;
+}
+
+.order-ul {
+  font-size: 26rpx;
+  padding: 20rpx 30rpx 0;
+}
+
+.order-li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.order-text {
+  width: 166rpx;
+  text-align: right;
+}
+
+.order-inpt {
+  width: 444rpx;
+  height: 58rpx;
+  padding: 0 30rpx;
+  line-height: 58rpx;
+  border: 1rpx solid #f1f1f1;
+  border-radius: 4rpx;
+}
+.order-textarea{
+  width: 444rpx;
+  height:102rpx;
+  padding: 20rpx 30rpx;
+  line-height: 34rpx;
+  border: 1rpx solid #f1f1f1;
+  border-radius: 4rpx;
+}
+.order-select{
+  position: relative;
+  width: 438rpx;
+  padding-right:50rpx;
+}
+.order-select .down-arrow {
+  position: absolute;
+  right:10rpx;
+  top:10rpx;
+  width: 20rpx;
+  height: 20rpx;
+  border-right: 1rpx solid #ccc;
+  border-top: 1rpx solid #ccc;
+  -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/
+  transform: rotate(135deg);
+}
+
+.order-btn {
+  /* position: fixed; */
+  /* left: 75rpx; */
+  /* bottom: 80rpx; */
+  height: 80rpx;
+  width: 600rpx;
+  margin:30rpx auto;
+  line-height: 80rpx;
+  color: #fff;
+  background: #c1975b;
+  text-align: center;
+  border-radius: 4rpx;
+  font-size: 34rpx;
+}
+.order-picker{
+  width:480rpx;
+}
+.order-picker-arrow{
+  width:20rpx;
+}
+radio {
+  transform:scale(0.7);
+}
+.user-photo{
+  width:100rpx;
+  height:100rpx;
+  overflow: hidden;
+  margin-right:20rpx;
+  border-radius: 100%;
+}
+.user-photo-img{
+  width:100rpx;
+  height:100rpx;
+}
