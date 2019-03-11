@@ -1,1 +1,82 @@
-/* pages/companyorder_detail/companyorder_detail.wxss */
+/* pages/order_detail/order_detail.wxss */
+.header-h1{
+  height:60rpx;
+  line-height: 60rpx;
+  width:690rpx;
+  text-align: center;
+  color:#fff;
+  background: #c1975b;
+  border-radius: 4rpx;
+  margin:20rpx auto;
+  font-size: 30rpx;
+}
+.refund{
+  color:#f3f3f3;
+  background: #ccc;
+}
+.list-ul{
+  padding:30rpx 30rpx 0;
+}
+.list-li{
+  display: flex;
+  line-height: 50rpx;
+  font-size: 28rpx;
+}
+.list-li-one{
+  border:1px dashed #dfdfdf;
+  background: #f9f9f9;
+  padding:10rpx 0;
+  border-radius: 2rpx;
+}
+.list-li-two{
+  flex: 1;
+}
+.no-border-top{
+  border-top:none;
+  margin-bottom:10rpx;
+}
+.mr10{
+  margin-right:10rpx;
+}
+.mt20{
+  margin-top:20rpx;
+}
+.list-li-left{
+  width:170rpx;
+  padding-right:10rpx;
+  text-align: right;
+}
+.list-li-right{
+  max-width:490rpx;
+  word-break: break-all;
+}
+.list-li-two .list-li-right{
+  max-width:250rpx;
+}
+.status1{
+  color:#c1975b;
+  font-size: 30rpx;
+}
+.order-ul {
+  font-size: 26rpx;
+  padding: 20rpx 0 0;
+}
+.order-li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.order-text {
+  width: 170rpx;
+  padding-right:10rpx;
+  text-align: right;
+}
+
+.order-inpt {
+  width: 440rpx;
+  height: 58rpx;
+  padding: 0 30rpx;
+  line-height: 58rpx;
+  border: 1rpx solid #f1f1f1;
+  border-radius: 4rpx;
+}

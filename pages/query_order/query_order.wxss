@@ -82,3 +82,11 @@ page {
   color:#8a8a8a;
   font-weight: blod;
 }
+radio {
+  transform:scale(0.7);
+}
+.type-choice{
+  font-size: 28rpx;
+  padding:10rpx 30rpx;
+  background: #fff;
+}

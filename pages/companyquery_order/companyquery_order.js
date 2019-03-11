@@ -92,7 +92,7 @@ Page({
     let id = e.currentTarget.dataset.id;
     console.log(e)
     let data = this.data.list[id];
-    wx.setStorageSync('companyOrderDetail', data);
+    wx.setStorageSync('companyorderDetail', data);
     wx.navigateTo({
       url: '../companyorder_detail/companyorder_detail',
     })

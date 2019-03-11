@@ -5,6 +5,16 @@
     <input class='header-inp' placeholder='请输入收件人姓名' value="{{searchrecname}}" bindblur='recinput'></input>
     <text class='header-btn' bindtap='clickQueryBtn'>查询</text>
   </view>
+  <view class='type-choice' wx:if="{{roleid == '3' || roleid == '4'}}">
+    
+    <radio-group class="radio-group" bindchange="radioTypeChange">
+      <label>运单类别: </label>
+      <label class="radio" wx:for="{{typeArr}}">
+        <radio color="#c1975b" value="{{item.name}}" checked="{{item.checked}}" />
+        {{item.value}}
+      </label>
+    </radio-group>
+  </view>
   <view class='query-btn border-bottom'>
     <view class='query-btn-item border-right {{tabIndex == 1 ? "btn-item-active" : ""}}' data-id='1' bindtap='tabClick'>未完成运单</view>
     <view class='query-btn-item {{tabIndex == 2 ? "btn-item-active" : ""}}' data-id='2' bindtap='tabClick'>已完成运单</view>

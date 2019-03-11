@@ -19,7 +19,6 @@
     "pages/bluetooth/bluetooth",
     "pages/company_line/company_line",
     "pages/companyorder/companyorder",
-    "pages/companyquery_order/companyquery_order",
     "pages/companyorder_detail/companyorder_detail"
   ],
   "tabBar": {
@@ -33,13 +32,7 @@
       },
       {
         "pagePath": "pages/query_order/query_order",
-        "text": "商户运单",
-        "iconPath": "./images/icon3_1.png",
-        "selectedIconPath": "./images/icon3.png"
-      },
-      {
-        "pagePath": "pages/companyquery_order/companyquery_order",
-        "text": "公司运单",
+        "text": "运单查询",
         "iconPath": "./images/icon3_1.png",
         "selectedIconPath": "./images/icon3.png"
       },

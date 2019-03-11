@@ -1,2 +1,91 @@
-<!--pages/companyorder_detail/companyorder_detail.wxml-->
-<text>pages/companyorder_detail/companyorder_detail.wxml</text>
+<!--pages/order_detail/order_detail.wxml-->
+<view>
+  <wxs src="../../components/order.wxs" module="order"></wxs>
+  <view class='list-ul'>
+    <view class='list-li list-li-one'>
+      <view class='list-li-left'>寄件人：</view>
+      <view class='list-li-right'>
+        <view>
+          <text class='mr10'>物流公司名称</text>
+          <text>{{detail.company_tel}}</text>
+        </view>
+        <view>{{detail.company_procity + detail.company_detailarea}}</view>
+      </view>
+    </view>
+    <view class='list-li list-li-one no-border-top'>
+      <view class='list-li-left'>收件人：</view>
+      <view class='list-li-right'>
+        <view>
+          <text class='mr10'>{{detail.rec_name}}</text>
+          <text>{{detail.rec_tel}}</text>
+        </view>
+        <view>{{detail.rec_procity + detail.rec_detailarea}}</view>
+      </view>
+    </view>
+    <view class='list-li-one'>
+      <view class='list-li'>
+          <view class='list-li-left'>承运员：</view>
+          <view class='list-li-right'>{{detail.trans_name || '（暂未接单）'}}</view>
+        </view>
+      <view class='list-li'>
+        <view class='list-li-left'>运单号：</view>
+        <view class='list-li-right'>{{detail.company_code || '（等待物流公司确认）'}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-left'>托运号：</view>
+        <view class='list-li-right'>{{detail.bill_code}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-left'>店铺名称：</view>
+        <view class='list-li-right'>{{detail.shop_name}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-left'>品名：</view>
+        <view class='list-li-right'>{{detail.goodsname}}</view>
+      </view>
+      <view class='list-li'>
+        <view class='list-li-two'>
+          <view class='list-li'>
+            <view class='list-li-left'>件数：</view>
+            <view class='list-li-right'>{{detail.goodsnum}}</view>
+          </view>
+        </view>
+        <view class='list-li-two'>
+          <view class='list-li' wx:if='{{roleid == "2"}}'>
+            <view class='list-li-left'>物流费用：</view>
+            <view class='list-li-right'>{{detail.price}}元</view>
+          </view>
+        </view>
+      </view>
+      
+      
+      <view class='list-li'>
+        <view class='list-li-left'>备注：</view>
+        <view class='list-li-right'>{{detail.billinfo}}</view>
+      </view>
+    </view>
+    <view wx:if='{{detail.bill_status == 1}}' class='list-li mt20'>
+      <view class='list-li-left'>下单时间：</view>
+      <view class='status1'>{{detail.create_time}}</view>
+    </view>
+    <view wx:if='{{detail.bill_status == 2}}' class='list-li mt20'>
+      <view class='list-li-left'>接单时间：</view>
+      <view class='status1'>{{detail.rec_time}}</view>
+    </view>
+    <view wx:if='{{detail.bill_status == 4}}' class='list-li mt20'>
+      <view class='list-li-left'>完成时间：</view>
+      <view class='status1'>{{detail.finish_time}}</view>
+    </view>
+    <view class='list-li mt20'>
+      <view class='list-li-left'>当前状态：</view>
+      <view class='status1'>{{order.statusFun(detail.bill_status)}}</view>
+    </view>
+    
+    <view wx:if='{{roleid == "3" && detail.bill_status == 1}}' class='header-h1' bindtap='receiveBill'>接单</view>
+    <view wx:if='{{roleid == "3" && detail.bill_status == 3}}' class='header-h1' bindtap='finishBill'>确认完成</view>
+    <view wx:if='{{roleid == "4" && detail.bill_status == 1}}' class='header-h1' bindtap='cancelBill'>取消订单</view>
+    <!-- <view wx:if='{{roleid == "4" && detail.bill_status == 4}}' class='header-h1' bindtap='createinvoice'>查看运单1</view> -->
+    <view wx:if='{{detail.bill_status == 4}}' class='header-h1' bindtap='seeinvoice'>查看运单</view>
+    <!-- <view wx:if='{{detail.bill_status == 4 && roleid == "2"}}' class='header-h1 {{refundclass}}' bindtap='refundBill'>退款测试</view> -->
+    </view>
+</view>

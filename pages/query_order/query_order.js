@@ -15,7 +15,13 @@ Page({
     pageIndex:1,
     pageSize:4,
     total:0,
-    initData:true
+    initData:true,
+    typeArr: [
+      { name: '2', value: '商户运单', checked: 'true' },
+      { name: '4', value: '公司运单' },
+    ],
+    typeid: '2',
+    roleid: '2'
   },
 
   /**
@@ -37,14 +43,23 @@ Page({
    */
   onShow: function () {
     let _this = this;
-    this.setData({
-      list: [],
-      total: 0,
-      pageIndex: 1,
-      initData: true
-    }, function () {
-      _this.getData();
-    });
+    let roleid = wx.getStorageSync('roleid');
+    if (!roleid) {
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    } else {
+      this.setData({
+        list: [],
+        total: 0,
+        pageIndex: 1,
+        roleid: roleid,
+        initData: true
+      }, function () {
+        _this.getData();
+      });
+    }
+    
     
   },
 
@@ -92,10 +107,19 @@ Page({
     let id = e.currentTarget.dataset.id;
     console.log(e)
     let data = this.data.list[id];
-    wx.setStorageSync('orderDetail', data);
-    wx.navigateTo({
-      url: '../order_detail/order_detail',
-    })
+    let _this = this;
+    if(_this.data.typeid == '2'){ //商户
+      wx.setStorageSync('orderDetail', data);
+      wx.navigateTo({
+        url: '../order_detail/order_detail',
+      })
+    } else if(_this.data.typeid == '4'){//公司运单
+      wx.setStorageSync('companyorderDetail', data);
+      wx.navigateTo({
+        url: '../companyorder_detail/companyorder_detail',
+      })
+    }
+    
   },
   tabClick: function(e){
     let id = e.currentTarget.dataset.id;
@@ -137,6 +161,16 @@ Page({
   getBillList: function(){
     let _this = this;
     
+    if(_this.data.typeid == '2'){
+      _this.getBillShopList();
+    } else if (_this.data.typeid == '4'){
+      _this.getBillCompanyShopList();
+    }
+  },
+  //获取商户运单
+  getBillShopList: function () {
+    let _this = this;
+
     wx.showLoading({
       title: '加载中',
     });
@@ -149,7 +183,39 @@ Page({
         isfinishflag: _this.data.tabIndex == 1 ? 0 : 1
       }
     }, function (res) {
-      wx.hideLoading(); 
+      wx.hideLoading();
+      let data = res.data.data;
+      let pageIndex = _this.data.pageIndex + 1;
+      let listData = _this.data.list;
+      let dataLen = data.data.length;
+      for (let i = 0; i < dataLen; i++) {
+        listData.push(data.data[i]);
+      }
+      _this.setData({
+        list: listData,
+        total: data.totalNum,
+        pageIndex: pageIndex,
+        initData: false
+      });
+    })
+  },
+  //获取公司运单
+  getBillCompanyShopList: function(){
+    let _this = this;
+
+    wx.showLoading({
+      title: '加载中',
+    });
+    util.wxResquest({
+      url: '/transport/api/getcompanytabbill',
+      method: 'GET',
+      data: {
+        startitem: _this.data.pageIndex,
+        pagesize: _this.data.pageSize,
+        isfinishflag: _this.data.tabIndex == 1 ? 0 : 1
+      }
+    }, function (res) {
+      wx.hideLoading();
       let data = res.data.data;
       let pageIndex = _this.data.pageIndex + 1;
       let listData = _this.data.list;
@@ -168,11 +234,53 @@ Page({
   //根据查询条件获取列表
   getQueryBillList: function(){
     let _this = this;
+
+    if (_this.data.typeid == '2') {
+      _this.getQueryShopBillList();
+    } else if (_this.data.typeid == '4') {
+      _this.getQueryCompanyBillList();
+    }
+  },
+  //根据查询条件获取商户列表
+  getQueryShopBillList: function () {
+    let _this = this;
     wx.showLoading({
       title: '加载中',
     });
     util.wxResquest({
       url: '/transport/api/getbillbynameortel',
+      method: 'GET',
+      data: {
+        startitem: _this.data.pageIndex,
+        pagesize: _this.data.pageSize,
+        isfinishflag: _this.data.tabIndex == 1 ? 0 : 1,
+        sender_param: _this.data.searchrecname
+      }
+    }, function (res) {
+      wx.hideLoading();
+      let data = res.data.data;
+      let pageIndex = _this.data.pageIndex + 1;
+      let listData = _this.data.list;
+      let dataLen = data.data.length;
+      for (let i = 0; i < dataLen; i++) {
+        listData.push(data.data[i]);
+      }
+      _this.setData({
+        list: listData,
+        total: data.totalNum,
+        pageIndex: pageIndex,
+        initData: false
+      });
+    })
+  },
+  //根据查询条件获取公司列表
+  getQueryCompanyBillList: function(){
+    let _this = this;
+    wx.showLoading({
+      title: '加载中',
+    });
+    util.wxResquest({
+      url: '/transport/api/getcompanybillbynameortel',
       method: 'GET',
       data: {
         startitem: _this.data.pageIndex,
@@ -250,5 +358,19 @@ Page({
   getListMore(){
     console.log('more');
     this.getData();
+  },
+  radioTypeChange(e){
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+    let id = e.detail.value;
+    let _this = this;
+    this.setData({
+      typeid: id,
+      list: [],
+      total: 0,
+      pageIndex: 1,
+      initData: true
+    }, function () {
+      _this.getData();
+    });
   }
 })
