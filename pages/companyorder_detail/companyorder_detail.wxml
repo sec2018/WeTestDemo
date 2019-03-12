@@ -6,7 +6,7 @@
       <view class='list-li-left'>寄件人：</view>
       <view class='list-li-right'>
         <view>
-          <text class='mr10'>物流公司名称</text>
+          <text class='mr10'>{{detail.company_name}}</text>
           <text>{{detail.company_tel}}</text>
         </view>
         <view>{{detail.company_procity + detail.company_detailarea}}</view>
