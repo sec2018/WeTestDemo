@@ -72,10 +72,19 @@ Page({
     let data = this.data.markers[index];
     let id = data.indexId;
     data.id = id;
-    wx.setStorageSync('orderDetail', data);
-    wx.navigateTo({
-      url: '../order_detail/order_detail',
-    })
+    console.log(index)
+    if (data.customordertype == '商户'){
+      wx.setStorageSync('orderDetail', data);
+      wx.navigateTo({
+        url: '../order_detail/order_detail',
+      })
+    } else {
+      wx.setStorageSync('companyorderDetail', data);
+      wx.navigateTo({
+        url: '../companyorder_detail/companyorder_detail',
+      })
+    }
+    
   },
   controltap(e) {
     console.log(e.controlId)
@@ -123,10 +132,46 @@ Page({
         data[i].height = 40;
         data[i].indexId = data[i].id;
         data[i].id = i;
+        data[i].customordertype = '商户';
       }
       console.log(data)
       _this.setData({
         markers:data
+      });
+      _this.getCompanyMarkerList();
+    })
+  },
+  getCompanyMarkerList(){
+    let _this = this;
+    let param = {
+      lng: _this.data.longitude,
+      lat: _this.data.latitude
+    }
+    utils.wxResquest({
+      url: '/transport/api/get2companyunbills',   //2公里未接订单
+      data: param,
+      method: 'GET'
+    }, function (result) {
+      let data = result.data.data;
+      let dataLen = data.length;
+      let arr = _this.data.markers;
+      let lastIndex = _this.data.markers.length;
+      for (let i = 0; i < dataLen; i++) {
+        
+        data[i].latitude = data[i].company_lat;
+        data[i].iconPath = '../../images/billcompany.png';
+        data[i].longitude = data[i].company_lng;
+        data[i].width = 35;
+        data[i].height = 40;
+        data[i].indexId = data[i].id;
+        data[i].id = i + lastIndex;
+        data[i].customordertype = '公司';
+        console.log(data[i])
+        arr.push(data[i]);
+      }
+      
+      _this.setData({
+        markers: arr
       })
     })
   }

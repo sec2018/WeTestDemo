@@ -72,10 +72,17 @@ Page({
     let data = this.data.markers[index];
     let id = data.indexId;
     data.id = id;
-    wx.setStorageSync('orderDetail', data);
-    wx.navigateTo({
-      url: '../order_detail/order_detail',
-    })
+    if (data.customordertype == '商户') {
+      wx.setStorageSync('orderDetail', data);
+      wx.navigateTo({
+        url: '../order_detail/order_detail',
+      })
+    } else {
+      wx.setStorageSync('companyorderDetail', data);
+      wx.navigateTo({
+        url: '../companyorder_detail/companyorder_detail',
+      })
+    }
   },
   controltap(e) {
     console.log(e.controlId)
@@ -123,10 +130,44 @@ Page({
         data[i].height = 40;
         data[i].indexId = data[i].id;
         data[i].id = i;
+        data[i].customordertype = '商户';
       }
       console.log(data)
       _this.setData({
         markers:data
+      })
+      _this.getCompanyList();
+    })
+  },
+  getCompanyList:function(){
+    let _this = this;
+    let param = {
+      startitem: 1,
+      pagesize: 1000,
+      isfinishflag: 0
+    }
+    utils.wxResquest({
+      url: '/transport//api/getcompanytabbill',
+      data: param,
+      method: 'GET'
+    }, function (result) {
+      let data = result.data.data.data;
+      let dataLen = data.length;
+      let arr = _this.data.markers;
+      let lastIndex = _this.data.markers.length;
+      for (let i = 0; i < dataLen; i++) {
+        data[i].latitude = data[i].company_lat;
+        data[i].iconPath = '../../images/billcompany.png';
+        data[i].longitude = data[i].company_lng;
+        data[i].width = 35;
+        data[i].height = 40;
+        data[i].indexId = data[i].id;
+        data[i].id = i + lastIndex;
+        data[i].customordertype = '公司';
+        arr.push(data[i]);
+      }
+      _this.setData({
+        markers: arr
       })
     })
   }
