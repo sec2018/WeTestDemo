@@ -1,6 +1,6 @@
 const app = getApp();
 const util = require('../../utils/util.js');
-
+let flagcom = '';
 Page({
 
   /**
@@ -8,6 +8,7 @@ Page({
    */
   data: {
     id:0,
+
     token:'',
     QrCodeUrl:''
   },
@@ -16,11 +17,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    flagcom = options.flag;
       this.setData({
         id: options.id,
         token: wx.getStorageSync('token')
-      })
+      });
       this.getImg();
+      
   },
 
   /**
@@ -90,9 +93,12 @@ Page({
     //     _this.setData({ QrCodeUrl: base64 });
     //   }
     // })
-    console.log(_this.data.id)
+    let urlparam = '/transport/api/getImg';
+    if (flagcom == 'company'){
+      urlparam = '/transport/api/getcompanybillimg'
+    }
     util.wxResquest({
-      url: '/transport/api/getImg',
+      url: urlparam,
       method: 'GET',
       data: { 'id': _this.data.id }
     }, function (res) {

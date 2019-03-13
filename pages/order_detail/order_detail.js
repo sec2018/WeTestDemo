@@ -339,7 +339,7 @@ Page({
     //   }
     // })
     wx.navigateTo({
-      url: '../h5invoice/h5invoice?id=' + id
+      url: '../h5invoice/h5invoice?id=' + id + '&flag=shop'
     })
   },
   timeformat(time){

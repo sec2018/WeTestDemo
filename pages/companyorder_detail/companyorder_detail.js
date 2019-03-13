@@ -99,7 +99,40 @@ Page({
       }
     })
   },
-  
+  confirmBill(){
+    let _this = this;
+    wx.showModal({
+      title: '提示',
+      content: '确认揽收运单吗？',
+      success(res) {
+        if (res.confirm) {
+          let dataParam = {
+            id: _this.data.detail.id
+          }
+          utils.wxResquest({
+            url: '/transport/api/confirmcompanybill',
+            data: dataParam,
+            method: 'POST'
+          }, function (res) {
+            if (res.data.success) {
+              wx.showToast({
+                title: res.data.msg,
+                duration: 2000
+              });
+              setTimeout(function () {
+                wx.hideToast();
+                wx.navigateBack({
+                  delta: '1'
+                })
+              }, 1800)
+            }
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
   cancelBill() {
     let _this = this;
     wx.showModal({
@@ -185,7 +218,7 @@ Page({
     //   }
     // })
     wx.navigateTo({
-      url: '../h5invoice/h5invoice?id=' + id
+      url: '../h5invoice/h5invoice?id=' + id + '&flag=company'
     })
   },
   timeformat(time) {

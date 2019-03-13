@@ -29,7 +29,7 @@
         </view>
       <view class='list-li'>
         <view class='list-li-left'>运单号：</view>
-        <view class='list-li-right'>{{detail.company_code || '（等待物流公司确认）'}}</view>
+        <view class='list-li-right'>{{detail.company_billcode || '（等待物流公司确认）'}}</view>
       </view>
       <view class='list-li'>
         <view class='list-li-left'>托运号：</view>
@@ -84,6 +84,7 @@
     <view wx:if='{{roleid == "3" && detail.bill_status == 1}}' class='header-h1' bindtap='receiveBill'>接单</view>
     <view wx:if='{{roleid == "3" && detail.bill_status == 3}}' class='header-h1' bindtap='finishBill'>确认完成</view>
     <view wx:if='{{roleid == "4" && detail.bill_status == 1}}' class='header-h1' bindtap='cancelBill'>取消订单</view>
+    <view wx:if='{{roleid == "4" && detail.bill_status == 2}}' class='header-h1' bindtap='confirmBill'>确认揽收</view>
     <!-- <view wx:if='{{roleid == "4" && detail.bill_status == 4}}' class='header-h1' bindtap='createinvoice'>查看运单1</view> -->
     <view wx:if='{{detail.bill_status == 4}}' class='header-h1' bindtap='seeinvoice'>查看运单</view>
     <!-- <view wx:if='{{detail.bill_status == 4 && roleid == "2"}}' class='header-h1 {{refundclass}}' bindtap='refundBill'>退款测试</view> -->
