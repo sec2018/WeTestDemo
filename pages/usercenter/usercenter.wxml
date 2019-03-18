@@ -25,7 +25,7 @@
       <view class="user-li" bindtap="callPhone"><view>平台客服电话： {{phone}}</view><view>></view></view>
       <navigator url="../about_us/about_us" class="user-li"><view>关于货运小程序</view><view>></view></navigator>
       <view class="user-li" bindtap="changeRole">
-        <view>注销或更换角色</view>
+        <view>注销登录</view>
         <view>></view>
       </view>
     </view>
