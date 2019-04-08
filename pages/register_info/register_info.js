@@ -16,10 +16,16 @@ Page({
       region: '请选择',
     },
     imageurl: '../../images/image_add.jpg',
+    imageurlFront: '../../images/image_add.jpg',
+    imageurlBlank: '../../images/image_add.jpg',
     roleid: '2',
     flag: 'add',
     region: ['', '', ''],
     customItem: '全部',
+    tran:{
+      frontUrl:'',
+      blankUrl:''
+    },
     company: {
       licence_url: '',
       complain_tel: '',
@@ -48,6 +54,11 @@ Page({
           title: '商家信息'
         });
         this.searchShop();
+      } else if (roleid == '3') { //承运员
+        wx.setNavigationBarTitle({
+          title: '承运员信息'
+        });
+        this.searchTran();
       } else if (roleid == '4') { //物流公司
         wx.setNavigationBarTitle({
           title: '物流公司信息'
@@ -64,6 +75,14 @@ Page({
         roleid: '2',
         flag: 'add'
       });
+    } else if (option.id == '3') { //承运员
+      wx.setNavigationBarTitle({
+        title: '承运员信息填写'
+      });
+      this.setData({
+        roleid: '3',
+        flag: 'add'
+      })
     } else if (option.id == '4') { //物流公司
       wx.setNavigationBarTitle({
         title: '物流公司信息填写'
@@ -77,7 +96,38 @@ Page({
   },
   onSave: function(){
     const _this = this;
-    if (!_this.data.address.address
+    if(_this.data.roleid == '3'){ //承运员信息
+      if (!_this.data.address.username
+        || !_this.data.address.phone) {
+        wx.showToast({
+          title: '信息填写不完整',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      if (_this.data.imageurlFront == '../../images/image_add.jpg') {
+        wx.showToast({
+          title: '请上传身份证正面',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      if (_this.data.imageurlBlank == '../../images/image_add.jpg') {
+        wx.showToast({
+          title: '请上传身份证反面',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      if (_this.data.imageurlFront == (app.globalData.apiRoot + '/transport' + _this.data.company.licence_url) && _this.data.imageurlBlank == (app.globalData.apiRoot + '/transport' + _this.data.company.licence_url)) {
+        _this.tranAjax();
+        return;
+      }
+      _this.uploadImage(_this.data.imageurlFront, _this.data.roleid, 'front');
+    } else if (!_this.data.address.address
       || !_this.data.address.username
       || !_this.data.address.phone
       || _this.data.address.region == '请选择') {
@@ -116,27 +166,45 @@ Page({
         _this.companyAjax();
         return;
       }
-      wx.uploadFile({
-        url: app.globalData.apiRoot + '/transport/api/uploadimage',
-        filePath: _this.data.imageurl,
-        name: 'imagefile',
-        header: {
-          token: wx.getStorageSync('token'),
-          roleid: wx.getStorageSync('roleid')
-        },
-        success(res) {
-          const data = res.data;
-          console.log(JSON.parse(data))
-          // do something
+      _this.uploadImage(_this.data.imageurl, _this.data.roleid,'');
+    }
+    
+  },
+  uploadImage: function(param, roleid, itype){ //上传图片
+    let _this = this;
+    wx.uploadFile({
+      url: app.globalData.apiRoot + '/transport/api/uploadimage',
+      filePath: param,
+      name: 'imagefile',
+      header: {
+        token: wx.getStorageSync('token'),
+        roleid: wx.getStorageSync('roleid')
+      },
+      success(res) {
+        const data = res.data;
+        console.log(JSON.parse(data))
+        // do something
+        if(roleid == '3'){ //承运员
+          if(itype == 'front'){
+            _this.uploadImage(_this.data.imageurlBlank, _this.data.roleid, '');
+            _this.setData({
+              'company.licence_url': JSON.parse(data).data
+            });
+          } else { //身份证反面
+            _this.setData({
+              'company.licence_url': JSON.parse(data).data
+            })
+            _this.tranAjax()
+          }
+        } else if(roleid == '4'){ //物流公司
           _this.setData({
             'company.licence_url': JSON.parse(data).data
           })
           _this.companyAjax()
         }
-      })
-      
-    }
-    
+        
+      }
+    })
   },
   companyAjax: function(){
     let dataParam = {
@@ -170,6 +238,42 @@ Page({
     }, function (res) {
       if(res.data.code == 200){
         
+        wx.setStorageSync('roleid', roleid);
+        wx.showToast({
+          title: res.data.msg,
+          icon: 'none'
+        })
+        setTimeout(function () {
+          wx.reLaunch({
+            url: '../index/index',
+          })
+        }, 1500)
+      }
+    })
+  },
+  tranAjax: function(){ //保存承运员信息接口
+    let dataParam = {
+      tranname: this.data.address.username,
+      trantel: this.data.address.phone,
+      frontUrl: this.data.imageurlFront,
+      blankUrl: this.data.imageurlBlank
+
+    };
+    if (this.data.flag == 'update') {
+      dataParam.tranid = this.data.address.id;
+    }
+    let roleid = this.data.roleid;
+    //发起网络请求
+    util.wxResquest({
+      url: '/transport/api/addorupdatetran',
+      data: dataParam,
+      method: 'POST',
+      header: {
+        'roleid': roleid
+      }
+    }, function (res) {
+      if (res.data.code == 200) {
+
         wx.setStorageSync('roleid', roleid);
         wx.showToast({
           title: res.data.msg,
@@ -315,6 +419,30 @@ Page({
       }
     })
   },
+  searchTran: function () { // 承运员信息
+    let _this = this;
+    util.wxResquest({
+      url: '/transport/api/searchtran',
+      method: 'POST'
+    }, function (res) {
+      if (res.data.success) {
+        let resdata = res.data.data;
+        _this.setData({
+          address: {
+            id: resdata.tranId,
+            username: resdata.tranName,
+            phone: resdata.tranTel
+          },
+          tran:{
+            frontUrl: resdata.frontUrl,
+            blankUrl: resdata.blankUrl
+          },
+          imageurlFront: app.globalData.apiRoot + '/transport' + resdata.frontUrl,
+          imageurlBlank: app.globalData.apiRoot + '/transport' + resdata.blankUrl
+        })
+      }
+    })
+  },
   bindClear: function(e){
     console.log(e.target.id)
     const typ = e.target.id;
@@ -402,6 +530,38 @@ Page({
           imageurl: tempFilePaths[0]
         })
         
+      }
+    })
+  },
+  chooseCodeFront: function () { //身份证正面
+    let _this = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths;
+        _this.setData({
+          imageurlFront: tempFilePaths[0]
+        })
+
+      }
+    })
+  },
+  chooseCodeBlank: function () { //身份证反面
+    let _this = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album', 'camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths;
+        _this.setData({
+          imageurlBlank: tempFilePaths[0]
+        })
+
       }
     })
   },

@@ -12,11 +12,12 @@
   padding-bottom:30rpx;
 }
 .add-label{
-  width:150rpx;
+  width:178rpx;
   height:60rpx;
   margin-right:4rpx;
   line-height: 60rpx;
   font-size: 28rpx;
+  text-align: right;
 }
 .add-label1{
   width:200rpx;
@@ -24,7 +25,7 @@
 
 .add-two{
   display: flex;
-  width:510rpx;
+  width:482rpx;
   align-items: center;
   border-bottom: 1rpx solid #ccc;
 }

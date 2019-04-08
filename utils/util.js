@@ -169,7 +169,13 @@ function wxResquest(resquestParam, successCb, failedCb) {
         wx.navigateTo({
           url: '../register_info/register_info?id=2',
         })
-      } else if(res.data.code == '500105'){ //物流公司
+      } else if(res.data.code == '500106'){ //承运员
+        app.globalData.token = res.data.data.token;
+        wx.setStorageSync('token', res.data.data.token);
+        wx.navigateTo({
+          url: '../register_info/register_info?id=3',
+        })
+      } else if (res.data.code == '500105') { //物流公司
         app.globalData.token = res.data.data.token;
         wx.setStorageSync('token', res.data.data.token);
         wx.navigateTo({

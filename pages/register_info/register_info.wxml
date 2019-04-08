@@ -1,7 +1,19 @@
 <!--pages/address/address.wxml-->
 <view class='add-wrapper'>
+  <wxs module="m1">
+  var getName = function(id) { 
+    var name = '公司名称：';
+    if(id == 2){
+      name = '店铺名称：'
+    } else if(id == 3){
+      name = '姓名：'
+    }
+    return name; 
+  } 
+  module.exports.getName = getName;
+</wxs>
   <view class='wrapper'>
-    <text class='add-label'>{{ roleid == 4 ? '公司名称：': '店铺名称：'}}</text>
+    <text class='add-label'>{{ m1.getName(roleid)}}</text>
     <view class='add-two'>
       <input value='{{address.username}}' bindinput="bindNameInput" class='add-input'></input>
       <icon type='clear' size='15' id='username-clear' hidden='{{address.username ? false : true}}' bindtap='bindClear'></icon>
@@ -14,30 +26,33 @@
       <icon type='clear' size='15' id='phone-clear' hidden='{{address.phone ? false : true}}' bindtap='bindClear'></icon>
     </view>
   </view>
-  <view class='wrapper'>
-    <text class='add-label'>省市区：</text>
-    <view class='add-two'>
-      <picker mode='region' bindchange='bindRegionChange' value='{{region}}' custom-item='{{customItem}}' class='add-select'>
-        <view>{{address.region}}</view>
-      </picker>
-      <view class='add-location' bindtap='onClickLocation'>
-        <image class='add-location-img' src='../../images/location.png'></image>
+  <block wx:if="{{roleid == 2 || roleid == 4}}">
+    <view class='wrapper'>
+      <text class='add-label'>省市区：</text>
+      <view class='add-two'>
+        <picker mode='region' bindchange='bindRegionChange' value='{{region}}' custom-item='{{customItem}}' class='add-select'>
+          <view>{{address.region}}</view>
+        </picker>
+        <view class='add-location' bindtap='onClickLocation'>
+          <image class='add-location-img' src='../../images/location.png'></image>
+        </view>
+      </view>
+
+    </view>
+    <view class='wrapper'>
+      <text class='add-label'>详细地址：</text>
+      <view class='add-two'>
+        <input class='add-input' bindinput='bindAddressInput' value='{{address.address}}'></input>
+        <icon type='clear' size='15' id='address-clear' hidden='{{address.address ? false : true}}' bindtap='bindClear'></icon>
       </view>
     </view>
-
-  </view>
-  <view class='wrapper'>
-    <text class='add-label'>详细地址：</text>
-    <view class='add-two'>
-      <input class='add-input' bindinput='bindAddressInput' value='{{address.address}}'></input>
-      <icon type='clear' size='15' id='address-clear' hidden='{{address.address ? false : true}}' bindtap='bindClear'></icon>
-    </view>
+  </block>
+  
+  <view class='wrapper' wx:if="roleid == 2 || roleid == 4">
+    <text class='add-label'>营业执照：</text>
+    <image class="image-plus" bindtap='chooseimg' src='{{imageurl}}'></image>
   </view>
   <block wx:if="{{roleid == 4}}">
-    <view class='wrapper'>
-      <text class='add-label'>营业执照：</text>
-      <image class="image-plus" bindtap='chooseimg' src='{{imageurl}}'></image>
-    </view>
     <view class='wrapper'>
       <text class='add-label'>投诉电话：</text>
       <view class='add-two'>
@@ -76,6 +91,16 @@
       <view class='add-two add-two1'>
         <input class='add-input' value='{{company.arrive_detail_addr}}' bindinput='bindArriveDetailInput'></input>
       </view>
+    </view>
+  </block>
+  <block wx:if="{{roleid == 3}}">
+    <view class='wrapper'>
+      <text class='add-label'>身份证正面：</text>
+      <image class="image-plus" bindtap='chooseCodeFront' src='{{imageurlFront}}'></image>
+    </view>
+    <view class='wrapper'>
+      <text class='add-label'>身份证反面：</text>
+      <image class="image-plus" bindtap='chooseCodeBlank' src='{{imageurlBlank}}'></image>
     </view>
   </block>
   <view class="add-btn" bindtap='onSave'>保存</view>
