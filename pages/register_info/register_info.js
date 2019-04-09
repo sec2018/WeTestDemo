@@ -139,7 +139,20 @@ Page({
       return;
     }
     if (this.data.roleid == 2) {
-      this.shopAjax()
+      if (_this.data.imageurl == '../../images/image_add.jpg') {
+        wx.showToast({
+          title: '请上传营业执照',
+          icon: 'none',
+          duration: 2000
+        });
+        return;
+      }
+      if (_this.data.imageurl == (app.globalData.apiRoot + '/transport' + _this.data.company.licence_url)) {
+        _this.companyAjax();
+        return;
+      }
+      _this.uploadImage(_this.data.imageurl, _this.data.roleid, '');
+      
     } else if (this.data.roleid == 4) {
       if (!_this.data.company.complain_tel
         || !_this.data.company.service_tel
@@ -172,8 +185,20 @@ Page({
   },
   uploadImage: function(param, roleid, itype){ //上传图片
     let _this = this;
+    let urltype = 'uploadimage';
+    if (roleid == '2') {//商户
+      urltype = 'shopuploadimage';
+    } else if (roleid == '3') {//承运员
+      if (itype == 'front') {
+        urltype = 'tranfrontimage';
+      } else { //身份证反面
+        urltype = 'tranbackimage';
+      }
+    } else if (roleid == '4') {//物流公司
+      urltype = 'uploadimage';
+    }
     wx.uploadFile({
-      url: app.globalData.apiRoot + '/transport/api/uploadimage',
+      url: app.globalData.apiRoot + '/transport/api/' + urltype,
       filePath: param,
       name: 'imagefile',
       header: {
@@ -201,6 +226,11 @@ Page({
             'company.licence_url': JSON.parse(data).data
           })
           _this.companyAjax()
+        } else if (roleid == '2') {//商户
+          _this.setData({
+            'company.licence_url': JSON.parse(data).data
+          })
+          _this.shopAjax()
         }
         
       }
@@ -292,7 +322,8 @@ Page({
       shopname: this.data.address.username,
       shop_tel: this.data.address.phone,
       shop_procity: this.data.address.region,
-      shop_detailarea: this.data.address.address
+      shop_detailarea: this.data.address.address,
+      licence_url: this.data.company.licence_url
     };
     if (this.data.flag == 'update'){
       dataParam.shopid = this.data.address.id
@@ -367,26 +398,30 @@ Page({
       }
     })
   },
-  searchShop: function () {
-    let _this = this;
-    util.wxResquest({
-      url: '/transport/api/searchshop',
-      method: 'POST'
-    }, function (res) {
-      if (res.data.success) {
-        let resdata = res.data.data;
-        _this.setData({
-          address: {
-            id:resdata.shopId,
-            username: resdata.shopName,
-            phone: resdata.shopTel,
-            region: resdata.shopProcity,
-            address: resdata.shopDetailarea
-          }
-        })
-      }
-    })
-  },
+  // searchShop: function () {
+  //   let _this = this;
+  //   util.wxResquest({
+  //     url: '/transport/api/searchshop',
+  //     method: 'POST'
+  //   }, function (res) {
+  //     if (res.data.success) {
+  //       let resdata = res.data.data;
+
+  //       _this.setData({
+  //         address: {
+  //           id:resdata.shopId,
+  //           username: resdata.shopName,
+  //           phone: resdata.shopTel,
+  //           region: resdata.shopProcity,
+  //           address: resdata.shopDetailarea
+  //         },
+  //         imageurl: app.globalData.apiRoot + '/transport/api/adminshowimage?imagename=' + resdata.shopUrl+'&roleid=2',
+  //         'company.licence_url': resdata.shopUrl
+  //       })
+  //     }
+  //   })
+  // },
+
   searchCompany: function () {
     let _this = this;
     util.wxResquest({
@@ -417,6 +452,43 @@ Page({
           }
         })
       }
+    })
+  },
+  searchShop: function () {
+    let _this = this;
+    util.wxResquest({
+      url: '/transport/api/searchshop',
+      method: 'POST'
+    }, function (res) {
+      if (res.data.success) {
+        let resdata = res.data.data;
+        _this.getImage('2', resdata.shopUrl);
+        _this.setData({
+          address: {
+            id: resdata.shopId,
+            username: resdata.shopName,
+            phone: resdata.shopTel,
+            region: resdata.shopProcity,
+            address: resdata.shopDetailarea
+          },
+          'company.licence_url': resdata.shopUrl
+        })
+      }
+    })
+  },
+  getImage: function (roleid,imagename) {
+    let _this = this;
+    util.wxResquest({
+      url: '/transport/api/adminshowimage',
+      method: 'GET',
+      data:{
+        imagename: imagename,
+        roleid:roleid
+      }
+    }, function (res) {
+      _this.setData({
+        imageurl: "data:image/png;base64," + decodeURI(res.data.data)
+      })
     })
   },
   searchTran: function () { // 承运员信息

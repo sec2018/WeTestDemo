@@ -48,7 +48,7 @@
     </view>
   </block>
   
-  <view class='wrapper' wx:if="roleid == 2 || roleid == 4">
+  <view class='wrapper' wx:if="{{roleid == 2 || roleid == 4}}">
     <text class='add-label'>营业执照：</text>
     <image class="image-plus" bindtap='chooseimg' src='{{imageurl}}'></image>
   </view>
