@@ -6,7 +6,9 @@ Page({
    */
   data: {
     isLogin:true,
-    userInfo: '',
+    userInfo:{
+      avatarurl:'../../images/image_add.jpg'
+    },
     role: '商家',
     phone: '053168828911'
   },
@@ -15,10 +17,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const userInfo = wx.getStorageSync('userInfo');
-    this.setData({
-      userInfo: userInfo
-    })
+    
   },
 
   /**
@@ -33,6 +32,7 @@ Page({
    */
   onShow: function () {
     let roleid = wx.getStorageSync('roleid');
+    let userInfo = wx.getStorageSync('userInfo');
     let role = '';
     switch (roleid) {
       case '3':
@@ -46,7 +46,8 @@ Page({
         break;
     }
     this.setData({
-      role:role
+      role:role,
+      userInfo: userInfo
     });
   },
 

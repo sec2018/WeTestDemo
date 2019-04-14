@@ -58,26 +58,61 @@ function loginAjax(cb){
     }
     if (!checkStatus) {
       wx.hideLoading()
-      wx.showModal({
+      // wx.showModal({
+      //   title: '',
+      //   content: result.data.msg,
+      //   showCancel: false,
+      //   success: function (res) {
+      //     if (res.confirm) {
+      //       wx.navigateTo({
+      //         url: '../login/login',
+      //       })
+      //     }
+      //   }
+      // });
+      if (data.userinfo.trancheckstatus == 0) {
+        wx.showModal({
+          title: '',
+          content: '用户在审核中',
+          showCancel: false,
+          success: function (res) {
+            if (res.confirm) {
+              // wxResquest(resquestParam, successCb, failedCb)
+              // wx.navigateTo({
+              //   url: '../login/login',
+              // })
+            } else if (res.cancel) {
+              console.log('用户点击取消')
+            }
+          }
+        })
+      } else if (data.userinfo.trancheckstatus == 2) { //审核不通过
+        wx.showModal({
         title: '',
         content: result.data.msg,
         showCancel: false,
         success: function (res) {
           if (res.confirm) {
+            wx.setStorageSync("token", data.token);
+            app.globalData.token = data.token;
             wx.navigateTo({
-              url: '../login/login',
+              url: '../register_info/register_info?flag=update&id='+data.userinfo.roleid,
             })
           }
         }
       });
+        
+      }
       return;
+    } else {
+      wx.setStorageSync("token", data.token);
+      app.globalData.token = data.token;
+      console.log(app.globalData)
+      if (cb) {
+        cb()
+      }
     }
-    wx.setStorageSync("token", data.token);
-    app.globalData.token = data.token;
-    console.log(app.globalData)
-    if(cb) {
-      cb()
-    }
+    
   })
 }
 /**
@@ -96,40 +131,44 @@ function wxResquest(resquestParam, successCb, failedCb) {
   roleid = wx.getStorageSync('roleid');
   console.log(token+' tokn')
     if (!roleid && resquestParam.header && !resquestParam.header.roleid){
+      
       loginByWxchat();
       return;
     }
   if (!token){
-    console.log(token+ 'tokn2')
+    console.log(token + 'tokn2', resquestParam.url)
     token = "";
-    if (resquestParam.url.indexOf('/wxlogin') == -1){
+    if (resquestParam.url.indexOf('wxlogin') == -1){
       console.log('调微信')
       loginByWxchat();
       return
     }
   }
-  if(!userInfoFrom){
+  // if(!userInfoFrom){
 
-  } else {
-    if (userInfoFrom.trancheckstatus != 1){
-      console.log(userInfoFrom);
-      wx.showModal({
-        title: '',
-        content: '用户在审核中',
-        showCancel: false,
-        success: function (res) {
-          if (res.confirm) {
-            // wxResquest(resquestParam, successCb, failedCb)
-            wx.navigateTo({
-              url: '../login/login',
-            })
-          } else if (res.cancel) {
-            console.log('用户点击取消')
-          }
-        }
-      })
-    }
-  }
+  // } else {
+  //   if (userInfoFrom.trancheckstatus == 0){
+  //     wx.showModal({
+  //       title: '',
+  //       content: '用户在审核中',
+  //       showCancel: false,
+  //       success: function (res) {
+  //         if (res.confirm) {
+  //           // wxResquest(resquestParam, successCb, failedCb)
+  //           // wx.navigateTo({
+  //           //   url: '../login/login',
+  //           // })
+  //         } else if (res.cancel) {
+  //           console.log('用户点击取消')
+  //         }
+  //       }
+  //     })
+  //   } else if (userInfoFrom.trancheckstatus == 2) { //审核不通过
+  //     wx.navigateTo({
+  //       url: '../register_info/register_info?id='+userInfoFrom.roleid,
+  //     })
+  //   }
+  // }
 
   let headerParam = Object.assign({}, {
     'Content-Type': 'application/x-www-form-urlencoded',

@@ -20,11 +20,12 @@ Page({
     imageurlBlank: '../../images/image_add.jpg',
     roleid: '2',
     flag: 'add',
+    flag3role: false,
     region: ['', '', ''],
     customItem: '全部',
     tran:{
       frontUrl:'',
-      blankUrl:''
+      blankUrl:'',
     },
     company: {
       licence_url: '',
@@ -37,17 +38,18 @@ Page({
     }
   },
   onLoad:function(options){
-    option = options;
-    
-  },
- 
-  onShow: function () {
-    
-    if (option.flag == 'update'){
+    // option = options;
+    if (options.flag == 'update'){
       let roleid = wx.getStorageSync('roleid');
+      let flag3 = false;
+      if(options.id == '3'){
+        roleid = options.id;
+        flag3 = true;
+      }
       this.setData({
         roleid: roleid,
-        flag: 'update'
+        flag: 'update',
+        flag3role: flag3
       });
       if (roleid == '2') { //商家
         wx.setNavigationBarTitle({
@@ -67,7 +69,7 @@ Page({
       }
       
       
-    } else if (option.id == '2') { //商家
+    } else if (options.id == '2') { //商家
       wx.setNavigationBarTitle({
         title: '商家信息填写'
       });
@@ -75,15 +77,16 @@ Page({
         roleid: '2',
         flag: 'add'
       });
-    } else if (option.id == '3') { //承运员
+    } else if (options.id == '3') { //承运员
       wx.setNavigationBarTitle({
         title: '承运员信息填写'
       });
       this.setData({
         roleid: '3',
-        flag: 'add'
+        flag: 'add',
+        flag3role: true
       })
-    } else if (option.id == '4') { //物流公司
+    } else if (options.id == '4') { //物流公司
       wx.setNavigationBarTitle({
         title: '物流公司信息填写'
       });
@@ -106,27 +109,32 @@ Page({
         });
         return;
       }
-      if (_this.data.imageurlFront == '../../images/image_add.jpg') {
-        wx.showToast({
-          title: '请上传身份证正面',
-          icon: 'none',
-          duration: 2000
-        });
-        return;
-      }
-      if (_this.data.imageurlBlank == '../../images/image_add.jpg') {
-        wx.showToast({
-          title: '请上传身份证反面',
-          icon: 'none',
-          duration: 2000
-        });
-        return;
-      }
-      if (_this.data.imageurlFront == (app.globalData.apiRoot + '/transport' + _this.data.company.licence_url) && _this.data.imageurlBlank == (app.globalData.apiRoot + '/transport' + _this.data.company.licence_url)) {
+      if(_this.data.flag == 'add'){
+        if (_this.data.imageurlFront == '../../images/image_add.jpg') {
+          wx.showToast({
+            title: '请上传身份证正面',
+            icon: 'none',
+            duration: 2000
+          });
+          return;
+        }
+        if (_this.data.imageurlBlank == '../../images/image_add.jpg') {
+          wx.showToast({
+            title: '请上传身份证反面',
+            icon: 'none',
+            duration: 2000
+          });
+          return;
+        }
+        if (_this.data.tran.frontUrl != '上传成功' && _this.data.tran.blankUrl != '上传成功') {
+          _this.tranAjax();
+          return;
+        }
+        _this.uploadImage(_this.data.imageurlFront, _this.data.roleid, 'front');
+      } else {
         _this.tranAjax();
-        return;
       }
-      _this.uploadImage(_this.data.imageurlFront, _this.data.roleid, 'front');
+
     } else if (!_this.data.address.address
       || !_this.data.address.username
       || !_this.data.address.phone
@@ -147,8 +155,8 @@ Page({
         });
         return;
       }
-      if (_this.data.imageurl == (app.globalData.apiRoot + '/transport' + _this.data.company.licence_url)) {
-        _this.companyAjax();
+      if (_this.data.company.licence_url !== '上传成功') {
+        _this.shopAjax();
         return;
       }
       _this.uploadImage(_this.data.imageurl, _this.data.roleid, '');
@@ -175,7 +183,7 @@ Page({
         });
         return;
       }
-      if (_this.data.imageurl == (app.globalData.apiRoot + '/transport' + _this.data.company.licence_url)){
+      if (_this.data.company.licence_url !== '上传成功'){
         _this.companyAjax();
         return;
       }
@@ -213,11 +221,11 @@ Page({
           if(itype == 'front'){
             _this.uploadImage(_this.data.imageurlBlank, _this.data.roleid, '');
             _this.setData({
-              'company.licence_url': JSON.parse(data).data
+              'tran.frontUrl': JSON.parse(data).data
             });
           } else { //身份证反面
             _this.setData({
-              'company.licence_url': JSON.parse(data).data
+              'tran.blankUrl': JSON.parse(data).data
             })
             _this.tranAjax()
           }
@@ -257,6 +265,7 @@ Page({
       dataParam.line_id = defaultLineId;
     }
     let roleid = this.data.roleid;
+    let _this = this;
     //发起网络请求
     util.wxResquest({
       url: '/transport/api/addorupdatecompany',
@@ -274,25 +283,32 @@ Page({
           icon: 'none'
         })
         setTimeout(function () {
-          wx.reLaunch({
-            url: '../index/index',
-          })
+          if (_this.data.flag == 'update') {
+            wx.reLaunch({
+              url: '../index/index',
+            })
+          } else if (_this.data.flag == 'add'){
+            wx.reLaunch({
+              url: '../login/login',
+            })
+          }
         }, 1500)
       }
     })
   },
   tranAjax: function(){ //保存承运员信息接口
     let dataParam = {
-      tranname: this.data.address.username,
-      trantel: this.data.address.phone,
-      frontUrl: this.data.imageurlFront,
-      blankUrl: this.data.imageurlBlank
+      tran_name: this.data.address.username,
+      tran_tel: this.data.address.phone,
+      front_url: this.data.tran.frontUrl,
+      back_url: this.data.tran.blankUrl
 
     };
     if (this.data.flag == 'update') {
-      dataParam.tranid = this.data.address.id;
+      dataParam.id = this.data.address.id;
     }
     let roleid = this.data.roleid;
+    let _this = this;
     //发起网络请求
     util.wxResquest({
       url: '/transport/api/addorupdatetran',
@@ -310,9 +326,15 @@ Page({
           icon: 'none'
         })
         setTimeout(function () {
-          wx.reLaunch({
-            url: '../index/index',
-          })
+          if (_this.data.flag == 'update') {
+            wx.reLaunch({
+              url: '../index/index',
+            })
+          } else if (_this.data.flag == 'add') {
+            wx.reLaunch({
+              url: '../login/login',
+            })
+          }
         }, 1500)
       }
     })
@@ -329,6 +351,7 @@ Page({
       dataParam.shopid = this.data.address.id
     }
     let roleid = this.data.roleid;
+    let _this =this;
     //发起网络请求
     util.wxResquest({
       url: '/transport/api/addorupdateshop',
@@ -345,9 +368,15 @@ Page({
           icon:'none'
         })
         setTimeout(function(){
-          wx.reLaunch({
-            url: '../index/index',
-          })
+          if (_this.data.flag == 'update') {
+            wx.reLaunch({
+              url: '../index/index',
+            })
+          } else if (_this.data.flag == 'add') {
+            wx.reLaunch({
+              url: '../login/login',
+            })
+          }
         },1500)
       }
     })
@@ -432,6 +461,7 @@ Page({
         let resdata = res.data.data;
         defaultLineId = resdata.defaultLineid;
         _this.getDefaultLineId();
+        _this.getImage('4', resdata.licenceUrl);
         _this.setData({
           address: {
             id: resdata.companyId,
@@ -440,7 +470,6 @@ Page({
             region: resdata.companyProcity,
             address: resdata.companyDetailarea
           },
-          imageurl: app.globalData.apiRoot +'/transport'+resdata.licenceUrl,
           company: {
             licence_url: resdata.licenceUrl,
             complain_tel: resdata.complainTel,
@@ -501,16 +530,14 @@ Page({
         let resdata = res.data.data;
         _this.setData({
           address: {
-            id: resdata.tranId,
+            id: resdata.id,
             username: resdata.tranName,
             phone: resdata.tranTel
           },
           tran:{
-            frontUrl: resdata.frontUrl,
-            blankUrl: resdata.blankUrl
-          },
-          imageurlFront: app.globalData.apiRoot + '/transport' + resdata.frontUrl,
-          imageurlBlank: app.globalData.apiRoot + '/transport' + resdata.blankUrl
+            frontUrl: resdata.idFrontUrl,
+            blankUrl: resdata.idBackUrl
+          }
         })
       }
     })
@@ -599,7 +626,8 @@ Page({
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths;
         _this.setData({
-          imageurl: tempFilePaths[0]
+          imageurl: tempFilePaths[0],
+          'company.licence_url': '上传成功'
         })
         
       }
@@ -615,7 +643,8 @@ Page({
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths;
         _this.setData({
-          imageurlFront: tempFilePaths[0]
+          imageurlFront: tempFilePaths[0],
+          'tran.frontUrl': '上传成功',
         })
 
       }
@@ -631,7 +660,8 @@ Page({
         // tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths;
         _this.setData({
-          imageurlBlank: tempFilePaths[0]
+          imageurlBlank: tempFilePaths[0],
+          'tran.blankUrl': '上传成功',
         })
 
       }

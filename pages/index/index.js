@@ -21,7 +21,10 @@ Page({
       wx.showTabBar();
     }
     if (!wx.getStorageSync("token")) {
-      utils.loginByWxchat()
+      // utils.loginByWxchat()
+      wx.navigateTo({
+        url: '../login/login',
+      })
     }
   },
   onShow: function(){

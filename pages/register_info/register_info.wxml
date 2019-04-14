@@ -93,7 +93,7 @@
       </view>
     </view>
   </block>
-  <block wx:if="{{roleid == 3}}">
+  <block wx:if="{{roleid == 3 && flag3role}}">
     <view class='wrapper'>
       <text class='add-label'>身份证正面：</text>
       <image class="image-plus" bindtap='chooseCodeFront' src='{{imageurlFront}}'></image>
