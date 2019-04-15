@@ -3,6 +3,8 @@ const app = getApp();
 const util = require('../../utils/util.js');
 let option = {};
 let defaultLineId = -1;
+let isNeedCode = false;
+let isToLogin = false;
 Page({
 
   /**
@@ -39,12 +41,18 @@ Page({
   },
   onLoad:function(options){
     // option = options;
+    isNeedCode = false;
+    isToLogin = false;
     if (options.flag == 'update'){
       let roleid = wx.getStorageSync('roleid');
       let flag3 = false;
       if(options.id == '3'){
         roleid = options.id;
         flag3 = true;
+        isNeedCode=true;
+      }
+      if(options.id){
+        isToLogin = true;
       }
       this.setData({
         roleid: roleid,
@@ -81,6 +89,7 @@ Page({
       wx.setNavigationBarTitle({
         title: '承运员信息填写'
       });
+      isNeedCode = true;
       this.setData({
         roleid: '3',
         flag: 'add',
@@ -109,7 +118,7 @@ Page({
         });
         return;
       }
-      if(_this.data.flag == 'add'){
+      if (isNeedCode){
         if (_this.data.imageurlFront == '../../images/image_add.jpg') {
           wx.showToast({
             title: '请上传身份证正面',
@@ -284,9 +293,16 @@ Page({
         })
         setTimeout(function () {
           if (_this.data.flag == 'update') {
-            wx.reLaunch({
-              url: '../index/index',
-            })
+            if (isToLogin){
+              wx.reLaunch({
+                url: '../login/login',
+              })
+            } else {
+              wx.reLaunch({
+                url: '../index/index',
+              })
+            }
+            
           } else if (_this.data.flag == 'add'){
             wx.reLaunch({
               url: '../login/login',
@@ -327,9 +343,16 @@ Page({
         })
         setTimeout(function () {
           if (_this.data.flag == 'update') {
-            wx.reLaunch({
-              url: '../index/index',
-            })
+            if (isToLogin) {
+              wx.reLaunch({
+                url: '../login/login',
+              })
+            } else {
+              wx.reLaunch({
+                url: '../index/index',
+              })
+            }
+            
           } else if (_this.data.flag == 'add') {
             wx.reLaunch({
               url: '../login/login',
@@ -369,9 +392,15 @@ Page({
         })
         setTimeout(function(){
           if (_this.data.flag == 'update') {
-            wx.reLaunch({
-              url: '../index/index',
-            })
+            if (isToLogin) {
+              wx.reLaunch({
+                url: '../login/login',
+              })
+            } else {
+              wx.reLaunch({
+                url: '../index/index',
+              })
+            }
           } else if (_this.data.flag == 'add') {
             wx.reLaunch({
               url: '../login/login',
@@ -461,7 +490,7 @@ Page({
         let resdata = res.data.data;
         defaultLineId = resdata.defaultLineid;
         _this.getDefaultLineId();
-        _this.getImage('4', resdata.licenceUrl);
+        _this.getImage('4', resdata.licenceUrl, '');
         _this.setData({
           address: {
             id: resdata.companyId,
@@ -491,7 +520,7 @@ Page({
     }, function (res) {
       if (res.data.success) {
         let resdata = res.data.data;
-        _this.getImage('2', resdata.shopUrl);
+        _this.getImage('2', resdata.shopUrl,'');
         _this.setData({
           address: {
             id: resdata.shopId,
@@ -505,7 +534,7 @@ Page({
       }
     })
   },
-  getImage: function (roleid,imagename) {
+  getImage: function (roleid,imagename,imagetype) {
     let _this = this;
     util.wxResquest({
       url: '/transport/api/adminshowimage',
@@ -515,9 +544,23 @@ Page({
         roleid:roleid
       }
     }, function (res) {
-      _this.setData({
-        imageurl: "data:image/png;base64," + decodeURI(res.data.data)
-      })
+      if(roleid == 3){
+        if(imagetype == 'front'){
+          _this.setData({
+            imageurlFront: "data:image/png;base64," + decodeURI(res.data.data)
+          })
+        }
+        if (imagetype == 'blank') {
+          _this.setData({
+            imageurlBlank: "data:image/png;base64," + decodeURI(res.data.data)
+          })
+        }
+      } else {
+        _this.setData({
+          imageurl: "data:image/png;base64," + decodeURI(res.data.data)
+        })
+      }
+      
     })
   },
   searchTran: function () { // 承运员信息
@@ -528,6 +571,11 @@ Page({
     }, function (res) {
       if (res.data.success) {
         let resdata = res.data.data;
+        if (isNeedCode){
+          _this.getImage('3', resdata.idFrontUrl, 'front');
+          _this.getImage('3', resdata.idBackUrl, 'blank');
+        }
+        
         _this.setData({
           address: {
             id: resdata.id,
