@@ -294,8 +294,11 @@ Page({
         setTimeout(function () {
           if (_this.data.flag == 'update') {
             if (isToLogin){
-              wx.reLaunch({
-                url: '../login/login',
+              // wx.navigateTo({
+              //   url: '../login/login',
+              // })
+              wx.navigateBack({
+                delta: '1'
               })
             } else {
               wx.reLaunch({
@@ -304,8 +307,11 @@ Page({
             }
             
           } else if (_this.data.flag == 'add'){
-            wx.reLaunch({
-              url: '../login/login',
+            // wx.navigateTo({
+            //   url: '../login/login',
+            // })
+            wx.navigateBack({
+              delta: '1'
             })
           }
         }, 1500)
@@ -344,8 +350,11 @@ Page({
         setTimeout(function () {
           if (_this.data.flag == 'update') {
             if (isToLogin) {
-              wx.reLaunch({
-                url: '../login/login',
+              // wx.navigateTo({
+              //   url: '../login/login',
+              // })
+              wx.navigateBack({
+                delta: '1'
               })
             } else {
               wx.reLaunch({
@@ -354,8 +363,11 @@ Page({
             }
             
           } else if (_this.data.flag == 'add') {
-            wx.reLaunch({
-              url: '../login/login',
+            // wx.navigateTo({
+            //   url: '../login/login',
+            // })
+            wx.navigateBack({
+              delta: '1'
             })
           }
         }, 1500)
@@ -393,8 +405,11 @@ Page({
         setTimeout(function(){
           if (_this.data.flag == 'update') {
             if (isToLogin) {
-              wx.reLaunch({
-                url: '../login/login',
+              // wx.navigateTo({
+              //   url: '../login/login',
+              // })
+              wx.navigateBack({
+                delta: '1'
               })
             } else {
               wx.reLaunch({
@@ -402,8 +417,11 @@ Page({
               })
             }
           } else if (_this.data.flag == 'add') {
-            wx.reLaunch({
-              url: '../login/login',
+            // wx.navigateTo({
+            //   url: '../login/login',
+            // })
+            wx.navigateBack({
+              delta: '1'
             })
           }
         },1500)
